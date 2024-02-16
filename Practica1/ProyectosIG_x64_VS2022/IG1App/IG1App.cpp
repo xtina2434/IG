@@ -43,9 +43,9 @@ IG1App::init()
 	mScene = new Scene;
 
 	mCamera->set2D();
-	mCamera->pitch(40);
-	mCamera->yaw(40);
-	mScene->init();
+	//mCamera->pitch(40);
+	//mCamera->yaw(40);
+	mScene->init(1);
 }
 
 void

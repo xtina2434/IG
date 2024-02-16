@@ -145,19 +145,28 @@ Mesh::generateRGBCubeTriangles(GLdouble length) {
 	const GLdouble m = length / 2;
 
 	constexpr array<dvec2, 3> PIVOTS = { dvec2{-1, 1}, {1, -1}, {1, 1} };
-
+	//vertices
 	for (int edge = 0; edge < 3; ++edge) {
 		for (int value : {-m,m}) {
 			dvec3 center = { 0,0,0 };
 			center[edge] = value;
 
 			dvec3 u = { 0,0,0 };
-			u[(edge + 1) % 3] * 1; //
+			u[(edge + 1) % 3] = 1; 
 			dvec3 v = glm::cross(u, glm::normalize(-center));
 
 			for (double triangle : {m, -m})
 				for (const dvec2& m : PIVOTS)
-					mesh->vVertices.push_back(center * triangle *  (m.x * u + m.y * v));
+					mesh->vVertices.push_back(center + triangle *  (m.x * u + m.y * v));
+		}
+	}
+
+	//colores
+	for (int edge = 0; edge < 3; ++edge) {
+		dvec4 color = { 0.0,0.0,0.0, 1.0 };
+		color[edge] = 1.0;
+		for (int i = 0; i < 12;i++) {
+			mesh->vColors.push_back(color);
 		}
 	}
 

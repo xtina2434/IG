@@ -20,7 +20,7 @@ void RGBTriangle::render(glm::dmat4 const& modelViewMat) const {
 		//mMesh->setPrimitive(GL_TRIANGLES);
 		//mMesh->render();
 
-		glPolygonMode(GL_BACK, GL_FILL);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		std::vector<glm::dvec4> myRGBcolors;
 		// X axis color: red  (Alpha = 1 : fully opaque)
 		myRGBcolors.emplace_back(1.0, 0.0, 0.0, 1.0);
@@ -31,8 +31,8 @@ void RGBTriangle::render(glm::dmat4 const& modelViewMat) const {
 		mMesh->setColor(myRGBcolors);
 		mMesh->setPrimitive(GL_TRIANGLES);
 
-		glPolygonMode(GL_FRONT, GL_POINT);
-		glPointSize(10);
+		/*glPolygonMode(GL_FRONT, GL_POINT);
+		glPointSize(10);*/
 		mMesh->render();
 	}
 }

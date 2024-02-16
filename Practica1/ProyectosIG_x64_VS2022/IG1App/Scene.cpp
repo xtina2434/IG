@@ -6,7 +6,7 @@
 using namespace glm;
 
 void
-Scene::init()
+Scene::init(int id)
 {
 	setGL(); // OpenGL settings
 
@@ -44,14 +44,33 @@ Scene::init()
 	/*RegularPolygon* myRectangle = new RegularPolygon(100.0, 70.0);
 	gObjects.push_back(myRectangle);*/
 
+	//APARTADO 8
 	/*RGBRectangle* myRGBRectangle= new RGBRectangle(100, 80);
 	gObjects.push_back(myRGBRectangle);*/
 
+	//APARTADO 9
 	//Cube* myCube = new Cube(500);
 	//gObjects.push_back(myCube);
 
-		RGBCube* myCube = new RGBCube(500);
-	gObjects.push_back(myCube);
+	//APARTADO 10
+	//	RGBCube* myCube = new RGBCube(200);
+	//gObjects.push_back(myCube);
+
+	if (id == 0) {
+		RGBRectangle* myRGBRectangle = new RGBRectangle(200, 80);
+		gObjects.push_back(myRGBRectangle);
+
+		RGBTriangle* myRGBTriangle = new RGBTriangle(3, 10);
+		gObjects.push_back(myRGBTriangle);
+
+		GLuint numSides = 128;
+		RegularPolygon* myCircle = new RegularPolygon(numSides, 100.0);
+		gObjects.push_back(myCircle);
+	}
+	if (id == 1) {
+		RGBCube* myCube = new RGBCube(200);
+		gObjects.push_back(myCube);
+	}
 }
 void
 Scene::free()
