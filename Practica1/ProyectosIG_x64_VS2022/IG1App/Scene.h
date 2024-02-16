@@ -10,6 +10,8 @@
 #include <vector>
 #include "RGBTriangle.h"
 #include "RGBRectangle.h"
+#include "Cube.h"
+#include "RGBCube.h"
 class Scene
 {
 public:

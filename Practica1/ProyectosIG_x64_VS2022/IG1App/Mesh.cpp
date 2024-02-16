@@ -1,6 +1,7 @@
 #include "Mesh.h"
 #include "CheckML.h"
 #include <fstream>
+#include <array>
 using namespace std;
 using namespace glm;
 
@@ -103,6 +104,62 @@ Mesh::generateRectangle(GLdouble w, GLdouble h) {
 	mesh->vVertices.emplace_back(-w / 2, h / 2, 0.0);
 	mesh->vVertices.emplace_back(w / 2,- h / 2, 0.0);
 	mesh->vVertices.emplace_back(-w / 2, -h / 2, 0.0);
+
+	return mesh;
+}
+Mesh* 
+Mesh::generateCube(GLdouble length) {
+	Mesh* mesh = new Mesh();
+
+	mesh->mPrimitive = GL_TRIANGLE_STRIP;
+	mesh->mNumVertices = 14;
+	mesh->vVertices.reserve(mesh->mNumVertices);
+
+	const GLdouble m = length / 2;
+	mesh->vVertices.emplace_back(-m/ 2, m / 2, -m / 2); //1
+	mesh->vVertices.emplace_back(m / 2, m / 2, -m / 2); //2
+	mesh->vVertices.emplace_back(-m / 2, -m / 2, -m / 2); //3
+	mesh->vVertices.emplace_back(m / 2, -m / 2, -m / 2); //4
+	mesh->vVertices.emplace_back(m / 2, -m / 2, m / 2); //5
+	mesh->vVertices.emplace_back(m / 2, m / 2, -m / 2); //2/6 again
+	mesh->vVertices.emplace_back(m / 2, m / 2, m / 2); //7
+	mesh->vVertices.emplace_back(-m / 2, m / 2, -m / 2); //1/8 again
+	mesh->vVertices.emplace_back(-m / 2, m / 2, m / 2);//9
+	mesh->vVertices.emplace_back(-m / 2, -m / 2, -m / 2);//3/10 again
+	mesh->vVertices.emplace_back(-m / 2, -m / 2, m / 2); //11
+	mesh->vVertices.emplace_back(m / 2, -m / 2, m / 2);//5/12 again
+	mesh->vVertices.emplace_back(m / 2, m / 2, m / 2);//7/13 again
+	mesh->vVertices.emplace_back(-m / 2, m / 2, m / 2); //9/14 again
+
+	return mesh;
+}
+
+Mesh*
+Mesh::generateRGBCubeTriangles(GLdouble length) {
+	Mesh* mesh = new Mesh();
+
+	mesh->mPrimitive = GL_TRIANGLES;
+	mesh->mNumVertices = 36;
+	mesh->vVertices.reserve(mesh->mNumVertices);
+
+	const GLdouble m = length / 2;
+
+	constexpr array<dvec2, 3> PIVOTS = { dvec2{-1, 1}, {1, -1}, {1, 1} };
+
+	for (int edge = 0; edge < 3; ++edge) {
+		for (int value : {-m,m}) {
+			dvec3 center = { 0,0,0 };
+			center[edge] = value;
+
+			dvec3 u = { 0,0,0 };
+			u[(edge + 1) % 3] * 1; //
+			dvec3 v = glm::cross(u, glm::normalize(-center));
+
+			for (double triangle : {m, -m})
+				for (const dvec2& m : PIVOTS)
+					mesh->vVertices.push_back(center * triangle *  (m.x * u + m.y * v));
+		}
+	}
 
 	return mesh;
 }

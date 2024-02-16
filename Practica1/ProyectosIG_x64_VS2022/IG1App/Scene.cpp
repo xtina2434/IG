@@ -44,8 +44,14 @@ Scene::init()
 	/*RegularPolygon* myRectangle = new RegularPolygon(100.0, 70.0);
 	gObjects.push_back(myRectangle);*/
 
-	RGBRectangle* myRGBRectangle= new RGBRectangle(100, 80);
-	gObjects.push_back(myRGBRectangle);
+	/*RGBRectangle* myRGBRectangle= new RGBRectangle(100, 80);
+	gObjects.push_back(myRGBRectangle);*/
+
+	//Cube* myCube = new Cube(500);
+	//gObjects.push_back(myCube);
+
+		RGBCube* myCube = new RGBCube(500);
+	gObjects.push_back(myCube);
 }
 void
 Scene::free()
