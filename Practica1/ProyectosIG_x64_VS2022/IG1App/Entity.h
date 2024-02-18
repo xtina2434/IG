@@ -23,6 +23,7 @@ public:
 	void setModelMat(glm::dmat4 const& aMat) { mModelMat = aMat; };
 	glm::dvec4 const& getColor() const { return mColor; };
 	void setColor(glm::dvec4 const& col) { mColor = col; };
+	virtual void update() {};
 protected:
 	Mesh* mMesh = nullptr; // the mesh
 	glm::dmat4 mModelMat;  // modeling matrix

@@ -6,7 +6,7 @@
 using namespace glm;
 
 void
-Scene::init(int id)
+Scene::init()
 {
 	setGL(); // OpenGL settings
 
@@ -56,22 +56,30 @@ Scene::init(int id)
 	//	RGBCube* myCube = new RGBCube(200);
 	//gObjects.push_back(myCube);
 
-	if (id == 0) {
-		RGBRectangle* myRGBRectangle = new RGBRectangle(200, 80);
+	if (mId == 0) {
+		RGBRectangle* myRGBRectangle = new RGBRectangle(300, 200);
 		gObjects.push_back(myRGBRectangle);
+
+		GLuint numSides = 128;
+		int r = 260;
+		RegularPolygon* myCircle = new RegularPolygon(numSides, r);
+		gObjects.push_back(myCircle);
 
 		RGBTriangle* myRGBTriangle = new RGBTriangle(3, 10);
 		gObjects.push_back(myRGBTriangle);
-
-		GLuint numSides = 128;
-		RegularPolygon* myCircle = new RegularPolygon(numSides, 100.0);
-		gObjects.push_back(myCircle);
 	}
-	if (id == 1) {
+
+	if (mId == 1) {
 		RGBCube* myCube = new RGBCube(200);
 		gObjects.push_back(myCube);
 	}
 }
+
+void
+Scene::setScene(int id) {
+	mId = id;
+}
+
 void
 Scene::free()
 { // release memory and resources
@@ -94,12 +102,17 @@ Scene::resetGL()
 	glClearColor(.0, .0, .0, .0); // background color (alpha=1 -> opaque)
 	glDisable(GL_DEPTH_TEST);     // disable Depth test
 }
+void
+Scene::update() {
+	for (Abs_Entity* el : gObjects) {
+		el->update();
+	}
+}
 
 void
 Scene::render(Camera const& cam) const
 {
 	cam.upload();
-
 	for (Abs_Entity* el : gObjects) {
 		el->render(cam.viewMat());
 	}

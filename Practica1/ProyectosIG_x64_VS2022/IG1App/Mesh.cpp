@@ -124,11 +124,11 @@ Mesh::generateCube(GLdouble length) {
 	mesh->vVertices.emplace_back(m / 2, m / 2, -m / 2); //2/6 again
 	mesh->vVertices.emplace_back(m / 2, m / 2, m / 2); //7
 	mesh->vVertices.emplace_back(-m / 2, m / 2, -m / 2); //1/8 again
-	mesh->vVertices.emplace_back(-m / 2, m / 2, m / 2);//9
-	mesh->vVertices.emplace_back(-m / 2, -m / 2, -m / 2);//3/10 again
+	mesh->vVertices.emplace_back(-m / 2, m / 2, m / 2); //9
+	mesh->vVertices.emplace_back(-m / 2, -m / 2, -m / 2); //3/10 again
 	mesh->vVertices.emplace_back(-m / 2, -m / 2, m / 2); //11
-	mesh->vVertices.emplace_back(m / 2, -m / 2, m / 2);//5/12 again
-	mesh->vVertices.emplace_back(m / 2, m / 2, m / 2);//7/13 again
+	mesh->vVertices.emplace_back(m / 2, -m / 2, m / 2); //5/12 again
+	mesh->vVertices.emplace_back(m / 2, m / 2, m / 2);  //7/13 again
 	mesh->vVertices.emplace_back(-m / 2, m / 2, m / 2); //9/14 again
 
 	return mesh;

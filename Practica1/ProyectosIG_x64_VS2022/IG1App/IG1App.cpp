@@ -40,12 +40,17 @@ IG1App::init()
 	mViewPort =
 	  new Viewport(mWinW, mWinH); // glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT)
 	mCamera = new Camera(mViewPort);
-	mScene = new Scene;
-
+	mScenes[0] = new Scene;
+	mScenes[0]->setScene(0); 
+	mScenes[0]->init();
+	mScenes[0]->init();
+	mScenes[1] = new Scene;
+	mScenes[1]->setScene(1);
+	mScenes[1]->init();
+	//por defecto empezamos en la bidimensional
 	mCamera->set2D();
 	//mCamera->pitch(40);
 	//mCamera->yaw(40);
-	mScene->init(1);
 }
 
 void
@@ -84,8 +89,10 @@ IG1App::iniWinOpenGL()
 void
 IG1App::free()
 { // release memory and resources
-	delete mScene;
-	mScene = nullptr;
+	for (int i = 0; i < 2; ++i) {
+		delete mScenes[i];
+	}
+	//mScene = nullptr;
 	delete mCamera;
 	mCamera = nullptr;
 	delete mViewPort;
@@ -98,7 +105,7 @@ IG1App::display() const
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clears the back buffer
 
-	mScene->render(*mCamera); // uploads the viewport and camera to the GPU
+	mScenes[sceneId]->render(*mCamera); // uploads the viewport and camera to the GPU
 
 	glutSwapBuffers(); // swaps the front and back buffer
 }
@@ -136,6 +143,16 @@ IG1App::key(unsigned char key, int x, int y)
 			break;
 		case 'o':
 			mCamera->set2D();
+			break;
+		case '0':
+			sceneId = 0;
+			mCamera->set2D();
+			break;
+		case '1':
+			sceneId = 1;
+			break;
+		case 'u':
+			mScenes[sceneId]->update();
 			break;
 		default:
 			need_redisplay = false;

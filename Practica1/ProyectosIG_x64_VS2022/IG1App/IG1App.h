@@ -26,7 +26,7 @@ public:
 	// Camera position, view volume and projection
 	Camera const& camera() { return *mCamera; };
 	// Graphics objects of the scene
-	Scene const& scene() { return *mScene; };
+	Scene const& scene(int id) { return *mScenes[id]; };
 
 	void run();   // the main event processing loop
 	void close(); // the application
@@ -55,12 +55,13 @@ protected:
 	// Camera position, view volume and projection
 	Camera* mCamera = nullptr;
 	// Graphics objects of the scene
-	Scene* mScene = nullptr;
+	Scene *mScenes[2];
 
 	bool mStop = false; // main event processing loop
 	int mWinId = 0;     // window's identifier
 	int mWinW = 800;    // window's width
 	int mWinH = 600;    // window's height
+	int sceneId = 0;
 };
 
 #endif //_H_IG1App_H_
