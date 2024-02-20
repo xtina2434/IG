@@ -172,3 +172,19 @@ Mesh::generateRGBCubeTriangles(GLdouble length) {
 
 	return mesh;
 }
+
+void Mesh::translate(float x, float y, float z)
+{
+	glm::mat4 mI = glm::mat4(1.0f);
+	glm::vec3 t(x, y, z);
+	glm::dmat4 m = glm::translate(mI, t);
+	for (int i = 0; i < vVertices.size(); ++i) {
+		//NS HACER UN TRANSLATE D LOS VERTICES :/
+		glm::dvec4 p(vVertices[i].x, vVertices[i].y, vVertices[i].z, 1);
+		p = m * p;
+		vVertices[i].x = p.x;
+		vVertices[i].y = p.y;
+		vVertices[i].z = p.z;
+	}
+	
+}

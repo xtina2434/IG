@@ -24,6 +24,9 @@ public:
 	glm::dvec4 const& getColor() const { return mColor; };
 	void setColor(glm::dvec4 const& col) { mColor = col; };
 	virtual void update() {};
+
+	void translate(float x, float y, float z);
+
 protected:
 	Mesh* mMesh = nullptr; // the mesh
 	glm::dmat4 mModelMat;  // modeling matrix

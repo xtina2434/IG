@@ -66,6 +66,7 @@ Scene::init()
 		gObjects.push_back(myCircle);
 
 		RGBTriangle* myRGBTriangle = new RGBTriangle(3, 10);
+		myRGBTriangle->translate(r, 0, 0);
 		gObjects.push_back(myRGBTriangle);
 	}
 

@@ -7,7 +7,6 @@ class RGBTriangle : public Abs_Entity
 public:
 	RGBTriangle(GLuint numSides, GLdouble radius) : Abs_Entity() {
 		mMesh = Mesh::generateRegularPolygon(numSides, radius);
-		
 	}
 	virtual ~RGBTriangle();
 	virtual void render(glm::dmat4 const& modelViewMat) const override;
