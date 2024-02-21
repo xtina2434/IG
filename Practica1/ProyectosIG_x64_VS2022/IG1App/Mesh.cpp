@@ -175,16 +175,35 @@ Mesh::generateRGBCubeTriangles(GLdouble length) {
 
 void Mesh::translate(float x, float y, float z)
 {
-	glm::mat4 mI = glm::mat4(1.0f);
-	glm::vec3 t(x, y, z);
-	glm::dmat4 m = glm::translate(mI, t);
-	for (int i = 0; i < vVertices.size(); ++i) {
-		//NS HACER UN TRANSLATE D LOS VERTICES :/
-		glm::dvec4 p(vVertices[i].x, vVertices[i].y, vVertices[i].z, 1);
-		p = m * p;
-		vVertices[i].x = p.x;
-		vVertices[i].y = p.y;
-		vVertices[i].z = p.z;
-	}
+	//glm::mat4 mI = glm::mat4(1.0f);
+	//glm::vec3 t(x, y, z);
+	//glm::dmat4 m = glm::translate(mI, t);
+	//for (int i = 0; i < vVertices.size(); ++i) {
+	//	//NS HACER UN TRANSLATE D LOS VERTICES :/
+	//	glm::dvec4 p(vVertices[i].x, vVertices[i].y, vVertices[i].z, 1);
+	//	p = m * p;
+	//	vVertices[i].x = p.x;
+	//	vVertices[i].y = p.y;
+	//	vVertices[i].z = p.z;
+	//}
 	
+	//construir la matriz de translacion
+	//se inicializa con una matriz de identidad (1.0f)
+	glm::dmat4 mT = glm::translate(glm::dmat4(1.0f), glm::dvec3(x, y, z));
+
+	//se itera sobre cada vertice en el vector vVertices del objeto Mesh
+	//aplicar la matriz de translacion a todos los vertices
+	for (auto& vert : vVertices) {
+		//composicion de transformaciones
+		//se crea un vector de coordenadas homogeneas para el vertice actual
+		//las coordenadas (x,y,z) del vertice se convierten en coordenas homogeneas
+		//Con un componente 'w' igual a 1.0 (representando un punto en el espacio)
+		glm::vec4 transformVertices = mT * glm::vec4(vert, 1.0f); //convertir el vertice a formato homogeneo y aplicar la traslacion
+		//Se actualizan las coordenadas (x,y,z)  del vertice actual con las coordenadas transformadas
+		//se asignan los valores x,y,z del vector transformadoVertices al vertice actual
+		/*vert.x = transformedVertices.x;
+		vert.y = transformedVertices.y;
+		vert.z = transformedVertices.z;*/
+		vert = glm::dvec3(transformVertices); //convertir el vertice de nuevo a 3D
+	}
 }

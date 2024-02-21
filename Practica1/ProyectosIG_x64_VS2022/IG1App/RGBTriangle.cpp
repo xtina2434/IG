@@ -36,3 +36,18 @@ void RGBTriangle::render(glm::dmat4 const& modelViewMat) const {
 		mMesh->render();
 	}
 }
+void RGBTriangle::update() {
+	static double angle = 0.05; //angulo inicial
+
+	//angulo de rotacion en radianes para la rotacion en sentido antihorario
+	//double angleAntiHor = angle;
+	//angulo de rotacion en radianes para la rotacion en sentido horario sobre si mismo
+	////double angleHor = -angle;
+	////nueva matriz de modelado con ambas rotaciones
+	glm::dmat4 newModelMat = glm::rotate(mModelMat, angle, glm::dvec3(0.0, 0.0, 1.0)); //rotacion sobre la circunferencia
+	//newModelMat = glm::rotate(newModelMat, angle, glm::dvec3(0.0, 0.0, -1.0)); //rotacion sobre si mismo
+
+	////establecer nueva matriz de modelado
+	setModelMat(newModelMat);
+
+}

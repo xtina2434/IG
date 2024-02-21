@@ -40,17 +40,22 @@ IG1App::init()
 	mViewPort =
 	  new Viewport(mWinW, mWinH); // glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT)
 	mCamera = new Camera(mViewPort);
-	mScenes[0] = new Scene;
-	mScenes[0]->setScene(0); 
-	mScenes[0]->init();
-	mScenes[0]->init();
-	mScenes[1] = new Scene;
-	mScenes[1]->setScene(1);
-	mScenes[1]->init();
+
+	for (int i = 0; i < numScenes; i++) {
+		mScenes[i] = new Scene();
+		mScenes[i]->setScene(i);
+		mScenes[i]->init();
+	
+	}
+	//mScenes[0] = new Scene;
+	//mScenes[0]->setScene(0); 
+	//mScenes[0]->init();
+	//mScenes[0]->init();
+	//mScenes[1] = new Scene;
+	//mScenes[1]->setScene(1);
+	//mScenes[1]->init();
 	//por defecto empezamos en la bidimensional
 	mCamera->set2D();
-	//mCamera->pitch(40);
-	//mCamera->yaw(40);
 }
 
 void

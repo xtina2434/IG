@@ -62,6 +62,7 @@ protected:
 	int mWinW = 800;    // window's width
 	int mWinH = 600;    // window's height
 	int sceneId = 0;
+	int numScenes = 2;
 };
 
 #endif //_H_IG1App_H_

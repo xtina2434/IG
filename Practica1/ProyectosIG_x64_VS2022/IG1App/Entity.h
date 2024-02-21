@@ -17,13 +17,13 @@ public:
 	Abs_Entity& operator=(const Abs_Entity& e) = delete; // no copy assignment
 
 	virtual void render(glm::dmat4 const& modelViewMat) const = 0; // abstract method
+	virtual void update();
 
 	// modeling matrix
 	glm::dmat4 const& modelMat() const { return mModelMat; };
 	void setModelMat(glm::dmat4 const& aMat) { mModelMat = aMat; };
 	glm::dvec4 const& getColor() const { return mColor; };
 	void setColor(glm::dvec4 const& col) { mColor = col; };
-	virtual void update() {};
 
 	void translate(float x, float y, float z);
 

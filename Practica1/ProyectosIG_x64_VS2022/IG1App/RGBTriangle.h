@@ -10,7 +10,7 @@ public:
 	}
 	virtual ~RGBTriangle();
 	virtual void render(glm::dmat4 const& modelViewMat) const override;
-
+	virtual void update() override;
 };
 
 #endif //_H_RGBTriangle_H_

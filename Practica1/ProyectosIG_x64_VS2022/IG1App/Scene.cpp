@@ -57,7 +57,7 @@ Scene::init()
 	//gObjects.push_back(myCube);
 
 	if (mId == 0) {
-		RGBRectangle* myRGBRectangle = new RGBRectangle(300, 200);
+		RGBRectangle* myRGBRectangle = new RGBRectangle(500, 300);
 		gObjects.push_back(myRGBRectangle);
 
 		GLuint numSides = 128;
@@ -65,7 +65,7 @@ Scene::init()
 		RegularPolygon* myCircle = new RegularPolygon(numSides, r);
 		gObjects.push_back(myCircle);
 
-		RGBTriangle* myRGBTriangle = new RGBTriangle(3, 10);
+		RGBTriangle* myRGBTriangle = new RGBTriangle(3, 50);
 		myRGBTriangle->translate(r, 0, 0);
 		gObjects.push_back(myRGBTriangle);
 	}
@@ -103,12 +103,6 @@ Scene::resetGL()
 	glClearColor(.0, .0, .0, .0); // background color (alpha=1 -> opaque)
 	glDisable(GL_DEPTH_TEST);     // disable Depth test
 }
-void
-Scene::update() {
-	for (Abs_Entity* el : gObjects) {
-		el->update();
-	}
-}
 
 void
 Scene::render(Camera const& cam) const
@@ -118,3 +112,10 @@ Scene::render(Camera const& cam) const
 		el->render(cam.viewMat());
 	}
 }
+void
+Scene::update() {
+	for (Abs_Entity* entity : gObjects) {
+		entity->update();
+	}
+}
+

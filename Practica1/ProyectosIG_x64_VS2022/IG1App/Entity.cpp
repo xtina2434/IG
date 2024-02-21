@@ -16,7 +16,10 @@ Abs_Entity::upload(dmat4 const& modelViewMat) const
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixd(value_ptr(modelViewMat)); // transfers modelView matrix to the GPU
 }
+void 
+Abs_Entity::update() {
 
+}
 EjesRGB::EjesRGB(GLdouble l)
   : Abs_Entity()
 {
