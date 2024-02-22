@@ -43,26 +43,34 @@ protected:
 	void resize(int newWidth, int newHeight);  // the viewport (without changing the scale)
 	void key(unsigned char key, int x, int y); // keypress event
 	void specialKey(int key, int x, int y);    // keypress event for special characters
-
+	void update();
 	// static callbacks
 	static void s_display() { s_ig1app.display(); };
 	static void s_resize(int newWidth, int newHeight) { s_ig1app.resize(newWidth, newHeight); };
 	static void s_key(unsigned char key, int x, int y) { s_ig1app.key(key, x, y); };
 	static void s_specialKey(int key, int x, int y) { s_ig1app.specialKey(key, x, y); };
-
+	static void s_idle() { s_ig1app.idle(); } //funcion de callback para glutIdleFunc
+	//metodo llamado por el callback
+	void idle() {
+		if (mUpdateFlag) {
+			update(); //llamamos a update solo si la bandera de actualizacion se activa
+			mUpdateFlag = false; //se desactiva la bandera una vez llamado el update
+		}
+	}
 	// Viewport position and size
 	Viewport* mViewPort = nullptr;
 	// Camera position, view volume and projection
 	Camera* mCamera = nullptr;
-	// Graphics objects of the scene
-	Scene *mScenes[2];
 
 	bool mStop = false; // main event processing loop
 	int mWinId = 0;     // window's identifier
 	int mWinW = 800;    // window's width
 	int mWinH = 600;    // window's height
 	int sceneId = 0;
-	int numScenes = 2;
+	bool mUpdateFlag = false; //bandera que indica cuando llamar al update
+	static const int numScenes = 2;
+	// Graphics objects of the scene
+	Scene* mScenes[numScenes];
 };
 
 #endif //_H_IG1App_H_

@@ -66,9 +66,7 @@ Scene::init()
 		gObjects.push_back(myCircle);
 
 		RGBTriangle* myRGBTriangle = new RGBTriangle(3, 50);
-		//myRGBTriangle->translate(r, 0, 0);
-		glm::dmat4 mT = glm::translate(glm::dmat4(1.0f), glm::dvec3(r, 0, 0));
-		myRGBTriangle->setModelMat(mT);
+		myRGBTriangle->setModelMat(glm::translate(glm::dmat4(1.0f), glm::dvec3(r, 0, 0)));
 		gObjects.push_back(myRGBTriangle);
 	}
 

@@ -56,6 +56,9 @@ IG1App::init()
 	//mScenes[1]->init();
 	//por defecto empezamos en la bidimensional
 	mCamera->set2D();
+
+	//registrar la funion de callback para glutIdleFunc
+	glutIdleFunc(IG1App::s_idle);
 }
 
 void
@@ -127,7 +130,10 @@ IG1App::resize(int newWidth, int newHeight)
 	// Resize Scene Visible Area such that the scale is not modified
 	mCamera->setSize(mViewPort->width(), mViewPort->height());
 }
-
+void 
+IG1App::update() {
+	std::cout << "IG update called";
+}
 void
 IG1App::key(unsigned char key, int x, int y)
 {
@@ -158,6 +164,9 @@ IG1App::key(unsigned char key, int x, int y)
 			break;
 		case 'u':
 			mScenes[sceneId]->update();
+			break;
+		case 'U':
+			mUpdateFlag = true; //se activa la bandera para llamar al update
 			break;
 		default:
 			need_redisplay = false;
