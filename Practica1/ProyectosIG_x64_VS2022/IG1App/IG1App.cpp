@@ -47,13 +47,6 @@ IG1App::init()
 		mScenes[i]->init();
 	
 	}
-	//mScenes[0] = new Scene;
-	//mScenes[0]->setScene(0); 
-	//mScenes[0]->init();
-	//mScenes[0]->init();
-	//mScenes[1] = new Scene;
-	//mScenes[1]->setScene(1);
-	//mScenes[1]->init();
 	//por defecto empezamos en la bidimensional
 	mCamera->set2D();
 
@@ -133,6 +126,13 @@ IG1App::resize(int newWidth, int newHeight)
 void 
 IG1App::update() {
 	std::cout << "IG update called";
+}
+void
+IG1App::idle() {
+	if (mUpdateFlag) {
+		update(); //llamamos a update solo si la bandera de actualizacion se activa
+		mUpdateFlag = false; //se desactiva la bandera una vez llamado el update
+	}
 }
 void
 IG1App::key(unsigned char key, int x, int y)

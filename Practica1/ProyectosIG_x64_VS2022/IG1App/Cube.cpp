@@ -13,7 +13,7 @@ void Cube::render(glm::dmat4 const& modelViewMat) const {
 		glColor4d(0.0, 0.0, 0.0, 0.0);
 
 		glPolygonMode(GL_BACK, GL_POINT);
-		glPointSize(1);
+		glPointSize(5);
 		mMesh->render();
 	}
 }

@@ -27,6 +27,7 @@ public:
 	void setPrimitive(GLuint newPrimitive) { mPrimitive = newPrimitive; };
 	static Mesh* generateRegularPolygon(GLuint num, GLdouble r);
 	static Mesh* generateRectangle(GLdouble w, GLdouble h);
+	static Mesh* generateRGBRectangle(GLdouble w, GLdouble h);
 	static Mesh* generateCube(GLdouble length);
 	static Mesh* generateRGBCubeTriangles(GLdouble length);
 

@@ -16,36 +16,36 @@ Scene::init()
 
 	// Graphics objects (entities) of the scene
 	gObjects.push_back(new EjesRGB(400.0));
-	////APARTADO 3
-	//RegularPolygon* mySquare = new RegularPolygon(4, 50);
-	//
-	////APARTADO 4
-	//glm::dvec4 blueColor(0.0, 0.0, 1.0, 1.0);
-	//mySquare->setColor(blueColor);
-	//gObjects.push_back(mySquare);
 
-	//RegularPolygon* myHepyagono = new RegularPolygon(7, 100);
-	//gObjects.push_back(myHepyagono);
+	////APARTADO 3
+	/*GLuint numSides = 7;
+	RegularPolygon* myPolygon = new RegularPolygon(numSides, 100.0);
+	gObjects.push_back(myPolygon);*/
+
+	////APARTADO 4
+	/*GLuint numSides = 7;
+	RegularPolygon* myPolygon = new RegularPolygon(numSides, 100.0);
+	myPolygon->setColor(glm::dvec4(0.0, 0.0, 0.0, 1.0));
+	gObjects.push_back(myPolygon);*/
 
 	////APARTADO 5
-	//RegularPolygon* myTriangle = new RegularPolygon(3, 100);
-	//glm::dvec4 cyanColor(0.0, 1.0, 0.8, 1.0);
-	//myTriangle->setColor(cyanColor);
-	//gObjects.push_back(myTriangle);
+	/*GLuint numSidesT = 3;
+	RegularPolygon* myTriangle = new RegularPolygon(numSidesT, 100.0);
+	myTriangle->setColor(glm::dvec4(0.0, 1.0, 0.8, 1.0));
+	gObjects.push_back(myTriangle);
+	GLuint numSidesC = 30;
+	RegularPolygon* myCircle = new RegularPolygon(numSidesC, 100.0);
+	myCircle->setColor(glm::dvec4(1.0, 0.0, 1.0, 1.0));
+	gObjects.push_back(myCircle);*/
 
-	//RegularPolygon* myCircle = new RegularPolygon(128, 100);
-	//glm::dvec4 magentaColor(1.0, 0.0, 1.0, 1.0);
-	//myCircle->setColor(magentaColor);
-	//gObjects.push_back(myCircle);
-	////APARTADO 6,7
-	//RGBTriangle* myRGBTriangle = new RGBTriangle(3, 100);
-	//gObjects.push_back(myRGBTriangle);
-
-	/*RegularPolygon* myRectangle = new RegularPolygon(100.0, 70.0);
-	gObjects.push_back(myRectangle);*/
+	////APARTADO 6
+	/*RGBTriangle* myRGBTriangle = new RGBTriangle(3, 100);
+	gObjects.push_back(myRGBTriangle);*/
 
 	//APARTADO 8
-	/*RGBRectangle* myRGBRectangle= new RGBRectangle(100, 80);
+	/*RegularPolygon* myRectangle = new RegularPolygon(100.0, 70.0);
+	gObjects.push_back(myRectangle);*/
+	/*RGBRectangle* myRGBRectangle= new RGBRectangle(100.0, 80.0);
 	gObjects.push_back(myRGBRectangle);*/
 
 	//APARTADO 9
@@ -74,6 +74,7 @@ Scene::init()
 	if (mId == 1) {
 		RGBCube* myCube = new RGBCube(200);
 		gObjects.push_back(myCube);
+
 	}
 }
 

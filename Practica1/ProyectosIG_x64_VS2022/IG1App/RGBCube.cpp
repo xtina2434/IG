@@ -9,8 +9,7 @@ void RGBCube::render(glm::dmat4 const& modelViewMat) const {
 		glm::dmat4 aMat = modelViewMat * mModelMat;
 		upload(aMat);
 
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		glColor4d(0.0, 0.0, 0.0, 0.0);
+		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		mMesh->render();
 	}
 }

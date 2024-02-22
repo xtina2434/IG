@@ -6,7 +6,7 @@ class RGBRectangle : public Abs_Entity
 {
 public:
 	RGBRectangle(GLdouble width, GLdouble height) : Abs_Entity() {
-		mMesh = Mesh::generateRectangle(width, height);
+		mMesh = Mesh::generateRGBRectangle(width, height);
 
 	}
 	virtual ~RGBRectangle();

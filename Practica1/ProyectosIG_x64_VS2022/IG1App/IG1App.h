@@ -51,12 +51,7 @@ protected:
 	static void s_specialKey(int key, int x, int y) { s_ig1app.specialKey(key, x, y); };
 	static void s_idle() { s_ig1app.idle(); } //funcion de callback para glutIdleFunc
 	//metodo llamado por el callback
-	void idle() {
-		if (mUpdateFlag) {
-			update(); //llamamos a update solo si la bandera de actualizacion se activa
-			mUpdateFlag = false; //se desactiva la bandera una vez llamado el update
-		}
-	}
+	void idle();
 	// Viewport position and size
 	Viewport* mViewPort = nullptr;
 	// Camera position, view volume and projection

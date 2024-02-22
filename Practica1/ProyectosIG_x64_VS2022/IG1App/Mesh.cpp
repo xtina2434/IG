@@ -70,7 +70,6 @@ Mesh::createRGBAxes(GLdouble l)
 
 	return mesh;
 }
-//APARTADO 2
 Mesh*
 Mesh::generateRegularPolygon(GLuint num, GLdouble r) {
 
@@ -80,13 +79,16 @@ Mesh::generateRegularPolygon(GLuint num, GLdouble r) {
 	mesh->mNumVertices = num;
 	mesh->vVertices.reserve(mesh->mNumVertices);
 
+	//incremento del angulo
 	GLdouble angleIncrement = glm::radians(360.0) / num;
 
 	for (GLuint i = 0; i < num; i++){
-		GLdouble alpha = i * angleIncrement;
+		//empieza por el vertice que se encuentra en el eje Y
+		GLdouble alpha = glm::radians(90.0) + i * angleIncrement;
 		//calcular coordenadas x e y de cada vertice dentro del circulo
 		GLdouble x = r * cos(alpha);
 		GLdouble y = r * sin(alpha);
+		//plano Z = 0
 		mesh->vVertices.emplace_back(x, y, 0.0 ); //agregar las coordenadas	al vector de vertices
 	}
 	return mesh;	
@@ -100,10 +102,42 @@ Mesh::generateRectangle(GLdouble w, GLdouble h) {
 	mesh->mNumVertices = 4;
 	mesh->vVertices.reserve(mesh->mNumVertices);
 
+	//generar los cuatro vertices del rectangulo sobre el plano Z = 0
+	//se divide entre dos para asegurarse que los vertices estan centrados en el origen
 	mesh->vVertices.emplace_back(w / 2, h / 2, 0.0);
 	mesh->vVertices.emplace_back(-w / 2, h / 2, 0.0);
 	mesh->vVertices.emplace_back(w / 2,- h / 2, 0.0);
 	mesh->vVertices.emplace_back(-w / 2, -h / 2, 0.0);
+
+	return mesh;
+}
+Mesh*
+Mesh::generateRGBRectangle(GLdouble w, GLdouble h) {
+
+	Mesh* mesh = new Mesh();
+
+	mesh->mPrimitive = GL_TRIANGLE_STRIP;
+	mesh->mNumVertices = 4;
+	mesh->vVertices.reserve(mesh->mNumVertices);
+
+	//generar los cuatro vertices del rectangulo sobre el plano Z = 0
+	//se divide entre dos para asegurarse que los vertices estan centrados en el origen
+	mesh->vVertices.emplace_back(w / 2, h / 2, 0.0);
+	mesh->vVertices.emplace_back(-w / 2, h / 2, 0.0);
+	mesh->vVertices.emplace_back(w / 2, -h / 2, 0.0);
+	mesh->vVertices.emplace_back(-w / 2, -h / 2, 0.0);
+
+	//colores RGB
+	std::vector<glm::dvec4> myRGBcolors;
+	// X axis color: red  (Alpha = 1 : fully opaque)
+	myRGBcolors.emplace_back(1.0, 0.0, 0.0, 1.0);
+	// Y axis color: green
+	//el color verde se repite en dos vertices
+	myRGBcolors.emplace_back(0.0, 1.0, 0.0, 1.0);
+	myRGBcolors.emplace_back(0.0, 1.0, 0.0, 1.0);
+	// Z axis color: blue
+	myRGBcolors.emplace_back(0.0, 0.0, 1.0, 1.0);
+	mesh->setColor(myRGBcolors);
 
 	return mesh;
 }
