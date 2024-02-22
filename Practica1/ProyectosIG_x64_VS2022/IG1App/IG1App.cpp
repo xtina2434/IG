@@ -49,9 +49,6 @@ IG1App::init()
 	}
 	//por defecto empezamos en la bidimensional
 	mCamera->set2D();
-
-	//registrar la funion de callback para glutIdleFunc
-	glutIdleFunc(IG1App::s_idle);
 }
 
 void
@@ -125,14 +122,8 @@ IG1App::resize(int newWidth, int newHeight)
 }
 void 
 IG1App::update() {
-	std::cout << "IG update called";
-}
-void
-IG1App::idle() {
-	if (mUpdateFlag) {
-		update(); //llamamos a update solo si la bandera de actualizacion se activa
-		mUpdateFlag = false; //se desactiva la bandera una vez llamado el update
-	}
+	mScenes[sceneId]->update();
+	glutPostRedisplay();
 }
 void
 IG1App::key(unsigned char key, int x, int y)
@@ -161,12 +152,14 @@ IG1App::key(unsigned char key, int x, int y)
 			break;
 		case '1':
 			sceneId = 1;
+			mCamera->set3D();
 			break;
 		case 'u':
 			mScenes[sceneId]->update();
 			break;
 		case 'U':
-			mUpdateFlag = true; //se activa la bandera para llamar al update
+			glutIdleFunc(mUpdateFlag ? nullptr : s_update);
+			mUpdateFlag = !mUpdateFlag; //se activa la bandera para llamar al update
 			break;
 		default:
 			need_redisplay = false;
