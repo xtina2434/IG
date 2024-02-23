@@ -6,6 +6,7 @@ RegularPolygon::~RegularPolygon() {
 }
 void RegularPolygon::render(glm::dmat4 const& modelViewMat) const {
 	if (mMesh != nullptr) {
+		//Multiplica la matriz de vista del modelo (modelViewMat) con la matriz de modelo (mModelMat) para obtener la matriz de transformación final (aMat).
 		glm::dmat4 aMat = modelViewMat * mModelMat;
 		upload(aMat);
 		//establecer color

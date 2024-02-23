@@ -104,10 +104,11 @@ Mesh::generateRectangle(GLdouble w, GLdouble h) {
 
 	//generar los cuatro vertices del rectangulo sobre el plano Z = 0
 	//se divide entre dos para asegurarse que los vertices estan centrados en el origen
-	mesh->vVertices.emplace_back(w / 2, h / 2, 0.0);
 	mesh->vVertices.emplace_back(-w / 2, h / 2, 0.0);
-	mesh->vVertices.emplace_back(w / 2,- h / 2, 0.0);
+	mesh->vVertices.emplace_back(w / 2, h / 2, 0.0);
 	mesh->vVertices.emplace_back(-w / 2, -h / 2, 0.0);
+	mesh->vVertices.emplace_back(w / 2,- h / 2, 0.0);
+
 
 	return mesh;
 }
@@ -122,10 +123,10 @@ Mesh::generateRGBRectangle(GLdouble w, GLdouble h) {
 
 	//generar los cuatro vertices del rectangulo sobre el plano Z = 0
 	//se divide entre dos para asegurarse que los vertices estan centrados en el origen
-	mesh->vVertices.emplace_back(w / 2, h / 2, 0.0);
 	mesh->vVertices.emplace_back(-w / 2, h / 2, 0.0);
-	mesh->vVertices.emplace_back(w / 2, -h / 2, 0.0);
+	mesh->vVertices.emplace_back(w / 2, h / 2, 0.0);
 	mesh->vVertices.emplace_back(-w / 2, -h / 2, 0.0);
+	mesh->vVertices.emplace_back(w / 2, -h / 2, 0.0);
 
 	//colores RGB
 	std::vector<glm::dvec4> myRGBcolors;
@@ -174,11 +175,13 @@ Mesh::generateRGBCubeTriangles(GLdouble length) {
 	Mesh* mesh = new Mesh();
 
 	mesh->mPrimitive = GL_TRIANGLES;
+	//6 caras, 2 triangulos por cara = 12 triangulos * 3 vertices = 36
 	mesh->mNumVertices = 36;
 	mesh->vVertices.reserve(mesh->mNumVertices);
 
 	const GLdouble m = length / 2;
 
+	//Se define un array de vectores bidimensionales PIVOTS, que representan las posiciones relativas de los vértices dentro de cada cara del cubo.
 	constexpr array<dvec2, 3> PIVOTS = { dvec2{-1, 1}, {1, -1}, {1, 1} };
 	//vertices
 	for (int edge = 0; edge < 3; ++edge) {
