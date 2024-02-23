@@ -18,7 +18,7 @@ Scene::init()
 	gObjects.push_back(new EjesRGB(400.0));
 
 
-	int APARTADO = 17;
+	int APARTADO = 18;
 	switch (APARTADO)
 	{
 	case 3: {  //APARTADO 3
@@ -67,7 +67,12 @@ Scene::init()
 		gObjects.push_back(myCube); }
 		break;
 
-	case 11:
+	case 18: {
+
+		Ground* myGround = new Ground(100, 70);
+		gObjects.push_back(myGround);
+		break;
+	}
 	case 12:
 	case 13:
 	case 14:
@@ -119,19 +124,25 @@ Scene::free()
 		delete el;
 		el = nullptr;
 	}
+	for (Texture* tex : gTextures) {
+		delete tex;
+		tex = nullptr;
+	}
 }
 void
 Scene::setGL()
 {
 	// OpenGL basic setting
 	glClearColor(0.6, 0.7, 0.8, 1.0); // background color (alpha=1 -> opaque)  //APARTADO 1
-	glEnable(GL_DEPTH_TEST);          // enable Depth test
+	//glEnable(GL_DEPTH_TEST);          // enable Depth test
+	glEnable(GL_TEXTURE_2D);
 }
 void
 Scene::resetGL()
 {
 	glClearColor(.0, .0, .0, .0); // background color (alpha=1 -> opaque)
-	glDisable(GL_DEPTH_TEST);     // disable Depth test
+	//glDisable(GL_DEPTH_TEST);     // disable Depth test
+	glDisable(GL_TEXTURE_2D);
 }
 
 void

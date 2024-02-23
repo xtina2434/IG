@@ -12,6 +12,8 @@
 #include "RGBRectangle.h"
 #include "Cube.h"
 #include "RGBCube.h"
+#include "Texture.h"
+#include "Ground.h"
 class Scene
 {
 public:
@@ -39,6 +41,7 @@ protected:
 	int mId;
 
 	std::vector<Abs_Entity*> gObjects; // Entities (graphic objects) of the scene
+	std::vector<Texture*> gTextures; //texturas
 };
 
 #endif //_H_Scene_H_

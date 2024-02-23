@@ -19,6 +19,8 @@ Mesh::render() const
 {
 	if (vVertices.size() > 0) { // transfer data
 		// transfer the coordinates of the vertices
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+		glTexCoordPointer(2, GL_DOUBLE, 0, vTexCoords.data());
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glVertexPointer(
 		  3, GL_DOUBLE, 0, vVertices.data()); // number of coordinates per vertex, type of
@@ -34,6 +36,7 @@ Mesh::render() const
 
 		glDisableClientState(GL_COLOR_ARRAY);
 		glDisableClientState(GL_VERTEX_ARRAY);
+		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	}
 }
 
@@ -209,5 +212,19 @@ Mesh::generateRGBCubeTriangles(GLdouble length) {
 	}
 
 	return mesh;
+} 
+Mesh*
+Mesh::generateRectangleTexCor(GLdouble w, GLdouble h) {
+
+	Mesh* mesh = new Mesh();
+	mesh->vTexCoords.reserve(4);
+
+	mesh->vTexCoords.emplace_back(-w, h);
+	mesh->vTexCoords.emplace_back(-w, -h);
+	mesh->vTexCoords.emplace_back(w, -h);
+	mesh->vTexCoords.emplace_back(w, h);
+
+	return mesh;
+
 }
 
