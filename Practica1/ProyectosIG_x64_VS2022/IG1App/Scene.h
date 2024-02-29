@@ -38,6 +38,7 @@ protected:
 	void free();
 	void setGL();
 	void resetGL();
+	void load(); //para crear y cargar las texturas de los objetos de la	escena
 	int mId;
 
 	std::vector<Abs_Entity*> gObjects; // Entities (graphic objects) of the scene

@@ -12,7 +12,11 @@ void Ground::render(glm::dmat4 const& modelViewMat) const {
 		//glPolygonMode(GL_FRONT, GL_LINE);
 		//glPolygonMode(GL_BACK, GL_FILL);
 
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		//APARTADO 18 incorrecto
+		//glPolygonMode(GL_BACK, GL_LINE);
+
+		mTexture->bind(GL_MODULATE);
 		mMesh->render();
+		mTexture->unbind();
 	}
 }

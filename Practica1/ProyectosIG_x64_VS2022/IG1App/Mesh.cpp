@@ -132,6 +132,7 @@ Mesh::generateRGBRectangle(GLdouble w, GLdouble h) {
 	mesh->vVertices.emplace_back(w / 2, -h / 2, 0.0);
 
 	//colores RGB
+	
 	std::vector<glm::dvec4> myRGBcolors;
 	// X axis color: red  (Alpha = 1 : fully opaque)
 	myRGBcolors.emplace_back(1.0, 0.0, 0.0, 1.0);
@@ -142,7 +143,7 @@ Mesh::generateRGBRectangle(GLdouble w, GLdouble h) {
 	// Z axis color: blue
 	myRGBcolors.emplace_back(0.0, 0.0, 1.0, 1.0);
 	mesh->setColor(myRGBcolors);
-
+	
 	return mesh;
 }
 Mesh* 
@@ -217,12 +218,39 @@ Mesh*
 Mesh::generateRectangleTexCor(GLdouble w, GLdouble h) {
 
 	Mesh* mesh = new Mesh();
+
+	mesh->vVertices.reserve(4);
 	mesh->vTexCoords.reserve(4);
 
-	mesh->vTexCoords.emplace_back(-w, h);
-	mesh->vTexCoords.emplace_back(-w, -h);
-	mesh->vTexCoords.emplace_back(w, -h);
-	mesh->vTexCoords.emplace_back(w, h);
+	//definir vertices
+	//mesh->vVertices.emplace_back(-w / 2.0, 0.0, -h / 2.0);
+	//mesh->vVertices.emplace_back(w / 2.0, 0.0, -h / 2.0);
+	//mesh->vVertices.emplace_back(w / 2.0, 0.0, h / 2.0);
+	//mesh->vVertices.emplace_back(-w / 2.0, 0.0, h / 2.0);
+	mesh->vVertices.emplace_back(-w / 2, h / 2, 0.0);
+	mesh->vVertices.emplace_back(w / 2, h / 2, 0.0);
+	mesh->vVertices.emplace_back(-w / 2, -h / 2, 0.0);
+	mesh->vVertices.emplace_back(w / 2, -h / 2, 0.0);
+
+	////definir indices
+	//std::vector<GLuint> indices = {
+	//	0,1,2,
+	//	0,2,3
+	//};
+	
+	std::vector<glm::dvec4> myRGBcolors;
+	myRGBcolors.emplace_back(1.0, 1.0, 1.0, 1.0);
+	myRGBcolors.emplace_back(1.0, 1.0, 1.0, 1.0);
+	myRGBcolors.emplace_back(1.0, 1.0, 1.0, 1.0);
+	myRGBcolors.emplace_back(1.0, 1.0, 1.0, 1.0);
+	mesh->setColor(myRGBcolors);
+
+	//definir coordenadas de textura
+	mesh->vTexCoords.emplace_back(0.0, 0.0);
+	mesh->vTexCoords.emplace_back(1.0, 0.0);
+	mesh->vTexCoords.emplace_back(1.0, 1.0);
+	mesh->vTexCoords.emplace_back(0.0, 1.0);
+
 
 	return mesh;
 

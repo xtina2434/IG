@@ -6,13 +6,14 @@
 class Ground : public Abs_Entity
 {
 public:
-	Ground(GLdouble width, GLdouble height) : Abs_Entity() {
-		mMesh = Mesh::generateRGBRectangle(width, height);
+	Ground(GLdouble width, GLdouble height, Texture* myText) : Abs_Entity() {
+		mMesh = Mesh::generateRectangleTexCor(225, 225);
+
 		static double angleAntiHor = 3.14/2;
 		glm::dmat4 rotAntiHor = glm::rotate(glm::dmat4(1.0), angleAntiHor, glm::dvec3(1.0, 0.0, 0.0));
 		setModelMat(rotAntiHor);
-		setTexture(new Texture());
-		mTexture->load("baldosaC.bmp", 255);
+
+		setTexture(myText);		
 	}
 	virtual ~Ground();
 	virtual void render(glm::dmat4 const& modelViewMat) const override;

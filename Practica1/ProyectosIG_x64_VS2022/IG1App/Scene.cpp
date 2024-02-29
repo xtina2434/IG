@@ -16,6 +16,7 @@ Scene::init()
 
 	// Graphics objects (entities) of the scene
 	gObjects.push_back(new EjesRGB(400.0));
+	load();
 
 
 	int APARTADO = 18;
@@ -67,12 +68,6 @@ Scene::init()
 		gObjects.push_back(myCube); }
 		break;
 
-	case 18: {
-
-		Ground* myGround = new Ground(100, 70);
-		gObjects.push_back(myGround);
-		break;
-	}
 	case 12:
 	case 13:
 	case 14:
@@ -104,10 +99,16 @@ Scene::init()
 			gObjects.push_back(myCube);
 		}
 	}
-	break;
+		break;
+
+	case 18: {	//APARTADO 18
+		Ground* myGround = new Ground(200, 200, gTextures[0]);
+		//Por ahora solo tenemos esta text igual luego hay q cambiar la manera de pasarle el puntero
+		gObjects.push_back(myGround); }
+		break;
 
 	default:
-	break;
+		break;
 	}	
 }
 
@@ -134,15 +135,22 @@ Scene::setGL()
 {
 	// OpenGL basic setting
 	glClearColor(0.6, 0.7, 0.8, 1.0); // background color (alpha=1 -> opaque)  //APARTADO 1
-	//glEnable(GL_DEPTH_TEST);          // enable Depth test
+	glEnable(GL_DEPTH_TEST);          // enable Depth test
 	glEnable(GL_TEXTURE_2D);
 }
 void
 Scene::resetGL()
 {
 	glClearColor(.0, .0, .0, .0); // background color (alpha=1 -> opaque)
-	//glDisable(GL_DEPTH_TEST);     // disable Depth test
+	glDisable(GL_DEPTH_TEST);     // disable Depth test
 	glDisable(GL_TEXTURE_2D);
+}
+
+void Scene::load()
+{
+	Texture* groundText = new Texture();
+	groundText->load("../BmpsP1-20240223/baldosaC.bmp", 255);
+	gTextures.push_back(groundText);
 }
 
 void
