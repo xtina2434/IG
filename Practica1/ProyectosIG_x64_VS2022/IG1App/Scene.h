@@ -14,6 +14,9 @@
 #include "RGBCube.h"
 #include "Texture.h"
 #include "Ground.h"
+#include "BoxOutline.h"
+#include "Star3D.h"
+
 class Scene
 {
 public:

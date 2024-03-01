@@ -219,7 +219,7 @@ Mesh::generateRGBCubeTriangles(GLdouble length) {
 	return mesh;
 } 
 Mesh*
-Mesh::generateRectangleTexCor(GLdouble w, GLdouble h) {
+Mesh::generateRectangleTexCor(GLdouble w, GLdouble h, GLuint rw, GLuint rh) {
 	Mesh* mesh = new Mesh();
 
 	mesh->mPrimitive = GL_TRIANGLE_STRIP;
@@ -235,12 +235,119 @@ Mesh::generateRectangleTexCor(GLdouble w, GLdouble h) {
 	mesh->vVertices.emplace_back(w / 2, -h / 2, 0.0);
 
 	//definir coordenadas de textura
-	mesh->vTexCoords.emplace_back(0.0, 1.0);
+	mesh->vTexCoords.emplace_back(0.0, 1.0 * rh);
 	mesh->vTexCoords.emplace_back(0.0, 0.0);
-	mesh->vTexCoords.emplace_back(1.0, 1.0);
-	mesh->vTexCoords.emplace_back(1.0, 0.0);
+	mesh->vTexCoords.emplace_back(1.0 * rw, 1.0 * rh);
+	mesh->vTexCoords.emplace_back(1.0 * rw, 0.0);
 
 	return mesh;
 
 }
+
+Mesh* Mesh::generateBoxOutline(GLdouble length)
+{
+	Mesh* mesh = new Mesh();
+
+	mesh->mPrimitive = GL_TRIANGLE_STRIP;
+	mesh->mNumVertices = 10;
+	mesh->vVertices.reserve(mesh->mNumVertices);
+
+	const GLdouble m = length / 2;
+
+	mesh->vVertices.emplace_back(-m, m, m);
+	mesh->vVertices.emplace_back(-m, -m, m);
+	mesh->vVertices.emplace_back(m, m, m);
+	mesh->vVertices.emplace_back(m, -m, m);
+	mesh->vVertices.emplace_back(m, m, -m);
+	mesh->vVertices.emplace_back(m, -m, -m);
+	mesh->vVertices.emplace_back(-m, m, -m);
+	mesh->vVertices.emplace_back(-m, -m, -m);
+	mesh->vVertices.emplace_back(-m, m, m);
+	mesh->vVertices.emplace_back(-m, -m, m);
+
+	return mesh;
+}
+
+Mesh* Mesh::generateBoxOutlineTexCor(GLdouble length)
+{
+	Mesh* mesh = new Mesh();
+
+	mesh->mPrimitive = GL_TRIANGLE_STRIP;
+	mesh->mNumVertices = 10;
+	mesh->vVertices.reserve(mesh->mNumVertices);
+	mesh->vTexCoords.reserve(mesh->mNumVertices);
+
+	const GLdouble m = length / 2;
+
+	mesh->vVertices.emplace_back(-m, m, m);
+	mesh->vVertices.emplace_back(-m, -m, m);
+	mesh->vVertices.emplace_back(m, m, m);
+	mesh->vVertices.emplace_back(m, -m, m);
+	mesh->vVertices.emplace_back(m, m, -m);
+	mesh->vVertices.emplace_back(m, -m, -m);
+	mesh->vVertices.emplace_back(-m, m, -m);
+	mesh->vVertices.emplace_back(-m, -m, -m);
+	mesh->vVertices.emplace_back(-m, m, m);
+	mesh->vVertices.emplace_back(-m, -m, m);
+
+	//definir coordenadas de textura
+	mesh->vTexCoords.emplace_back(0.0, 1.0);
+	mesh->vTexCoords.emplace_back(0.0, 0.0);
+	mesh->vTexCoords.emplace_back(1.0, 1.0);
+	mesh->vTexCoords.emplace_back(1.0, 0.0);
+	mesh->vTexCoords.emplace_back(0.0, 1.0);
+	mesh->vTexCoords.emplace_back(0.0, 0.0);
+	mesh->vTexCoords.emplace_back(1.0, 1.0);
+	mesh->vTexCoords.emplace_back(1.0, 0.0);
+	mesh->vTexCoords.emplace_back(0.0, 1.0);
+	mesh->vTexCoords.emplace_back(0.0, 0.0);
+	mesh->vTexCoords.emplace_back(1.0, 1.0);
+	mesh->vTexCoords.emplace_back(1.0, 0.0);
+	mesh->vTexCoords.emplace_back(1.0, 1.0);
+	mesh->vTexCoords.emplace_back(1.0, 0.0);
+
+	return mesh;
+}
+
+Mesh* Mesh::generateStar3D(GLdouble re, GLuint np, GLdouble h)
+{
+	Mesh* mesh = new Mesh();
+
+	mesh->mPrimitive = GL_TRIANGLE_FAN;
+	mesh->mNumVertices = np;
+	mesh->vVertices.reserve(mesh->mNumVertices);
+
+	//incremento del angulo
+	GLdouble angleIncrement = glm::radians(360.0) / np;
+
+	mesh->vVertices.emplace_back(0.0, 0.0, 0.0);
+	mesh->vVertices.emplace_back(100.0, 100.0, h);
+	mesh->vVertices.emplace_back(-100.0, 100.0, h);
+	mesh->vVertices.emplace_back(-100.0, -100.0, h);
+	/*
+	for (GLuint i = 0; i < np; i++) {
+		//empieza por el vertice que se encuentra en el eje Y
+		GLdouble alpha = glm::radians(90.0) + i * angleIncrement;
+
+		GLdouble x = 0, y = 0;
+
+		if (i % 2 == 0) {
+			//calcular coordenadas x e y de cada vertice dentro del circulo
+			GLdouble x = re * cos(alpha);
+			GLdouble y = re * sin(alpha);
+		}
+		else {
+			//calcular coordenadas x e y de cada vertice dentro del circulo
+			GLdouble x = re / 2 * cos(alpha);
+			GLdouble y = re / 2 * sin(alpha);
+		}
+
+		mesh->vVertices.emplace_back(x, y, h); //agregar las coordenadas al vector de vertices
+	}
+	*/
+
+	return mesh;
+}
+
+
 

@@ -25,6 +25,7 @@ public:
 	glm::dvec4 const& getColor() const { return mColor; };
 	void setColor(glm::dvec4 const& col) { mColor = col; };
 	void setTexture(Texture* tex) { mTexture = tex; };
+	void setBackTexture(Texture* tex) { backTexture = tex; };
 protected:
 	Mesh* mMesh = nullptr; // the mesh
 	glm::dmat4 mModelMat;  // modeling matrix
@@ -32,6 +33,7 @@ protected:
 	// transfers modelViewMat to the GPU
 	virtual void upload(glm::dmat4 const& mModelViewMat) const;
 	Texture* mTexture = nullptr;
+	Texture* backTexture = nullptr;
 };
 
 class EjesRGB : public Abs_Entity

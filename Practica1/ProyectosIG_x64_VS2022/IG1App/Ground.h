@@ -9,7 +9,7 @@ class Ground : public Abs_Entity
 {
 public:
 	Ground(GLdouble width, GLdouble height, Texture* myText) : Abs_Entity() {
-		mMesh = Mesh::generateRectangleTexCor(width, height);
+		mMesh = Mesh::generateRectangleTexCor(width, height, 4, 4);
 
 		//aplicar la textura
 		setTexture(myText);

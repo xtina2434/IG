@@ -30,7 +30,10 @@ public:
 	static Mesh* generateRGBRectangle(GLdouble w, GLdouble h);
 	static Mesh* generateCube(GLdouble length);
 	static Mesh* generateRGBCubeTriangles(GLdouble length);
-	static Mesh* generateRectangleTexCor(GLdouble w, GLdouble h);
+	static Mesh* generateRectangleTexCor(GLdouble w, GLdouble hr, GLuint rw = 1, GLuint rh = 1);
+	static Mesh* generateBoxOutline(GLdouble length);
+	static Mesh* generateBoxOutlineTexCor(GLdouble length);
+	static Mesh* generateStar3D(GLdouble re, GLuint np, GLdouble h);
 
 protected:
 	GLuint mPrimitive =

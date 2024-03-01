@@ -19,7 +19,7 @@ Scene::init()
 	load();
 
 
-	int APARTADO = 18;
+	int APARTADO = 26;
 	switch (APARTADO)
 	{
 	case 3: {  //APARTADO 3
@@ -101,10 +101,25 @@ Scene::init()
 	}
 		break;
 
-	case 18: {	//APARTADO 18
+	case 18:
+	case 19:
+	case 20: {	//APARTADO 18 19 y 20
 		Ground* myGround = new Ground(225, 225, gTextures[0]);
 		gObjects.push_back(myGround); 
 		}
+		break;
+
+	case 21:
+	case 22: {
+		BoxOutline* myBox = new BoxOutline(200, gTextures[1], gTextures[2]);
+		gObjects.push_back(myBox);
+	}
+		break;
+	case 25:
+	case 26: {
+		Star3D* myStar = new Star3D(100, 4, 100);
+		gObjects.push_back(myStar);
+	}
 		break;
 
 	default:
@@ -151,6 +166,14 @@ void Scene::load()
 	Texture* groundText = new Texture();
 	groundText->load("../BmpsP1-20240223/baldosaC.bmp",255);
 	gTextures.push_back(groundText);
+	
+	Texture* boxExtText = new Texture();
+	boxExtText->load("../BmpsP1-20240223/container.bmp",255);
+	gTextures.push_back(boxExtText);
+
+	Texture* boxIntText = new Texture();
+	boxIntText->load("../BmpsP1-20240223/papelE.bmp",255);
+	gTextures.push_back(boxIntText);
 }
 
 void
