@@ -8,15 +8,26 @@ void Ground::render(glm::dmat4 const& modelViewMat) const {
 		glm::dmat4 aMat = modelViewMat * mModelMat;
 		upload(aMat);
 
-		//APARTADO 8
-		//glPolygonMode(GL_FRONT, GL_LINE);
-		//glPolygonMode(GL_BACK, GL_FILL);
+		//APARTADO 18 
+		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-		//APARTADO 18 incorrecto
-		//glPolygonMode(GL_BACK, GL_LINE);
-
-		mTexture->bind(GL_MODULATE);
+		//APARTADO 19
+		//verificar si se ha cargado una textura
+		if (mTexture != nullptr) {
+			//activar la textura
+			mTexture->bind(GL_REPLACE);
+		}
+		else {
+			//si no hay textura, rendereizar el ground con color blanco
+			glColor4d(1.0, 1.0, 1.0, 1.0);
+		}
+		//renderizar suelo
 		mMesh->render();
-		mTexture->unbind();
+
+		//desactivar la textura si se habia activado
+		if (mTexture != nullptr) {
+			//activar la textura
+			mTexture->unbind();
+		}
 	}
 }

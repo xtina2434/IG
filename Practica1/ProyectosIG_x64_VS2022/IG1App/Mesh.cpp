@@ -19,9 +19,12 @@ Mesh::render() const
 {
 	if (vVertices.size() > 0) { // transfer data
 		// transfer the coordinates of the vertices
-		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-		glTexCoordPointer(2, GL_DOUBLE, 0, vTexCoords.data());
+		
+		
 		glEnableClientState(GL_VERTEX_ARRAY);
+		glEnableClientState(GL_COLOR_ARRAY);
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
 		glVertexPointer(
 		  3, GL_DOUBLE, 0, vVertices.data()); // number of coordinates per vertex, type of
 		                                      // each coordinate, stride, pointer
@@ -32,10 +35,11 @@ Mesh::render() const
 			                                    // each component, stride, pointer
 		}
 
+		glTexCoordPointer(2, GL_DOUBLE, 0, vTexCoords.data());
 		draw();
 
-		glDisableClientState(GL_COLOR_ARRAY);
 		glDisableClientState(GL_VERTEX_ARRAY);
+		glDisableClientState(GL_COLOR_ARRAY);
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	}
 }
@@ -216,41 +220,25 @@ Mesh::generateRGBCubeTriangles(GLdouble length) {
 } 
 Mesh*
 Mesh::generateRectangleTexCor(GLdouble w, GLdouble h) {
-
 	Mesh* mesh = new Mesh();
 
-	mesh->vVertices.reserve(4);
-	mesh->vTexCoords.reserve(4);
+	mesh->mPrimitive = GL_TRIANGLE_STRIP;
+	mesh->mNumVertices = 4;
+	mesh->vVertices.reserve(mesh->mNumVertices);
+	mesh->vTexCoords.reserve(mesh->mNumVertices);
 
 	//definir vertices
-	//mesh->vVertices.emplace_back(-w / 2.0, 0.0, -h / 2.0);
-	//mesh->vVertices.emplace_back(w / 2.0, 0.0, -h / 2.0);
-	//mesh->vVertices.emplace_back(w / 2.0, 0.0, h / 2.0);
-	//mesh->vVertices.emplace_back(-w / 2.0, 0.0, h / 2.0);
+	//se divide entre dos para asegurarse que los vertices estan centrados en el origen
 	mesh->vVertices.emplace_back(-w / 2, h / 2, 0.0);
-	mesh->vVertices.emplace_back(w / 2, h / 2, 0.0);
 	mesh->vVertices.emplace_back(-w / 2, -h / 2, 0.0);
+	mesh->vVertices.emplace_back(w / 2, h / 2, 0.0);
 	mesh->vVertices.emplace_back(w / 2, -h / 2, 0.0);
 
-	////definir indices
-	//std::vector<GLuint> indices = {
-	//	0,1,2,
-	//	0,2,3
-	//};
-	
-	std::vector<glm::dvec4> myRGBcolors;
-	myRGBcolors.emplace_back(1.0, 1.0, 1.0, 1.0);
-	myRGBcolors.emplace_back(1.0, 1.0, 1.0, 1.0);
-	myRGBcolors.emplace_back(1.0, 1.0, 1.0, 1.0);
-	myRGBcolors.emplace_back(1.0, 1.0, 1.0, 1.0);
-	mesh->setColor(myRGBcolors);
-
 	//definir coordenadas de textura
-	mesh->vTexCoords.emplace_back(0.0, 0.0);
-	mesh->vTexCoords.emplace_back(1.0, 0.0);
-	mesh->vTexCoords.emplace_back(1.0, 1.0);
 	mesh->vTexCoords.emplace_back(0.0, 1.0);
-
+	mesh->vTexCoords.emplace_back(0.0, 0.0);
+	mesh->vTexCoords.emplace_back(1.0, 1.0);
+	mesh->vTexCoords.emplace_back(1.0, 0.0);
 
 	return mesh;
 

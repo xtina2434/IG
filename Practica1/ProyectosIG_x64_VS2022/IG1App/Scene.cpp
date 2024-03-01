@@ -102,9 +102,9 @@ Scene::init()
 		break;
 
 	case 18: {	//APARTADO 18
-		Ground* myGround = new Ground(200, 200, gTextures[0]);
-		//Por ahora solo tenemos esta text igual luego hay q cambiar la manera de pasarle el puntero
-		gObjects.push_back(myGround); }
+		Ground* myGround = new Ground(225, 225, gTextures[0]);
+		gObjects.push_back(myGround); 
+		}
 		break;
 
 	default:
@@ -149,7 +149,7 @@ Scene::resetGL()
 void Scene::load()
 {
 	Texture* groundText = new Texture();
-	groundText->load("../BmpsP1-20240223/baldosaC.bmp", 255);
+	groundText->load("../BmpsP1-20240223/baldosaC.bmp",255);
 	gTextures.push_back(groundText);
 }
 
