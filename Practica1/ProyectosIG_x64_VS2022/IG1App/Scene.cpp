@@ -117,7 +117,7 @@ Scene::init()
 		break;
 	case 25:
 	case 26: {
-		Star3D* myStar = new Star3D(100, 4, 100);
+		Star3D* myStar = new Star3D(100, 6, 100);
 		gObjects.push_back(myStar);
 	}
 		break;

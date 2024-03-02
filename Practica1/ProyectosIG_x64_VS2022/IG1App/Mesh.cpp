@@ -313,40 +313,41 @@ Mesh* Mesh::generateStar3D(GLdouble re, GLuint np, GLdouble h)
 {
 	Mesh* mesh = new Mesh();
 
+
 	mesh->mPrimitive = GL_TRIANGLE_FAN;
-	mesh->mNumVertices = np;
+	mesh->mNumVertices = (np * 2) + 2; //+2 para contar con el vertice de origen de origen y cerrar la estrella al final 
 	mesh->vVertices.reserve(mesh->mNumVertices);
 
 	//incremento del angulo
-	GLdouble angleIncrement = glm::radians(360.0) / np;
+	GLdouble angleIncrement = glm::radians(360.0) / (mesh->mNumVertices - 2); //-2 para no contar con el vertice de origen ni con el ultimo
 
+	//vertice de origen
 	mesh->vVertices.emplace_back(0.0, 0.0, 0.0);
-	mesh->vVertices.emplace_back(100.0, 100.0, h);
-	mesh->vVertices.emplace_back(-100.0, 100.0, h);
-	mesh->vVertices.emplace_back(-100.0, -100.0, h);
-	/*
-	for (GLuint i = 0; i < np; i++) {
-		//empieza por el vertice que se encuentra en el eje Y
-		GLdouble alpha = glm::radians(90.0) + i * angleIncrement;
 
-		GLdouble x = 0, y = 0;
+	//radio puntos internos
+	GLdouble ri = re / 2;
 
+	for (GLuint i = 0; i < mesh->mNumVertices - 1; ++i) { //hay 14 en total, mesh->mNumVertices - 1 es 13, para no contar con el de origen ni con el ultimo
+		GLdouble alpha = i * angleIncrement;
+		//calcular coordenadas x e y de cada vertice dentro del circulo
+		GLdouble x=0, y=0;
+		//circulo interno
 		if (i % 2 == 0) {
-			//calcular coordenadas x e y de cada vertice dentro del circulo
-			GLdouble x = re * cos(alpha);
-			GLdouble y = re * sin(alpha);
+			x = ri * cos(alpha);
+			y = ri * sin(alpha);
 		}
+		//circulo externo
 		else {
-			//calcular coordenadas x e y de cada vertice dentro del circulo
-			GLdouble x = re / 2 * cos(alpha);
-			GLdouble y = re / 2 * sin(alpha);
+			x = re * cos(alpha);
+			y = re * sin(alpha);
 		}
-
+		//plano Z = h
 		mesh->vVertices.emplace_back(x, y, h); //agregar las coordenadas al vector de vertices
 	}
-	*/
-
+	//concectar el ultimo vertice con el primero
+	mesh->vVertices.emplace_back(mesh->vVertices[1]);
 	return mesh;
+
 }
 
 

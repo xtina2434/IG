@@ -12,7 +12,8 @@ void BoxOutline::render(glm::dmat4 const& modelViewMat) const {
 
 		//APARTADO 22
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		//glColor4d(0.0, 0.0, 0.0, 0.0); 
+		//std::vector<glm::dvec4> black(mMesh->size(), glm::dvec4(0.0, 0.0, 0.0, 1.0));
+		//mMesh->setColor(black);
 
 		//APARTADO 23
 		//verificar si se ha cargado una textura
@@ -49,21 +50,11 @@ void BoxOutline::render(glm::dmat4 const& modelViewMat) const {
 			glColor4d(1.0, 1.0, 1.0, 1.0);
 		}
 
-		/*
 		//desactivar la textura si se habia activado
 		if (mTexture != nullptr) {
-			//activar la textura
-			mTexture->unbind();
-		}
-		*/
-
-		//desactivar la textura si se habia activado
-		if (mTexture != nullptr) {
-			//activar la textura
 			mTexture->unbind();
 		}
 		if (backTexture != nullptr) {
-			//activar la textura
 			backTexture->unbind();
 		}
 
