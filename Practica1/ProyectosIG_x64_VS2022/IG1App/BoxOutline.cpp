@@ -58,6 +58,6 @@ void BoxOutline::render(glm::dmat4 const& modelViewMat) const {
 			backTexture->unbind();
 		}
 
-		glEnable(GL_CULL_FACE);
+		glDisable(GL_CULL_FACE);
 	}
 }

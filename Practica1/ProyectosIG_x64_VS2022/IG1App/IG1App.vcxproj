@@ -80,6 +80,7 @@
     <ClInclude Include="Ground.h" />
     <ClInclude Include="IG1App.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="Photo.h" />
     <ClInclude Include="Pixmap32RGBA.h" />
     <ClInclude Include="RegularPolygon.h" />
     <ClInclude Include="RGBCube.h" />

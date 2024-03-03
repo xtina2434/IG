@@ -62,3 +62,41 @@ void Texture::setWrap(GLuint wp) // GL_REPEAT, GL_CLAMP
   glBindTexture(GL_TEXTURE_2D, 0); 
 }
 //-------------------------------------------------------------------------
+void Texture::loadColorBuffer(GLsizei width, GLsizei height, GLuint buffer) {
+
+	//verificar si buffer es valido
+	if (buffer != GL_FRONT && buffer != GL_BACK) {
+
+		return;
+	}
+
+	//generar textura
+	glGenTextures(1, &mId);
+	glBindTexture(GL_TEXTURE_2D, mId);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); 
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); 
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);     
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+
+	//cargar buffer
+	GLenum format = GL_RGBA;
+	if (buffer == GL_FRONT) {
+		glReadBuffer(GL_FRONT);
+	}
+	else 
+		glReadBuffer(GL_BACK);
+
+	//caargar contenido buffer en una textura
+	glCopyTexImage2D(GL_TEXTURE_2D, 0, format, 0, 0, width, height, 0);
+
+	//restaurar buffer
+	glReadBuffer(GL_BACK);
+
+	//establecer tamaño textura
+	mWidth = width;
+	mHeight = height;
+
+	//desvincular textura
+	glBindTexture(GL_TEXTURE_2D, 0);
+}

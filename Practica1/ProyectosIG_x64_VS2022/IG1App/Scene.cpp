@@ -19,7 +19,7 @@ Scene::init()
 	load();
 
 
-	int APARTADO = 31;
+	int APARTADO = 38;
 	switch (APARTADO)
 	{
 	case 3: {  //APARTADO 3
@@ -124,6 +124,22 @@ Scene::init()
 	case 31: {
 		GlassParapet* myGP = new GlassParapet(200, gTextures[4]);
 		gObjects.push_back(myGP);
+	}
+		   break;
+	case 38: {
+		Ground* myGround = new Ground(225, 225, gTextures[0]);
+		gObjects.push_back(myGround);
+		BoxOutline* myBox = new BoxOutline(30, gTextures[1], gTextures[2]);
+		glm::dmat4 translBox = glm::translate(glm::dmat4(1.0f), glm::dvec3(112, 10, 112));
+		myBox->setModelMat(translBox);
+		gObjects.push_back(myBox);
+		Star3D* myStar = new Star3D(30, 6, 30, gTextures[3]);
+		glm::dmat4 translStar = glm::translate(glm::dmat4(1.0f), glm::dvec3(112, 50, 112));
+		myStar->setModelMat(translStar);
+		gObjects.push_back(myStar);
+		GlassParapet* myGP = new GlassParapet(300, gTextures[4]);
+		gObjects.push_back(myGP);
+		//foto
 	}
 		   break;
 	default:

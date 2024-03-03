@@ -14,9 +14,9 @@ public:
 		//aplicar la textura
 		setTexture(myText);
 		//suelo en posicion horizontal en el plano Y=0
-		static double angleAntiHor = 3.14/2;
-		glm::dmat4 rotAntiHor = glm::rotate(glm::dmat4(1.0), angleAntiHor, glm::dvec3(1.0, 0.0, 0.0));
-		setModelMat(rotAntiHor);
+		static double angleRot = 3.14/2;
+		glm::dmat4 rot = glm::rotate(glm::dmat4(1.0), angleRot, glm::dvec3(1.0, 0.0, 0.0));
+		setModelMat(rot);
 	
 	}
 	virtual ~Ground();
