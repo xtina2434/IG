@@ -2,6 +2,7 @@
 #include "CheckML.h"
 #include <fstream>
 #include <array>
+#include <iostream>
 using namespace std;
 using namespace glm;
 
@@ -313,7 +314,6 @@ Mesh* Mesh::generateStar3D(GLdouble re, GLuint np, GLdouble h)
 {
 	Mesh* mesh = new Mesh();
 
-
 	mesh->mPrimitive = GL_TRIANGLE_FAN;
 	mesh->mNumVertices = (np * 2) + 2; //+2 para contar con el vertice de origen de origen y cerrar la estrella al final 
 	mesh->vVertices.reserve(mesh->mNumVertices);
@@ -348,6 +348,73 @@ Mesh* Mesh::generateStar3D(GLdouble re, GLuint np, GLdouble h)
 	mesh->vVertices.emplace_back(mesh->vVertices[1]);
 	return mesh;
 
+}
+
+Mesh* Mesh::generateStar3DTexCor(GLdouble re, GLuint np, GLdouble h)
+{
+	Mesh* mesh = new Mesh();
+
+	mesh->mPrimitive = GL_TRIANGLE_FAN;
+	mesh->mNumVertices = (np * 2) + 2; //+2 para contar con el vertice de origen de origen y cerrar la estrella al final 
+	mesh->vVertices.reserve(mesh->mNumVertices);
+	mesh->vTexCoords.reserve(mesh->mNumVertices);
+
+	//incremento del angulo
+	GLdouble angleIncrement = glm::radians(360.0) / (mesh->mNumVertices - 2); //-2 para no contar con el vertice de origen ni con el ultimo
+
+	//vertice de origen
+	mesh->vVertices.emplace_back(0.0, 0.0, 0.0);
+
+	//radio puntos internos
+	GLdouble ri = re / 2;
+
+	for (GLuint i = 0; i < mesh->mNumVertices - 1; ++i) { //hay 14 en total, mesh->mNumVertices - 1 es 13, para no contar con el de origen ni con el ultimo
+		GLdouble alpha = i * angleIncrement;
+		//calcular coordenadas x e y de cada vertice dentro del circulo
+		GLdouble x = 0, y = 0;
+		//circulo externo
+		if (i % 2 != 0) {
+			x = re * cos(alpha);
+			y = re * sin(alpha);
+		}
+		//circulo interno
+		else {
+			x = ri * cos(alpha);
+			y = ri * sin(alpha);
+		}
+		//plano Z = h
+		mesh->vVertices.emplace_back(x, y, h); //agregar las coordenadas al vector de vertices
+	}
+	//concectar el ultimo vertice con el primero
+	mesh->vVertices.emplace_back(mesh->vVertices[1]);
+
+	//definir coordenadas de textura
+	mesh->vTexCoords.emplace_back(0.5, 0.5); //v0
+	GLdouble u = 0, v = 0;
+	for (GLuint i = 0; i < mesh->mNumVertices - 1; ++i) { //hay 14 en total, mesh->mNumVertices - 1 es 13, para no contar con el de origen ni con el ultimo
+		//empieza 8 en positivo
+		if ((i/8) % 2 == 0) {
+			if ((i / 4) % 2 == 0) {
+				u += 0.25;
+			}
+			else {
+				v += 0.25;
+			}
+		}
+		//luego 8 restando
+		else {
+			if ((i / 4) % 2 == 0) {
+				u -= 0.25;
+			}
+			else {
+				v -= 0.25;
+			}
+		}
+		mesh->vTexCoords.emplace_back(u, v); //agregar las coordenadas al vector de vertices
+	}
+	mesh->vTexCoords.emplace_back(0.5, 0.5); //v0
+
+	return mesh;
 }
 
 

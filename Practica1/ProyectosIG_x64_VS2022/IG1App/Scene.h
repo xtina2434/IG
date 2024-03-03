@@ -16,6 +16,7 @@
 #include "Ground.h"
 #include "BoxOutline.h"
 #include "Star3D.h"
+#include "GlassParapet.h"
 
 class Scene
 {

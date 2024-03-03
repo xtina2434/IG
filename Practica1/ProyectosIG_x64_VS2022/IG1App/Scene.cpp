@@ -19,7 +19,7 @@ Scene::init()
 	load();
 
 
-	int APARTADO = 26;
+	int APARTADO = 31;
 	switch (APARTADO)
 	{
 	case 3: {  //APARTADO 3
@@ -117,11 +117,15 @@ Scene::init()
 		break;
 	case 25:
 	case 26: {
-		Star3D* myStar = new Star3D(100, 6, 100);
+		Star3D* myStar = new Star3D(100, 6, 100, gTextures[3]);
 		gObjects.push_back(myStar);
 	}
 		break;
-
+	case 31: {
+		GlassParapet* myGP = new GlassParapet(200, gTextures[4]);
+		gObjects.push_back(myGP);
+	}
+		   break;
 	default:
 		break;
 	}	
@@ -174,6 +178,14 @@ void Scene::load()
 	Texture* boxIntText = new Texture();
 	boxIntText->load("../BmpsP1-20240223/papelE.bmp",255);
 	gTextures.push_back(boxIntText);
+
+	Texture* starText = new Texture();
+	starText->load("../BmpsP1-20240223/baldosaP.bmp",255);
+	gTextures.push_back(starText);
+
+	Texture* glassText = new Texture();
+	glassText->load("../BmpsP1-20240223/windowV.bmp",111);
+	gTextures.push_back(glassText);
 }
 
 void
