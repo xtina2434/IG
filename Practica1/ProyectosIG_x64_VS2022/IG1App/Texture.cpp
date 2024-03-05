@@ -66,7 +66,6 @@ void Texture::loadColorBuffer(GLsizei width, GLsizei height, GLuint buffer) {
 
 	//verificar si buffer es valido
 	if (buffer != GL_FRONT && buffer != GL_BACK) {
-
 		return;
 	}
 

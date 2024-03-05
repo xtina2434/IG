@@ -19,7 +19,7 @@ Scene::init()
 	load();
 
 
-	int APARTADO = 38;
+	int APARTADO = 36;
 	switch (APARTADO)
 	{
 	case 3: {  //APARTADO 3
@@ -125,7 +125,12 @@ Scene::init()
 		GlassParapet* myGP = new GlassParapet(200, gTextures[4]);
 		gObjects.push_back(myGP);
 	}
-		   break;
+		break;
+	case 36: {
+		Photo* myPhoto = new Photo(600, 300, gTextures[0]);
+		gObjects.push_back(myPhoto);
+	}
+		break;
 	case 38: {
 		Ground* myGround = new Ground(225, 225, gTextures[0]);
 		gObjects.push_back(myGround);
@@ -141,7 +146,7 @@ Scene::init()
 		gObjects.push_back(myGP);
 		//foto
 	}
-		   break;
+		break;
 	default:
 		break;
 	}	

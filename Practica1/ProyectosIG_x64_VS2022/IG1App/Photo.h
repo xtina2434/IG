@@ -1,7 +1,10 @@
+#pragma once
+
 #ifndef _H_Photo_H_
 #define _H_Photo_H_
 #include <vector>
 #include "Entity.h"
+
 class Photo : public Abs_Entity
 {
 public:
@@ -16,7 +19,7 @@ public:
 	}
 	virtual ~Photo();
 	virtual void render(glm::dmat4 const& modelViewMat) const override;
-	//virtual void update() override;
+	virtual void update() override;
 };
 
 #endif //_H_Photo_H_

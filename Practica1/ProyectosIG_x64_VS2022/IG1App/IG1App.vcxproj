@@ -101,6 +101,7 @@
     <ClCompile Include="IG1App.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Photo.cpp" />
     <ClCompile Include="Pixmap32RGBA.cpp" />
     <ClCompile Include="RegularPolygon.cpp" />
     <ClCompile Include="RGBCube.cpp" />
