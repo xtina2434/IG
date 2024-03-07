@@ -10,9 +10,14 @@ void RegularPolygon::render(glm::dmat4 const& modelViewMat) const {
 		glm::dmat4 aMat = modelViewMat * mModelMat;
 		upload(aMat);
 		//establecer color
-		glColor4d(mColor.r, mColor.g, mColor.b, mColor.a);
+		mMesh->setColor(std::vector<glm::dvec4>(mMesh->size(), mColor));
+		//establecer polygonmode
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		mMesh->render();
-		//restablecer el color por defecto
-		glColor4d(1.0, 1.0, 1.0, 1.0);
+
+		//restablecer polygonmode
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		//restablecer color
+		mMesh->setColor(std::vector<glm::dvec4>(mMesh->size(), glm::dvec4(1.0, 1.0, 1.0, 1.0)));
 	}
 }

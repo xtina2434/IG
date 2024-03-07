@@ -11,6 +11,8 @@ void Photo::render(glm::dmat4 const& modelViewMat) const
 		glm::dmat4 aMat = modelViewMat * mModelMat;
 		upload(aMat);
 		
+		glDisable(GL_DEPTH_TEST);
+		glEnable(GL_DEPTH);
 		//verificar si se ha cargado una textura
 		if (mTexture != nullptr) {
 			//activar la textura
@@ -18,33 +20,12 @@ void Photo::render(glm::dmat4 const& modelViewMat) const
 		}
 		else {
 			//si no hay textura, rendereizar el ground con color blanco
-			glColor4d(1.0, 1.0, 1.0, 1.0);
+			//mMesh->size() devuelve el num de vertices de mesh, se necesita para al aplicar el color que se garantice que haya un color para cada vertice
+			mMesh->setColor(std::vector<glm::dvec4>(mMesh->size(), glm::dvec4(1.0, 1.0, 1.0, 1.0)));
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		}
 		//renderizar suelo
-		//mMesh->render();
-
-		//desactivar la textura si se habia activado
-		if (mTexture != nullptr) {
-			//activar la textura
-			//mTexture->unbind();
-		}
-		
-		
-		//activar blending
-		//glEnable(GL_BLEND);
-		//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); //alfa blending: configurar como vamos a mezclar los colores nuevos con los colores que ya hay en el framebuffer
-		
-		//verificar si se ha cargado una textura
-		if (mTexture != nullptr) {
-			//activar la textura
-			mTexture->loadColorBuffer(1, 1, GL_READ_BUFFER);
-			mTexture->bind(GL_ADD);
-		}
-		else {
-			//si no hay textura, rendereizar el ground con color blanco
-			glColor4d(1.0, 1.0, 1.0, 1.0);
-		}
-		//renderizar suelo
+		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		mMesh->render();
 
 		//desactivar la textura si se habia activado
@@ -52,11 +33,18 @@ void Photo::render(glm::dmat4 const& modelViewMat) const
 			//activar la textura
 			mTexture->unbind();
 		}
-
-		//glDisable(GL_BLEND);
+		//glpolygon(back, point)
+		//glPolygonMode();
+		//back fill
+		//cambiar buffer depth test a depth
+		//la imagen de atras la pones delante
+		glDisable(GL_DEPTH);
+		glEnable(GL_DEPTH_TEST);
 	}
 }
-
-void Photo::update()
-{
+void Photo::update() {
+	//cargar textura mas reciente del buffer
+	if (mTexture != nullptr) {
+		mTexture->loadColorBuffer(mWidth, mHeight, GL_BACK);
+	}
 }

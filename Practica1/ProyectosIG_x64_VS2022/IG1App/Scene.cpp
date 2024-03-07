@@ -19,19 +19,19 @@ Scene::init()
 	load();
 
 
-	int APARTADO = 36;
+	int APARTADO = 4;
 	switch (APARTADO)
 	{
 	case 3: {  //APARTADO 3
 		GLuint numSides = 7;
 		RegularPolygon* myPolygon = new RegularPolygon(numSides, 100.0);
+		myPolygon->setColor(glm::dvec4(0.0, 0.0, 0.0, 1.0));
 		gObjects.push_back(myPolygon); }
 		break;
 
 	case 4: {  //APARTADO 4
 		GLuint numSides = 7;
 		RegularPolygon* myPolygon = new RegularPolygon(numSides, 100.0);
-		myPolygon->setColor(glm::dvec4(0.0, 0.0, 0.0, 1.0));
 		gObjects.push_back(myPolygon); }
 		break;
 
@@ -60,6 +60,7 @@ Scene::init()
 
 	case 9: {  //APARTADO 9
 		Cube* myCube = new Cube(300);
+		myCube->setColor(glm::dvec4(0.0, 0.0, 0.0, 1.0));
 		gObjects.push_back(myCube); }
 		break;
 
@@ -75,11 +76,13 @@ Scene::init()
 	case 16: 
 	case 17: {  //APARTADOS DEL 11 EN ADELANTE
 		if (mId == 0) {
-			RGBRectangle* myRGBRectangle = new RGBRectangle(500, 300);
-			gObjects.push_back(myRGBRectangle);
 
 			GLuint numSides = 128;
 			int r = 260;
+
+			RGBRectangle* myRGBRectangle = new RGBRectangle(2.0 * r, r);
+			gObjects.push_back(myRGBRectangle);
+
 			RegularPolygon* myCircle = new RegularPolygon(numSides, r);
 			gObjects.push_back(myCircle);
 
@@ -92,9 +95,10 @@ Scene::init()
 		if (mId == 1) {
 			RGBCube* myCube = new RGBCube(200);
 			static double angle = 3.1416/2;
-			glm::dmat4 mT = glm::translate(glm::dmat4(1.0f), glm::dvec3(100, -100, 100));
-			glm::dmat4 mR = glm::rotate(glm::dmat4(1.0), angle, glm::dvec3(0.0, 0.0, 1.0));
-			mR = glm::rotate(mR, angle, glm::dvec3(0.0, 1.0, 0.0));
+			
+			glm::dmat4 mR = glm::rotate(glm::dmat4(1.0), angle, glm::dvec3(0.0, 0.0, 1.0)); 
+			glm::dmat4 mT = glm::translate(glm::dmat4(1.0f), glm::dvec3(100, -100, -100));
+			
 			myCube->setModelMat(mR * mT);
 			gObjects.push_back(myCube);
 		}

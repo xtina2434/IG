@@ -46,4 +46,4 @@ protected:
 	virtual void draw() const;
 };
 
-#endif //_H_Scene_H_
+#endif //_H_Mesh_H_

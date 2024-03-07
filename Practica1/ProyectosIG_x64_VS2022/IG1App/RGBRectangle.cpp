@@ -16,5 +16,9 @@ void RGBRectangle::render(glm::dmat4 const& modelViewMat) const {
 
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		mMesh->render();
+
+	
+		//restablecer el modo de poligono
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 }

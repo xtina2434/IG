@@ -9,11 +9,10 @@ void RGBCube::render(glm::dmat4 const& modelViewMat) const {
 	if (mMesh != nullptr) {
 		glm::dmat4 aMat = modelViewMat * mModelMat;
 		upload(aMat);
-
-		//no hace falta esta linea de código ya que por default se establece así
-		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
 		mMesh->render();
+		glPolygonMode(GL_BACK, GL_LINE);
+		//restablecer el modo de poligono
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 }
 

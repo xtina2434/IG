@@ -83,7 +83,11 @@ Mesh::generateRegularPolygon(GLuint num, GLdouble r) {
 
 	Mesh* mesh = new Mesh();
 
-	mesh->mPrimitive = GL_LINE_LOOP;
+	
+	if (num == 3) {
+		mesh->mPrimitive = GL_TRIANGLES;
+	}
+	else mesh->mPrimitive = GL_LINE_LOOP;
 	mesh->mNumVertices = num;
 	mesh->vVertices.reserve(mesh->mNumVertices);
 

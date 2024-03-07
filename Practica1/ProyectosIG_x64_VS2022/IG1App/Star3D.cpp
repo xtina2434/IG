@@ -11,8 +11,8 @@ void Star3D::render(glm::dmat4 const& modelViewMat) const {
 		//APARTADO 26
 		//color negro para todos los vertices
 		/*
-		std::vector<glm::dvec4> black(mMesh->size(), glm::dvec4(0.0, 0.0, 0.0, 1.0));
-		mMesh->setColor(black);
+		
+		mMesh->setColor(std::vector<glm::dvec4>(mMesh->size(), glm::dvec4(0.0, 0.0, 0.0, 1.0)););
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		*/
 
@@ -23,7 +23,8 @@ void Star3D::render(glm::dmat4 const& modelViewMat) const {
 		}
 		else {
 			//si no hay textura, rendereizar el ground con color blanco
-			glColor4d(1.0, 1.0, 1.0, 1.0);
+			mMesh->setColor(std::vector<glm::dvec4>(mMesh->size(), glm::dvec4(1.0, 1.0, 1.0, 1.0)));
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		}
 
 		//primera estrella

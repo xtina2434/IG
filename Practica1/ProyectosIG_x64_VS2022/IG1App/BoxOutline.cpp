@@ -24,7 +24,8 @@ void BoxOutline::render(glm::dmat4 const& modelViewMat) const {
 		}
 		else {
 			//si no hay textura, rendereizar el ground con color blanco
-			glColor4d(1.0, 1.0, 1.0, 1.0);
+			mMesh->setColor(std::vector<glm::dvec4>(mMesh->size(), glm::dvec4(1.0, 1.0, 1.0, 1.0)));
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		}
 		*/
 
@@ -37,7 +38,8 @@ void BoxOutline::render(glm::dmat4 const& modelViewMat) const {
 		}
 		else {
 			//si no hay textura, rendereizarlo con color blanco
-			glColor4d(1.0, 1.0, 1.0, 1.0);
+			mMesh->setColor(std::vector<glm::dvec4>(mMesh->size(), glm::dvec4(1.0, 1.0, 1.0, 1.0)));
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		}
 
 		if (backTexture != nullptr) {
@@ -47,7 +49,8 @@ void BoxOutline::render(glm::dmat4 const& modelViewMat) const {
 		}
 		else {
 			//si no hay textura, rendereizarlo con color blanco
-			glColor4d(1.0, 1.0, 1.0, 1.0);
+			mMesh->setColor(std::vector<glm::dvec4>(mMesh->size(), glm::dvec4(1.0, 1.0, 1.0, 1.0)));
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		}
 
 		//desactivar la textura si se habia activado

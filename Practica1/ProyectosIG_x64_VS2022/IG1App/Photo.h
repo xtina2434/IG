@@ -8,8 +8,8 @@
 class Photo : public Abs_Entity
 {
 public:
-	Photo(GLdouble width, GLdouble height, Texture* myText) : Abs_Entity() {
-		mMesh = Mesh::generateRectangleTexCor(width, height, 4,4);
+	Photo(GLdouble width, GLdouble height, Texture* myText) : mWidth(width), mHeight(height), Abs_Entity() {
+		mMesh = Mesh::generateRectangleTexCor(width, height, 4, 4); 
 		//aplicar la textura
 		setTexture(myText);
 		//suelo en posicion horizontal en el plano Y=0
@@ -20,6 +20,9 @@ public:
 	virtual ~Photo();
 	virtual void render(glm::dmat4 const& modelViewMat) const override;
 	virtual void update() override;
+private:
+	GLdouble mWidth;
+	GLdouble mHeight;
 };
 
 #endif //_H_Photo_H_

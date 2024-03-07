@@ -64,6 +64,7 @@ void Texture::setWrap(GLuint wp) // GL_REPEAT, GL_CLAMP
 //-------------------------------------------------------------------------
 void Texture::loadColorBuffer(GLsizei width, GLsizei height, GLuint buffer) {
 
+	
 	//verificar si buffer es valido
 	if (buffer != GL_FRONT && buffer != GL_BACK) {
 		return;
@@ -78,7 +79,7 @@ void Texture::loadColorBuffer(GLsizei width, GLsizei height, GLuint buffer) {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);     
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
 
-	//cargar buffer
+	//modificar buffer
 	GLenum format = GL_RGBA;
 	if (buffer == GL_FRONT) {
 		glReadBuffer(GL_FRONT);
@@ -86,16 +87,20 @@ void Texture::loadColorBuffer(GLsizei width, GLsizei height, GLuint buffer) {
 	else 
 		glReadBuffer(GL_BACK);
 
-	//caargar contenido buffer en una textura
+	//copiar en la textura activa el contenido del buffer
 	glCopyTexImage2D(GL_TEXTURE_2D, 0, format, 0, 0, width, height, 0);
 
 	//restaurar buffer
 	glReadBuffer(GL_BACK);
 
-	//establecer tamaño textura
+	////establecer tamaño textura
 	mWidth = width;
 	mHeight = height;
 
 	//desvincular textura
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
+
+/*glBindTexture(GL_TEXTURE_2D, mId);
+	glReadBuffer(buffer);
+	glCopyTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 0, 0, width, height, 0);*/

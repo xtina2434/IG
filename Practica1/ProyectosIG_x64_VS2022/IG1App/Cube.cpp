@@ -10,10 +10,16 @@ void Cube::render(glm::dmat4 const& modelViewMat) const {
 		upload(aMat);
 
 		glPolygonMode(GL_FRONT, GL_LINE);
-		glColor4d(0.0, 0.0, 0.0, 0.0);
+		//establecer color
+		mMesh->setColor(std::vector<glm::dvec4>(mMesh->size(), mColor));
 
 		glPolygonMode(GL_BACK, GL_POINT);
 		glPointSize(5);
 		mMesh->render();
+
+		//restablecer el modo de poligono
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		//restablecer color
+		mMesh->setColor(std::vector<glm::dvec4>(mMesh->size(), glm::dvec4(1.0, 1.0, 1.0, 1.0)));
 	}
 }
