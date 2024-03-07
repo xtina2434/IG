@@ -8,10 +8,11 @@
 class Photo : public Abs_Entity
 {
 public:
-	Photo(GLdouble width, GLdouble height, Texture* myText) : mWidth(width), mHeight(height), Abs_Entity() {
-		mMesh = Mesh::generateRectangleTexCor(width, height, 4, 4); 
+	Photo(GLdouble width, GLdouble height) :  Abs_Entity() {
+		mMesh = Mesh::generateRectangleTexCor(width, height, 1, 1); 
 		//aplicar la textura
-		setTexture(myText);
+		mTexture = new Texture();
+		mTexture->loadColorBuffer(width, height, GL_BACK);
 		//suelo en posicion horizontal en el plano Y=0
 		static double angleRot = 3.14 / 2;
 		glm::dmat4 rot = glm::rotate(glm::dmat4(1.0), angleRot, glm::dvec3(1.0, 0.0, 0.0));
@@ -20,9 +21,6 @@ public:
 	virtual ~Photo();
 	virtual void render(glm::dmat4 const& modelViewMat) const override;
 	virtual void update() override;
-private:
-	GLdouble mWidth;
-	GLdouble mHeight;
 };
 
 #endif //_H_Photo_H_

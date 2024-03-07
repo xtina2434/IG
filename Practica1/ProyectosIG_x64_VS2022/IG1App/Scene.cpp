@@ -17,9 +17,8 @@ Scene::init()
 	// Graphics objects (entities) of the scene
 	gObjects.push_back(new EjesRGB(400.0));
 	load();
-
-
-	int APARTADO = 4;
+	//debe ir en setscene
+	int APARTADO =34;
 	switch (APARTADO)
 	{
 	case 3: {  //APARTADO 3
@@ -27,13 +26,13 @@ Scene::init()
 		RegularPolygon* myPolygon = new RegularPolygon(numSides, 100.0);
 		myPolygon->setColor(glm::dvec4(0.0, 0.0, 0.0, 1.0));
 		gObjects.push_back(myPolygon); }
-		break;
+		  break;
 
 	case 4: {  //APARTADO 4
 		GLuint numSides = 7;
 		RegularPolygon* myPolygon = new RegularPolygon(numSides, 100.0);
 		gObjects.push_back(myPolygon); }
-		break;
+		  break;
 
 	case 5: { //APARTADO 5
 		GLuint numSidesT = 3;
@@ -44,36 +43,31 @@ Scene::init()
 		RegularPolygon* myCircle = new RegularPolygon(numSidesC, 100.0);
 		myCircle->setColor(glm::dvec4(1.0, 0.0, 1.0, 1.0));
 		gObjects.push_back(myCircle); }
-		break;
+		  break;
 
-	case 6: {  //APARTADO 6
+	case 6: {  //APARTADO 6 y 7
 		RGBTriangle* myRGBTriangle = new RGBTriangle(3, 100);
 		gObjects.push_back(myRGBTriangle); }
-		break;
+		  break;
 
 	case 8: {  //APARTADO 8
 		RegularPolygon* myRectangle = new RegularPolygon(100.0, 70.0);
 		gObjects.push_back(myRectangle);
 		RGBRectangle* myRGBRectangle = new RGBRectangle(100.0, 80.0);
 		gObjects.push_back(myRGBRectangle); }
-		break;
+		  break;
 
 	case 9: {  //APARTADO 9
 		Cube* myCube = new Cube(300);
 		myCube->setColor(glm::dvec4(0.0, 0.0, 0.0, 1.0));
 		gObjects.push_back(myCube); }
-		break;
+		  break;
 
 	case 10: {  //APARTADO 10
 		RGBCube* myCube = new RGBCube(200);
 		gObjects.push_back(myCube); }
-		break;
+		   break;
 
-	case 12:
-	case 13:
-	case 14:
-	case 15: 
-	case 16: 
 	case 17: {  //APARTADOS DEL 11 EN ADELANTE
 		if (mId == 0) {
 
@@ -92,49 +86,50 @@ Scene::init()
 			gObjects.push_back(myRGBTriangle);
 		}
 
-		if (mId == 1) {
+		else if (mId == 1) {
 			RGBCube* myCube = new RGBCube(200);
-			static double angle = 3.1416/2;
-			
-			glm::dmat4 mR = glm::rotate(glm::dmat4(1.0), angle, glm::dvec3(0.0, 0.0, 1.0)); 
+			static double angle = 3.1416 / 2;
+
+			glm::dmat4 mR = glm::rotate(glm::dmat4(1.0), angle, glm::dvec3(0.0, 0.0, 1.0));
 			glm::dmat4 mT = glm::translate(glm::dmat4(1.0f), glm::dvec3(100, -100, -100));
-			
+
 			myCube->setModelMat(mR * mT);
 			gObjects.push_back(myCube);
 		}
 	}
-		break;
-
-	case 18:
-	case 19:
+		   break;
 	case 20: {	//APARTADO 18 19 y 20
 		Ground* myGround = new Ground(225, 225, gTextures[0]);
-		gObjects.push_back(myGround); 
-		}
-		break;
-
-	case 21:
-	case 22: {
+		gObjects.push_back(myGround);
+	}
+		   break;
+	case 24: { //APARTADO 21,22,23,24
 		BoxOutline* myBox = new BoxOutline(200, gTextures[1], gTextures[2]);
 		gObjects.push_back(myBox);
 	}
-		break;
-	case 25:
-	case 26: {
+		   break;
+	case 28: {//APARTADO 25,26,27,28
 		Star3D* myStar = new Star3D(100, 6, 100, gTextures[3]);
 		gObjects.push_back(myStar);
 	}
-		break;
+		   break;
 	case 31: {
 		GlassParapet* myGP = new GlassParapet(200, gTextures[4]);
 		gObjects.push_back(myGP);
 	}
-		break;
-	case 36: {
-		Photo* myPhoto = new Photo(600, 300, gTextures[0]);
+		   break;
+	case 34: {//APARTADO 32,33,34
+		Grass* myGrass = new Grass(512, 512, gTextures[5]);
+		gObjects.push_back(myGrass);
+	}
+		   break;
+	case 36: { // APARTADO 35,36
+		Ground* myGround = new Ground(600, 600, gTextures[0]);
+		gObjects.push_back(myGround);
+		Photo* myPhoto = new Photo(200, 200);
 		gObjects.push_back(myPhoto);
 	}
-		break;
+		   break;
 	case 38: {
 		Ground* myGround = new Ground(225, 225, gTextures[0]);
 		gObjects.push_back(myGround);
@@ -146,14 +141,15 @@ Scene::init()
 		glm::dmat4 translStar = glm::translate(glm::dmat4(1.0f), glm::dvec3(112, 50, 112));
 		myStar->setModelMat(translStar);
 		gObjects.push_back(myStar);
+		Photo* myPhoto = new Photo(100, 100);
+		gObjects.push_back(myPhoto);
 		GlassParapet* myGP = new GlassParapet(300, gTextures[4]);
 		gObjects.push_back(myGP);
-		//foto
 	}
-		break;
+		   break;
 	default:
 		break;
-	}	
+	}
 }
 
 void
@@ -209,8 +205,12 @@ void Scene::load()
 	gTextures.push_back(starText);
 
 	Texture* glassText = new Texture();
-	glassText->load("../BmpsP1-20240223/windowV.bmp",111);
+	glassText->load("../BmpsP1-20240223/windowV.bmp",128);
 	gTextures.push_back(glassText);
+	////el color negro se hace transparente
+	Texture* grassText = new Texture();
+	grassText->load("../BmpsP1-20240223/grass.bmp", glm::u8vec3(0,0,0), 0); //alpha = 255 opaco, 0 transparente
+	gTextures.push_back(grassText);
 }
 
 void

@@ -24,8 +24,7 @@ void Photo::render(glm::dmat4 const& modelViewMat) const
 			mMesh->setColor(std::vector<glm::dvec4>(mMesh->size(), glm::dvec4(1.0, 1.0, 1.0, 1.0)));
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		}
-		//renderizar suelo
-		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		//renderizar foto
 		mMesh->render();
 
 		//desactivar la textura si se habia activado
@@ -33,18 +32,16 @@ void Photo::render(glm::dmat4 const& modelViewMat) const
 			//activar la textura
 			mTexture->unbind();
 		}
-		//glpolygon(back, point)
-		//glPolygonMode();
-		//back fill
-		//cambiar buffer depth test a depth
-		//la imagen de atras la pones delante
 		glDisable(GL_DEPTH);
 		glEnable(GL_DEPTH_TEST);
+		//restablecer color y modo
+		mMesh->setColor(std::vector<glm::dvec4>(mMesh->size(), glm::dvec4(1.0, 1.0, 1.0, 1.0)));
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 }
 void Photo::update() {
 	//cargar textura mas reciente del buffer
 	if (mTexture != nullptr) {
-		mTexture->loadColorBuffer(mWidth, mHeight, GL_BACK);
+		mTexture->loadColorBuffer(800, 600, GL_FRONT);
 	}
 }

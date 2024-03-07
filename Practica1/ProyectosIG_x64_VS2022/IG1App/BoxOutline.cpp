@@ -62,5 +62,8 @@ void BoxOutline::render(glm::dmat4 const& modelViewMat) const {
 		}
 
 		glDisable(GL_CULL_FACE);
+		//restablecer color y modo
+		mMesh->setColor(std::vector<glm::dvec4>(mMesh->size(), glm::dvec4(1.0, 1.0, 1.0, 1.0)));
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 }

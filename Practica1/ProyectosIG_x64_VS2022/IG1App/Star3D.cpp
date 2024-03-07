@@ -41,7 +41,10 @@ void Star3D::render(glm::dmat4 const& modelViewMat) const {
 		glm::dmat4 aMat2 = modelViewMat * rotY;
 		upload(aMat2);
 		mMesh->render();
-
+		
+		//restablecer color y modo
+		mMesh->setColor(std::vector<glm::dvec4>(mMesh->size(), glm::dvec4(1.0, 1.0, 1.0, 1.0)));
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 }
 
