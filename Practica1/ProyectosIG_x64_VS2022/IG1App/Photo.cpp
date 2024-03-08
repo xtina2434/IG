@@ -11,6 +11,7 @@ void Photo::render(glm::dmat4 const& modelViewMat) const
 		glm::dmat4 aMat = modelViewMat * mModelMat;
 		upload(aMat);
 		
+		//cambiar el buffer de dephtest a depth
 		glDisable(GL_DEPTH_TEST);
 		glEnable(GL_DEPTH);
 		//verificar si se ha cargado una textura
@@ -32,6 +33,7 @@ void Photo::render(glm::dmat4 const& modelViewMat) const
 			//activar la textura
 			mTexture->unbind();
 		}
+		//restablecer buffer
 		glDisable(GL_DEPTH);
 		glEnable(GL_DEPTH_TEST);
 		//restablecer color y modo
@@ -40,7 +42,7 @@ void Photo::render(glm::dmat4 const& modelViewMat) const
 	}
 }
 void Photo::update() {
-	//cargar textura mas reciente del buffer
+	//actualizar mTexture a la textura mas reciente guardada en el buffer
 	if (mTexture != nullptr) {
 		mTexture->loadColorBuffer(800, 600, GL_FRONT);
 	}

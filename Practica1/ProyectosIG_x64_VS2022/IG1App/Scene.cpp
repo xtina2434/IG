@@ -18,7 +18,7 @@ Scene::init()
 	gObjects.push_back(new EjesRGB(400.0));
 	load();
 	//debe ir en setscene
-	int APARTADO =34;
+	int APARTADO =38;
 	switch (APARTADO)
 	{
 	case 3: {  //APARTADO 3
@@ -99,7 +99,7 @@ Scene::init()
 	}
 		   break;
 	case 20: {	//APARTADO 18 19 y 20
-		Ground* myGround = new Ground(225, 225, gTextures[0]);
+		Ground* myGround = new Ground(225, 225, gTextures[0], 4,4);
 		gObjects.push_back(myGround);
 	}
 		   break;
@@ -118,20 +118,15 @@ Scene::init()
 		gObjects.push_back(myGP);
 	}
 		   break;
-	case 34: {//APARTADO 32,33,34
-		Grass* myGrass = new Grass(512, 512, gTextures[5]);
-		gObjects.push_back(myGrass);
-	}
-		   break;
 	case 36: { // APARTADO 35,36
-		Ground* myGround = new Ground(600, 600, gTextures[0]);
+		Ground* myGround = new Ground(600, 600, gTextures[0], 4,4);
 		gObjects.push_back(myGround);
 		Photo* myPhoto = new Photo(200, 200);
 		gObjects.push_back(myPhoto);
 	}
 		   break;
 	case 38: {
-		Ground* myGround = new Ground(225, 225, gTextures[0]);
+		Ground* myGround = new Ground(225, 225, gTextures[0],4,4);
 		gObjects.push_back(myGround);
 		BoxOutline* myBox = new BoxOutline(30, gTextures[1], gTextures[2]);
 		glm::dmat4 translBox = glm::translate(glm::dmat4(1.0f), glm::dvec3(112, 10, 112));
@@ -207,10 +202,6 @@ void Scene::load()
 	Texture* glassText = new Texture();
 	glassText->load("../BmpsP1-20240223/windowV.bmp",128);
 	gTextures.push_back(glassText);
-	////el color negro se hace transparente
-	Texture* grassText = new Texture();
-	grassText->load("../BmpsP1-20240223/grass.bmp", glm::u8vec3(0,0,0), 0); //alpha = 255 opaco, 0 transparente
-	gTextures.push_back(grassText);
 }
 
 void

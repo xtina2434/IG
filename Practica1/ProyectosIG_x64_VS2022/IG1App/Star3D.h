@@ -6,6 +6,9 @@ class Star3D : public Abs_Entity
 {
 public:
 	Star3D(GLdouble re, GLuint np, GLdouble h, Texture* myText) : Abs_Entity() {
+		//26
+		//mMesh = Mesh::generateStar3D(re, np, h);
+		//28
 		mMesh = Mesh::generateStar3DTexCor(re, np, h);
 		setTexture(myText);
 	}

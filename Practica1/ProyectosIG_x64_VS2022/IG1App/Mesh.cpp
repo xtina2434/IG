@@ -246,7 +246,6 @@ Mesh::generateRectangleTexCor(GLdouble w, GLdouble h, GLuint rw, GLuint rh) {
 	mesh->vTexCoords.emplace_back(1.0 * rw, 0.0);
 
 	return mesh;
-
 }
 
 Mesh* Mesh::generateBoxOutline(GLdouble length)
@@ -258,7 +257,7 @@ Mesh* Mesh::generateBoxOutline(GLdouble length)
 	mesh->vVertices.reserve(mesh->mNumVertices);
 
 	const GLdouble m = length / 2;
-
+	//cubo sin tapas
 	mesh->vVertices.emplace_back(-m, m, m);
 	mesh->vVertices.emplace_back(-m, -m, m);
 	mesh->vVertices.emplace_back(m, m, m);
@@ -283,7 +282,7 @@ Mesh* Mesh::generateBoxOutlineTexCor(GLdouble length)
 	mesh->vTexCoords.reserve(mesh->mNumVertices);
 
 	const GLdouble m = length / 2;
-
+	//cubo sin tapas
 	mesh->vVertices.emplace_back(-m, m, m);
 	mesh->vVertices.emplace_back(-m, -m, m);
 	mesh->vVertices.emplace_back(m, m, m);

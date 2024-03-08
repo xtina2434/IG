@@ -6,8 +6,10 @@ class BoxOutline : public Abs_Entity
 {
 public:
 	BoxOutline(GLdouble length, Texture* myText, Texture* backText) : Abs_Entity() {
+		////22
+		//mMesh = Mesh::generateBoxOutline(length);
+		//23 y 24
 		mMesh = Mesh::generateBoxOutlineTexCor(length);
-
 		setTexture(myText);
 		setBackTexture(backText);
 
