@@ -31,7 +31,6 @@ void GlassParapet::render(glm::dmat4 const& modelViewMat) const {
 		mMesh->render();
 		if (mTexture != nullptr) {
 			mTexture->unbind();
-			
 		}
 		//desactivar blending
 		glDisable(GL_BLEND);

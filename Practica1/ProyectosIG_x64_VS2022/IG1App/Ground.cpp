@@ -9,9 +9,10 @@ void Ground::render(glm::dmat4 const& modelViewMat) const {
 		upload(aMat);
 
 		//APARTADO 18 
-		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		//mMesh->render();
 
-		//APARTADO 19
+		//APARTADO 19 Y 20
 		//verificar si se ha cargado una textura
 		if (mTexture != nullptr) {
 			//activar la textura

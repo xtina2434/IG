@@ -12,7 +12,7 @@ public:
 		mMesh = Mesh::generateRectangleTexCor(width, height, 1, 1); 
 		//aplicar la textura
 		mTexture = new Texture();
-		mTexture->loadColorBuffer(width, height, GL_BACK);
+		mTexture->loadColorBuffer(width, height, GL_FRONT);
 		//suelo en posicion horizontal en el plano Y=0
 		static double angleRot = 3.14 / 2;
 		glm::dmat4 rot = glm::rotate(glm::dmat4(1.0), angleRot, glm::dvec3(1.0, 0.0, 0.0));

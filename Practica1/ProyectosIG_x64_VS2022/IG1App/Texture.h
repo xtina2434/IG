@@ -29,7 +29,7 @@ public:
   void setWrap(GLuint wp);  // GL_REPEAT, GL_CLAMP 
 
   void loadColorBuffer(GLsizei width, GLsizei height, GLuint buffer = GL_FRONT);
-  void load(const std::string& BMP_Name, glm::u8vec3 color, GLubyte alpha);
+
 protected:
 
   void init();

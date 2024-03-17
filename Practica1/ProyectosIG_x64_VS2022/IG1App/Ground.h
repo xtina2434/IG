@@ -9,10 +9,13 @@
 class Ground : public Abs_Entity
 {
 public:
-	Ground(GLdouble width, GLdouble height, Texture* myText) : Abs_Entity() {
-		mMesh = Mesh::generateRectangleTexCor(width, height, 4, 4);
+	Ground(GLdouble width, GLdouble height, Texture* myText, GLuint rw, GLuint rh) : Abs_Entity() {
+		//18
+		//mMesh = Mesh::generateRGBRectangle(width, height);
+		//19 Y 20
+		mMesh = Mesh::generateRectangleTexCor(width, height, rw, rh);
 
-		//aplicar la textura
+		//aplicar la textura (19 Y 20)
 		setTexture(myText);
 		//suelo en posicion horizontal en el plano Y=0
 		static double angleRot = 3.14/2;

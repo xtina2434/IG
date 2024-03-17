@@ -64,7 +64,7 @@ void Texture::setWrap(GLuint wp) // GL_REPEAT, GL_CLAMP
 //-------------------------------------------------------------------------
 void Texture::loadColorBuffer(GLsizei width, GLsizei height, GLuint buffer) {
 
-	if (mId == 0) init();
+	if (mId == 0)init();
 	//verificar si buffer es valido
 	if (buffer != GL_FRONT && buffer != GL_BACK) {
 		return;
@@ -77,7 +77,7 @@ void Texture::loadColorBuffer(GLsizei width, GLsizei height, GLuint buffer) {
 	GLint level = 0;
 	GLint border = 0;
 	
-	glReadBuffer(buffer); //por defecto GL_BACK
+	glReadBuffer(buffer);
 	glBindTexture(GL_TEXTURE_2D, mId);
 	//copiar en la textura activa el contenido del buffer
 	glCopyTexImage2D(GL_TEXTURE_2D, level, GL_RGBA, 0, 0, mWidth, mHeight, border);
@@ -85,39 +85,5 @@ void Texture::loadColorBuffer(GLsizei width, GLsizei height, GLuint buffer) {
 	glReadBuffer(GL_BACK);
 	//desvincular textura
 	glBindTexture(GL_TEXTURE_2D, 0);
-
-}
-void Texture::load(const std::string& BMP_Name, glm::u8vec3 color, GLubyte alpha) {
-	if (mId == 0) init();
-
-	PixMap32RGBA pixMap;
-
-	pixMap.load_bmp24BGR(BMP_Name);
-
-	//pasar por cada pixel de la imagen
-	for (int y = 0; y < mHeight; y++) { //altura(filas img)
-		for (int x = 0; x < mWidth; x++) {//ancho(columnas img)
-			glm::u8vec4 pixel = pixMap.pixel(x, y); //obtener cada pixel
-
-			//cambiar la componente alfa de los pixeles cuyo color coincida con el dado
-			if (pixel.r == color.r && pixel.g == color.g && pixel.b == color.b) {
-				//se cambia el valor de alpha
-				pixel.a = alpha;
-				pixMap.set_pixel(x, y, pixel); //cambiar al pixel modificado 
-			}
-		}
-	}
-
-	//mWidth = pixMap.width();
-	//mHeight = pixMap.height();
-
-	GLint level = 0;   //Base image level
-	GLint border = 0;  //No border
-
-	glBindTexture(GL_TEXTURE_2D, mId);
-	glTexImage2D(GL_TEXTURE_2D, level, GL_RGBA, mWidth, mHeight, border, GL_RGBA, GL_UNSIGNED_BYTE, pixMap.data());
-
-	glBindTexture(GL_TEXTURE_2D, 0);
-	
 
 }
