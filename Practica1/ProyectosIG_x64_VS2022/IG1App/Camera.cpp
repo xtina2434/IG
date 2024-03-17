@@ -2,7 +2,6 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-// #include <glm/gtc/matrix_access.hpp>
 
 using namespace glm;
 
@@ -18,6 +17,18 @@ Camera::Camera(Viewport* vp)
 	setPM();
 }
 
+void Camera::setAxes() {
+	mRight = row(mViewMat, 0);
+	mUpward = row(mViewMat, 1);
+	mFront = - row(mViewMat, 2);
+}
+
+glm::dvec3 Camera::row(glm::dmat4 mat, GLuint row) {
+
+	return mat[row];
+
+}
+
 void
 Camera::uploadVM() const
 {
@@ -29,6 +40,7 @@ void
 Camera::setVM()
 {
 	mViewMat = lookAt(mEye, mLook, mUp); // glm::lookAt defines the view matrix
+	setAxes();
 }
 
 void
@@ -54,6 +66,7 @@ Camera::pitch(GLdouble a)
 {
 	mViewMat = rotate(mViewMat, glm::radians(a), glm::dvec3(1.0, 0, 0));
 	// glm::rotate returns mViewMat * rotationMatrix
+	setAxes();
 }
 
 void
@@ -61,6 +74,7 @@ Camera::yaw(GLdouble a)
 {
 	mViewMat = rotate(mViewMat, glm::radians(a), glm::dvec3(0, 1.0, 0));
 	// glm::rotate returns mViewMat * rotationMatrix
+	setAxes();
 }
 
 void
@@ -68,6 +82,7 @@ Camera::roll(GLdouble a)
 {
 	mViewMat = rotate(mViewMat, glm::radians(a), glm::dvec3(0, 0, 1.0));
 	// glm::rotate returns mViewMat * rotationMatrix
+	setAxes();
 }
 
 void
@@ -101,6 +116,14 @@ Camera::setPM()
 		                 mFarVal);
 		// glm::ortho defines the orthogonal projection matrix
 	}
+	else {
+		mProjMat = frustum(xLeft * mScaleFact,
+			xRight * mScaleFact,
+			yBot * mScaleFact,
+			yTop * mScaleFact,
+			mNearVal,
+			mFarVal);
+	}
 }
 
 void
@@ -109,4 +132,44 @@ Camera::uploadPM() const
 	glMatrixMode(GL_PROJECTION);
 	glLoadMatrixd(value_ptr(mProjMat)); // transfers projection matrix to the GPU
 	glMatrixMode(GL_MODELVIEW);
+}
+
+void Camera::moveUD(GLdouble cs) { // Up / Down
+	mEye += mUpward * cs;
+	mLook += mUpward * cs;
+	setVM();
+}
+void Camera::moveLR(GLdouble cs) { // Left / Right ...
+	mEye += mRight * cs;
+	mLook += mRight * cs;
+	setVM();
+}
+void Camera::moveFB(GLdouble cs) { // Forward / Backward ...
+	mEye += mFront * cs;
+	mLook += mFront * cs;
+	setVM();
+}
+
+void Camera::changePrj() {
+	bOrto = !bOrto;
+	setPM();
+	uploadPM();
+}
+
+void Camera::pitchReal(GLdouble cs) {
+	mLook[1] += cs;
+	mViewMat = lookAt(mEye, mLook, mUp);
+	setAxes();
+}
+void Camera::yawReal(GLdouble cs) {
+	mUp[0] += cs;
+	mViewMat = lookAt(mEye, mLook, mUp);
+	setAxes();
+}
+void Camera::rollReal(GLdouble cs) {
+	mLook[0] += cs;
+	mLook[2] += cs;
+	mViewMat = lookAt(mEye, mLook, mUp);
+	setAxes();
+
 }

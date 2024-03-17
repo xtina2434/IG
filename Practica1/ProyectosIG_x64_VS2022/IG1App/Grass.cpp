@@ -17,7 +17,7 @@ void Grass::render(glm::dmat4 const& modelViewMat) const {
 		//verificar si se ha cargado una textura
 		if (mTexture != nullptr) {
 			//activar la textura
-			mTexture->bind(GL_REPLACE);
+			mTexture->bind(GL_ADD);
 		}
 		else {
 			//si no hay textura, rendereizar el ground con color blanco

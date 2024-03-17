@@ -18,7 +18,7 @@ Scene::init()
 	gObjects.push_back(new EjesRGB(400.0));
 	load();
 	//debe ir en setscene
-	int APARTADO =34;
+	int APARTADO =38;
 	switch (APARTADO)
 	{
 	case 3: {  //APARTADO 3
