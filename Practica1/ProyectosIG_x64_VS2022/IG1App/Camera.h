@@ -20,6 +20,8 @@ public:
 
 	void set2D();
 	void set3D();
+	void setCenital();
+
 
 	void pitch(GLdouble a); // rotates a degrees on the X axis
 	void yaw(GLdouble a);   // rotates a degrees on the Y axis
@@ -41,7 +43,6 @@ public:
 		uploadPM();
 	};
 
-
 	void moveUD(GLdouble cs);
 	void moveLR(GLdouble cs);
 	void moveFB(GLdouble cs);
@@ -51,19 +52,21 @@ public:
 	void rollReal(GLdouble cs);
 
 	void changePrj();
+	void orbit(GLdouble incAng, GLdouble incY);
+
 
 protected:
 	glm::dvec3 mEye = {0.0, 0.0, 500.0}; // camera's position
 	glm::dvec3 mLook = {0.0, 0.0, 0.0};  // target's position
 	glm::dvec3 mUp = {0.0, 1.0, 0.0};    // the up vector
 
+	GLdouble mRadio = 300, mAng = 0;
+
 	//APARTADO 39
 	glm::dvec3 mRight;
 	glm::dvec3 mUpward;
-	glm::dvec3 mFront; 
+	glm::dvec3 mFront; //eje z de la camara (n)
 	void setAxes();
-
-	glm::dvec3 row(glm::dmat4 mat, GLuint row);
 
 	glm::dmat4 mViewMat;   // view matrix = inverse of modeling matrix
 	void uploadVM() const; // transfers viewMat to the GPU
@@ -72,7 +75,7 @@ protected:
 	void uploadPM() const; // transfers projMat to the GPU
 
 	GLdouble xRight, xLeft, yTop, yBot;     // size of scene visible area
-	GLdouble mNearVal = 500, mFarVal = 10000; // view volume
+	GLdouble mNearVal = 50, mFarVal = 10000; // view volume
 	GLdouble mScaleFact = 1;                // scale factor
 	bool bOrto = true;                      // orthogonal or perspective projection
 

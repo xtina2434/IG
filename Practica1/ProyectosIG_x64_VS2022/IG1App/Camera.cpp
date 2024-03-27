@@ -2,6 +2,8 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <glm/gtc/matrix_access.hpp>
+#include <iostream>
 
 using namespace glm;
 
@@ -23,11 +25,6 @@ void Camera::setAxes() {
 	mFront = - row(mViewMat, 2);
 }
 
-glm::dvec3 Camera::row(glm::dmat4 mat, GLuint row) {
-
-	return mat[row];
-
-}
 
 void
 Camera::uploadVM() const
@@ -55,9 +52,25 @@ Camera::set2D()
 void
 Camera::set3D()
 {
+	/*
 	mEye = dvec3(500, 500, 500);
 	mLook = dvec3(0, 10, 0);
 	mUp = dvec3(0, 1, 0);
+	setVM();
+	*/
+	//APARTADO 49
+	mEye = dvec3(mLook.x + cos(radians(mAng)) * mRadio, 500, mLook.z - sin(radians(mAng)) * mRadio);
+	mLook = dvec3(0, 10, 0);
+	mUp = dvec3(0, 1, 0);
+	setVM();
+}
+
+void
+Camera::setCenital()
+{
+	mEye = dvec3(0, 500, 0);
+	mLook = dvec3(0, 0, 0);
+	mUp = dvec3(1, 0, 0);
 	setVM();
 }
 
@@ -156,20 +169,38 @@ void Camera::changePrj() {
 	uploadPM();
 }
 
+void Camera::orbit(GLdouble incAng, GLdouble incY)
+{
+	mAng += incAng;
+	mEye.x = mLook.x + cos(radians(mAng)) * mRadio;
+	mEye.z = mLook.z - sin(radians(mAng)) * mRadio;
+	mEye.y += incY;
+	setVM();
+}
+
 void Camera::pitchReal(GLdouble cs) {
 	mLook[1] += cs;
-	mViewMat = lookAt(mEye, mLook, mUp);
-	setAxes();
+	setVM();
 }
 void Camera::yawReal(GLdouble cs) {
-	mUp[0] += cs;
-	mViewMat = lookAt(mEye, mLook, mUp);
-	setAxes();
+	mLook[0] += cs;
+	mLook[2] -= cs;
+	setVM();
 }
 void Camera::rollReal(GLdouble cs) {
-	mLook[0] += cs;
-	mLook[2] += cs;
-	mViewMat = lookAt(mEye, mLook, mUp);
-	setAxes();
+	
+	glm::dvec3 v = mUp;
+	double radianAngle = 0.1 * cs;
+	glm::dvec3 axis = normalize(mEye - mLook);
 
+	// Main algorithm
+	double cosAngle = cos(radianAngle), sinAngle = sin(radianAngle);
+	glm::dvec3 aCROSSv = cross(axis, v);
+	glm::dvec3 ret = v;
+	ret = ret * cosAngle;
+	ret = (sinAngle * aCROSSv) + ret;
+	ret = ((dot(axis, v) * (1 - cosAngle)) * axis) + ret;
+
+	mUp = ret;
+	setVM();
 }
