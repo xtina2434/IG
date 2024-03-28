@@ -52,17 +52,17 @@ Camera::set2D()
 void
 Camera::set3D()
 {
-	/*
+	
 	mEye = dvec3(500, 500, 500);
 	mLook = dvec3(0, 10, 0);
 	mUp = dvec3(0, 1, 0);
 	setVM();
-	*/
+	
 	//APARTADO 49
-	mEye = dvec3(mLook.x + cos(radians(mAng)) * mRadio, 500, mLook.z - sin(radians(mAng)) * mRadio);
+	/*mEye = dvec3(mLook.x + cos(radians(mAng)) * mRadio, 500, mLook.z - sin(radians(mAng)) * mRadio);
 	mLook = dvec3(0, 10, 0);
 	mUp = dvec3(0, 1, 0);
-	setVM();
+	setVM();*/
 }
 
 void

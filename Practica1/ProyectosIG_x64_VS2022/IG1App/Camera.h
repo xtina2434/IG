@@ -20,6 +20,7 @@ public:
 
 	void set2D();
 	void set3D();
+	//APARTADO 50
 	void setCenital();
 
 
@@ -42,16 +43,20 @@ public:
 		uploadVM();
 		uploadPM();
 	};
-
+	//APARTADO 41
 	void moveUD(GLdouble cs);
 	void moveLR(GLdouble cs);
 	void moveFB(GLdouble cs);
 
+	//APARTADO 46
 	void pitchReal(GLdouble cs);
 	void yawReal(GLdouble cs);
 	void rollReal(GLdouble cs);
 
+	//APARTADO 42
 	void changePrj();
+
+	//APARTADO 48
 	void orbit(GLdouble incAng, GLdouble incY);
 
 
@@ -75,7 +80,7 @@ protected:
 	void uploadPM() const; // transfers projMat to the GPU
 
 	GLdouble xRight, xLeft, yTop, yBot;     // size of scene visible area
-	GLdouble mNearVal = 50, mFarVal = 10000; // view volume
+	GLdouble mNearVal = 300, mFarVal = 10000; // view volume
 	GLdouble mScaleFact = 1;                // scale factor
 	bool bOrto = true;                      // orthogonal or perspective projection
 

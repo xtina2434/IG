@@ -102,37 +102,41 @@ IG1App::display() const
 { // double buffering
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clears the back buffer
-
-	mScenes[sceneId]->render(*mCamera); // uploads the viewport and camera to the GPU
-
+	if (!m2Vistas) {
+		mScenes[sceneId]->render(*mCamera); // uploads the viewport and camera to the GPU
+	}
+	else {
+		display2V();
+	}
 	glutSwapBuffers(); // swaps the front and back buffer
 }
 
 void IG1App::display2V() const
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clears the back buffer
 
-	cout << "Display2V" << endl;
-	// para renderizar las vistas utilizamos una cámara auxiliar :
-	Camera auxCam = *mCamera; // copiando mCamera
-	// el puerto de vista queda compartido (se copia el puntero )
-	Viewport auxVP = *mViewPort; // lo copiamos en una var. aux . para *
-	// el tamaño de los 4 puertos de vista es el mismo , lo configuramos
+	//camara auxiliar
+	Camera auxCam = *mCamera;
+	//queda compartido el puerto de vista
+	Viewport auxVP = *mViewPort;
+	//configuramos el tamaño para los dos puertos de vista
 	mViewPort->setSize(mWinW / 2, mWinH);
-	// igual que en resize , para que no cambie la escala ,
-	// tenemos que cambiar el tamaño de la ventana de vista de la cámara
-	auxCam.setSize(mViewPort->width(), mViewPort-> height());
+	//para  que no cambie la escala, se cambia el tamaño de la ventrana de vista de la camara
+	auxCam.setSize(mViewPort->width(), mViewPort->height());
 
+	//vista 3D
+	//configurar posicion
 	mViewPort->setPos(0, 0);
+	//cambiar posicion y orientacion de la camara
 	auxCam.set3D();
-	mScenes[sceneId]->render(auxCam); // uploads the viewport and camera to the GPU
-
-	mViewPort->setPos(mWinW / 2, mWinH);
-	auxCam.set2D();
-	mScenes[sceneId]->render(auxCam); // uploads the viewport and camera to the GPU
-
-	//*mViewPort = auxVP; // * restaurar el puerto de vista ( NOTA )
-	glutSwapBuffers(); // swaps the front and back buffer
+	mScenes[sceneId]->render(auxCam);
+	//vista cenital
+	//configurar posicion
+	mViewPort->setPos(mWinW/2, 0);
+	//cambiar posicion y orientacion de la camara
+	auxCam.setCenital();
+	mScenes[sceneId]->render(auxCam);
+	//restaurar el puerto de vista
+	*mViewPort = auxVP;
 }
 
 void
@@ -180,7 +184,8 @@ IG1App::key(unsigned char key, int x, int y)
 			mCamera->orbit(1, 1);
 			break;
 		case 'k':
-			display2V();
+			m2Vistas = !m2Vistas;
+			display();
 			break;
 		case '0':
 			sceneId = 0;

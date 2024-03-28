@@ -66,6 +66,8 @@ protected:
 	static const int numScenes = 2;
 	// Graphics objects of the scene
 	Scene* mScenes[numScenes];
+
+	bool m2Vistas = false;
 };
 
 #endif //_H_IG1App_H_

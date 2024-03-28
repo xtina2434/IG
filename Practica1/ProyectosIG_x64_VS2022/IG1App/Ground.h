@@ -18,7 +18,7 @@ public:
 		//aplicar la textura (19 Y 20)
 		setTexture(myText);
 		//suelo en posicion horizontal en el plano Y=0
-		static double angleRot = 3.14/2;
+		static double angleRot = 3.14/2; //90 grados en radianes
 		glm::dmat4 rot = glm::rotate(glm::dmat4(1.0), angleRot, glm::dvec3(1.0, 0.0, 0.0));
 		setModelMat(rot);
 	
