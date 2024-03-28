@@ -65,7 +65,8 @@ protected:
 	glm::dvec3 mLook = {0.0, 0.0, 0.0};  // target's position
 	glm::dvec3 mUp = {0.0, 1.0, 0.0};    // the up vector
 
-	GLdouble mRadio = 300, mAng = 0;
+	GLdouble mRadio = 1000,	//esfera virtual de radio 1000
+			 mAng = -45; //longitud 45 grados oeste
 
 	//APARTADO 39
 	glm::dvec3 mRight;
