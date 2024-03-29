@@ -79,6 +79,10 @@ IG1App::iniWinOpenGL()
 	glutKeyboardFunc(s_key);
 	glutSpecialFunc(s_specialKey);
 	glutDisplayFunc(s_display);
+	//APARTADO 53
+	glutMouseFunc(s_mouse);				//que ocurre cuando se presiona o se suelta un boton del raton
+	glutMotionFunc(s_motion);			//que ocurre cuando se mueve el raton con un boton presionado
+	glutMouseWheelFunc(s_mouseWheel);	//que ocurre cuando se gira la rueda del raton
 
 	cout << glGetString(GL_VERSION) << '\n';
 	cout << glGetString(GL_VENDOR) << '\n';
@@ -154,6 +158,51 @@ IG1App::resize(int newWidth, int newHeight)
 void 
 IG1App::update() {
 	mScenes[sceneId]->update();
+	glutPostRedisplay();
+}
+//APARTADO 53
+void
+IG1App::mouse(int button, int state, int x, int y) {
+	//captura el boton pulsado
+	mMouseButt = button; 
+	//convertir las coordenadas de ventana (origen esquina superior izquierda)
+	//a puerto de vista (origen esquina inferior izquierda)
+	y = glutGet(GLUT_WINDOW_HEIGHT) - y;
+	//captura las coordenadas del raton
+	mMouseCoord = glm::dvec2(x, y);	
+	
+}
+void
+IG1App::motion(int x, int y) {
+	//guardar diferencia entre mCoord
+	glm::dvec2 mp = glm::dvec2(x, glutGet(GLUT_WINDOW_HEIGHT) - y) - mMouseCoord; 
+	//guardar en mCoord la posicion del raton
+	mMouseCoord = glm::dvec2(x, glutGet(GLUT_WINDOW_HEIGHT) - y); 
+
+	//si esta pulsado el boton izq, la camara orbita
+	if (mMouseButt == GLUT_LEFT_BUTTON) {
+		mCamera->orbit(mp.x * 0.05, mp.y);
+	}
+	//si esta pulsado el boton derecho, la camara se desplaza segun mp
+	else if (mMouseButt == GLUT_RIGHT_BUTTON) {
+		//ns si el menos esta bien
+		mCamera->moveUD(-mp.y);
+		mCamera->moveLR(-mp.x);
+	}
+	glutPostRedisplay();
+}
+void
+IG1App::mouseWheel(int n, int d, int x, int y) {
+	//averiguar numero de teclas pulsadas
+	int numModifiers = glutGetModifiers();
+	//si no hay ninguna la camara se mueve con moveFB segun el valor de d
+	if (numModifiers == 0) {
+		mCamera->moveFB(d);
+	}
+	//si esta pulsada la tecla ctrl la camara cambia la escala segun el valor de d
+	else if (numModifiers == GLUT_ACTIVE_CTRL) {
+		mCamera->setScale(d * 0.1) ; // * 0.1 para que no vaya tan rapido al hacer zoom
+	}
 	glutPostRedisplay();
 }
 void
