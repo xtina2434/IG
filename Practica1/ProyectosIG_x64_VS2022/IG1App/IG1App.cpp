@@ -114,7 +114,7 @@ IG1App::display() const
 	}
 	glutSwapBuffers(); // swaps the front and back buffer
 }
-
+//APARTADO 51
 void IG1App::display2V() const
 {
 

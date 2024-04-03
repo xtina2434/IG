@@ -24,7 +24,7 @@ void GlassParapet::render(glm::dmat4 const& modelViewMat) const {
 		}
 		else {
 			//si no hay textura, rendereizar la caja de color blanco
-			std::vector<glm::dvec4> white(mMesh->size(), glm::dvec4(1.0,1.0, 1.0, 1.0));
+			std::vector<glm::dvec4> white(mMesh->size(), glm::dvec4(1.0,1.0, 1.0, 0.5));
 			mMesh->setColor(white);
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		}

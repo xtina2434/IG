@@ -31,7 +31,7 @@ void RGBTriangle::render(glm::dmat4 const& modelViewMat) const {
 		mMesh->render();
 
 		////restablecer el modo de poligono
-		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 }
 void RGBTriangle::update() {

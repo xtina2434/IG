@@ -367,9 +367,12 @@ Mesh* Mesh::generateStar3DTexCor(GLdouble re, GLuint np, GLdouble h)
 
 	//vertice de origen
 	mesh->vVertices.emplace_back(0.0, 0.0, 0.0);
-
+	//definir coordenadas de textura
+	mesh->vTexCoords.emplace_back(0.5, 0.5); //v0
 	//radio puntos internos
 	GLdouble ri = re / 2;
+	//coordenadas de textura
+	GLdouble u = 0.5, v = 0.5;
 
 	for (GLuint i = 0; i < mesh->mNumVertices - 1; ++i) { //hay 14 en total, mesh->mNumVertices - 1 es 13, para no contar con el de origen ni con el ultimo
 		GLdouble alpha = i * angleIncrement;
@@ -387,35 +390,41 @@ Mesh* Mesh::generateStar3DTexCor(GLdouble re, GLuint np, GLdouble h)
 		}
 		//plano Z = h
 		mesh->vVertices.emplace_back(x, y, h); //agregar las coordenadas al vector de vertices
+
+		//textura
+		u = 0.5 + 0.5 * cos(alpha);
+		v = 0.5 + 0.5 * sin(alpha);
+		//añadir las coordenadas de la textura a la mesh
+		mesh->vTexCoords.emplace_back(u, v);
 	}
 	//concectar el ultimo vertice con el primero
 	mesh->vVertices.emplace_back(mesh->vVertices[1]);
+	mesh->vTexCoords.emplace_back(mesh->vTexCoords[1]);
 
-	//definir coordenadas de textura
-	mesh->vTexCoords.emplace_back(0.5, 0.5); //v0
-	GLdouble u = 0, v = 0;
-	for (GLuint i = 0; i < mesh->mNumVertices - 1; ++i) { //hay 14 en total, mesh->mNumVertices - 1 es 13, para no contar con el de origen ni con el ultimo
-		//empieza 8 en positivo
-		if ((i/8) % 2 == 0) {
-			if ((i / 4) % 2 == 0) {
-				u += 0.25;
-			}
-			else {
-				v += 0.25;
-			}
-		}
-		//luego 8 restando
-		else {
-			if ((i / 4) % 2 == 0) {
-				u -= 0.25;
-			}
-			else {
-				v -= 0.25;
-			}
-		}
-		mesh->vTexCoords.emplace_back(u, v); //agregar las coordenadas al vector de vertices
-	}
-	mesh->vTexCoords.emplace_back(0.5, 0.5); //v0
+	
+	//GLdouble u = 0, v = 0;
+	//for (GLuint i = 0; i < mesh->mNumVertices - 1; ++i) { //hay 14 en total, mesh->mNumVertices - 1 es 13, para no contar con el de origen ni con el ultimo
+	//	//empieza 8 en positivo
+	//	if ((i/8) % 2 == 0) {
+	//		if ((i / 4) % 2 == 0) {
+	//			u += 0.25;
+	//		}
+	//		else {
+	//			v += 0.25;
+	//		}
+	//	}
+	//	//luego 8 restando
+	//	else {
+	//		if ((i / 4) % 2 == 0) {
+	//			u -= 0.25;
+	//		}
+	//		else {
+	//			v -= 0.25;
+	//		}
+	//	}
+	//	mesh->vTexCoords.emplace_back(u, v); //agregar las coordenadas al vector de vertices
+	//}
+	//mesh->vTexCoords.emplace_back(0.5, 0.5); //v0
 
 	return mesh;
 }

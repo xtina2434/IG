@@ -40,6 +40,7 @@ protected:
 	void free();
 
 	void display() const;                      // the scene
+	//APARTADO 51
 	void display2V() const;                      // the scene
 	void resize(int newWidth, int newHeight);  // the viewport (without changing the scale)
 	void key(unsigned char key, int x, int y); // keypress event
