@@ -18,6 +18,11 @@
 #include "Star3D.h"
 #include "GlassParapet.h"
 #include "Photo.h"
+#include "Sphere.h"
+#include "Disk.h"
+#include "Cylinder.h"
+#include "PartialDisk.h"
+
 class Scene
 {
 public:
@@ -37,6 +42,7 @@ public:
 	void update();
 
 	void setScene(int id);
+	void sceneDirLight(Camera const& cam) const;
 
 protected:
 	void free();

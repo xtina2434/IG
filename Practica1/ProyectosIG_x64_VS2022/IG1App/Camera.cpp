@@ -193,7 +193,6 @@ void Camera::rollReal(GLdouble cs) {
 	double radianAngle = 0.1 * cs;
 	glm::dvec3 axis = normalize(mEye - mLook);
 
-	// Main algorithm
 	double cosAngle = cos(radianAngle), sinAngle = sin(radianAngle);
 	glm::dvec3 aCROSSv = cross(axis, v);
 	glm::dvec3 ret = v;

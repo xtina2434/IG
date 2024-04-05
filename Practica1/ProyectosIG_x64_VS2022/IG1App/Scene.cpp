@@ -18,7 +18,7 @@ Scene::init()
 	gObjects.push_back(new EjesRGB(400.0));
 	load();
 	//debe ir en setscene
-	int APARTADO =38;
+	int APARTADO = 58;
 	switch (APARTADO)
 	{
 	case 3: {  //APARTADO 3
@@ -142,6 +142,36 @@ Scene::init()
 		gObjects.push_back(myGP);
 	}
 		   break;
+	case 58: {
+		Sphere* mySphere = new Sphere(200);
+		mySphere->setColor(glm::dvec4(1.0, 0.5, 0.0, 1.0));
+		gObjects.push_back(mySphere);
+
+		Disk* myDisk = new Disk(100, 200);
+		myDisk->setColor(glm::dvec4(1.0, 0.0, 0.0, 1.0));
+		glm::dmat4 rotateDisk = glm::rotate(glm::dmat4(1.0), 3.14/2, glm::dvec3(1.0, 0.0, 0.0));
+		glm::dmat4 translDisk = glm::translate(glm::dmat4(1.0f), glm::dvec3(0, 0, -150));
+		myDisk->setModelMat(rotateDisk * translDisk);
+		gObjects.push_back(myDisk);
+
+		PartialDisk* myPartialDisk = new PartialDisk(100, 150, 90, 180);
+		myPartialDisk->setColor(glm::dvec4(0.0, 1.0, 0.0, 1.0));
+		glm::dmat4 translPartialDisk = glm::translate(glm::dmat4(1.0f), glm::dvec3(0, 0, 150));
+		myPartialDisk->setModelMat(translPartialDisk);
+		gObjects.push_back(myPartialDisk);
+
+		Cylinder* myCylinderA = new Cylinder(20, 0, 20);
+		myCylinderA->setColor(glm::dvec4(0.0, 0.0, 1.0, 1.0));
+		glm::dmat4 translCylinderA = glm::translate(glm::dmat4(1.0f), glm::dvec3(50, 80, 200));
+		myCylinderA->setModelMat(translCylinderA);
+		gObjects.push_back(myCylinderA);
+		Cylinder* myCylinderB = new Cylinder(20, 0, 20);
+		myCylinderB->setColor(glm::dvec4(0.1, 0.3, 0.5, 1.0));
+		glm::dmat4 translCylinderB = glm::translate(glm::dmat4(1.0f), glm::dvec3(-50, 80, 200));
+		myCylinderB->setModelMat(translCylinderB);
+		gObjects.push_back(myCylinderB);
+	}
+		   break;
 	default:
 		break;
 	}
@@ -207,6 +237,7 @@ void Scene::load()
 void
 Scene::render(Camera const& cam) const
 {
+	sceneDirLight(cam);
 	cam.upload();
 	for (Abs_Entity* el : gObjects) {
 		el->render(cam.viewMat());
@@ -217,5 +248,21 @@ Scene::update() {
 	for (Abs_Entity* entity : gObjects) {
 		entity->update();
 	}
+}
+
+void 
+Scene::sceneDirLight(Camera const& cam) const {
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	glm::fvec4 posDir = { 1, 1, 1, 0 };
+	glMatrixMode(GL_MODELVIEW);
+	glLoadMatrixd(value_ptr(cam.viewMat()));
+	glLightfv(GL_LIGHT0, GL_POSITION, value_ptr(posDir));
+	glm::fvec4 ambient = { 0, 0, 0, 1 };
+	glm::fvec4 diffuse = { 1, 1, 1, 1 };
+	glm::fvec4 specular = { 0.5, 0.5, 0.5, 1 };
+	glLightfv(GL_LIGHT0, GL_AMBIENT, value_ptr(ambient));
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, value_ptr(diffuse));
+	glLightfv(GL_LIGHT0, GL_SPECULAR, value_ptr(specular));
 }
 
