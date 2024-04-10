@@ -2,3 +2,6 @@
 
 AdvancedTIE::AdvancedTIE()
 {}
+AdvancedTIE::~AdvancedTIE() {
+
+}

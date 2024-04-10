@@ -1,5 +1,8 @@
 #include "CompoundEntity.h"
 
+CompoundEntity::CompoundEntity() {
+
+}
 CompoundEntity::~CompoundEntity()
 {
 	for (Abs_Entity* e : gObjects) {

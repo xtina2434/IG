@@ -22,7 +22,8 @@
 #include "Disk.h"
 #include "Cylinder.h"
 #include "PartialDisk.h"
-
+#include "AdvancedTIE.h"
+#include "WingAdvancedTIE.h"
 class Scene
 {
 public:

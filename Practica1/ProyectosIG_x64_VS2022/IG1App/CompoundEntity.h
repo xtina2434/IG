@@ -6,7 +6,7 @@
 class CompoundEntity : public Abs_Entity {
 public:
 	CompoundEntity();
-	~CompoundEntity();
+	virtual ~CompoundEntity();
 
 	void addEntity(Abs_Entity* ae);
 	void render(glm::dmat4 const& modelViewMat) const;

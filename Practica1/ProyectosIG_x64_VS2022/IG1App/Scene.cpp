@@ -18,7 +18,7 @@ Scene::init()
 	gObjects.push_back(new EjesRGB(400.0));
 	load();
 	//debe ir en setscene
-	int APARTADO = 58;
+	int APARTADO = 60;
 	switch (APARTADO)
 	{
 	case 3: {  //APARTADO 3
@@ -99,7 +99,7 @@ Scene::init()
 	}
 		   break;
 	case 20: {	//APARTADO 18 19 y 20
-		Ground* myGround = new Ground(225, 225, gTextures[0], 4,4);
+		Ground* myGround = new Ground(225, 225, gTextures[0], 4, 4);
 		gObjects.push_back(myGround);
 	}
 		   break;
@@ -119,14 +119,14 @@ Scene::init()
 	}
 		   break;
 	case 36: { // APARTADO 35,36
-		Ground* myGround = new Ground(600, 600, gTextures[0], 4,4);
+		Ground* myGround = new Ground(600, 600, gTextures[0], 4, 4);
 		gObjects.push_back(myGround);
 		Photo* myPhoto = new Photo(200, 200);
 		gObjects.push_back(myPhoto);
 	}
 		   break;
 	case 38: {
-		Ground* myGround = new Ground(225, 225, gTextures[0],4,4);
+		Ground* myGround = new Ground(225, 225, gTextures[0], 4, 4);
 		gObjects.push_back(myGround);
 		BoxOutline* myBox = new BoxOutline(30, gTextures[1], gTextures[2]);
 		glm::dmat4 translBox = glm::translate(glm::dmat4(1.0f), glm::dvec3(112, 10, 112));
@@ -149,7 +149,7 @@ Scene::init()
 
 		Disk* myDisk = new Disk(100, 200);
 		myDisk->setColor(glm::dvec4(1.0, 0.0, 0.0, 1.0));
-		glm::dmat4 rotateDisk = glm::rotate(glm::dmat4(1.0), 3.14/2, glm::dvec3(1.0, 0.0, 0.0));
+		glm::dmat4 rotateDisk = glm::rotate(glm::dmat4(1.0), 3.14 / 2, glm::dvec3(1.0, 0.0, 0.0));
 		glm::dmat4 translDisk = glm::translate(glm::dmat4(1.0f), glm::dvec3(0, 0, -150));
 		myDisk->setModelMat(rotateDisk * translDisk);
 		gObjects.push_back(myDisk);
@@ -172,6 +172,25 @@ Scene::init()
 		gObjects.push_back(myCylinderB);
 	}
 		   break;
+	case 60: {
+		AdvancedTIE * myTIE = new AdvancedTIE();
+		
+		Cylinder* myCylinder = new Cylinder(30, 30, 400);
+		glm::dmat4 mT = glm::translate(glm::dmat4(1.0f), glm::dvec3(0, 0, -200));
+		myCylinder->setModelMat(mT);
+		myTIE->addEntity(myCylinder);
+		Sphere* mySphere = new Sphere(100);
+		myTIE->addEntity(mySphere);
+		WingAdvancedTIE* myWing1 = new WingAdvancedTIE(200, 100, 200, gTextures[5]);
+		myTIE->addEntity(myWing1);
+		WingAdvancedTIE* myWing2 = new WingAdvancedTIE(200, 100, 200, gTextures[5]);
+		glm::dmat4 mR1 = glm::rotate(glm::dmat4(1.0), 3.1416, glm::dvec3(0.0, 1.0, 0.0));
+		myWing2->setModelMat(mR1);
+		myTIE->addEntity(myWing2);
+		gObjects.push_back(myTIE);
+	}
+		break;
+	
 	default:
 		break;
 	}
@@ -232,6 +251,10 @@ void Scene::load()
 	Texture* glassText = new Texture();
 	glassText->load("../BmpsP1-20240223/windowV.bmp",128);
 	gTextures.push_back(glassText);
+
+	Texture* nightText = new Texture();
+	nightText->load("../BmpsP1-20240223/noche.bmp", 128);
+	gTextures.push_back(nightText);
 }
 
 void

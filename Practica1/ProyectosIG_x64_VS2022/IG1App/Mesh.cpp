@@ -431,3 +431,31 @@ Mesh* Mesh::generateStar3DTexCor(GLdouble re, GLuint np, GLdouble h)
 
 
 
+Mesh* Mesh::generateWingText(GLdouble w, GLdouble h, GLdouble r) {
+	Mesh* mesh = new Mesh();
+
+	mesh->mPrimitive = GL_TRIANGLE_STRIP;
+	mesh->mNumVertices = 8; 
+	mesh->vVertices.reserve(mesh->mNumVertices);
+	mesh->vTexCoords.reserve(mesh->mNumVertices);
+
+	mesh->vVertices.emplace_back(-w / 2, h * 1.5, r/2);
+	mesh->vVertices.emplace_back(w / 2, h * 1.5, r / 2);
+	mesh->vVertices.emplace_back(-w / 2, h / 2, r);
+	mesh->vVertices.emplace_back(w / 2, h / 2, r);
+	mesh->vVertices.emplace_back(-w / 2,- h / 2, r);
+	mesh->vVertices.emplace_back(w / 2,- h / 2, r);
+	mesh->vVertices.emplace_back(-w / 2, -h *1.5, r/2);
+	mesh->vVertices.emplace_back(w / 2, -h * 1.5, r / 2);
+
+
+	mesh->vTexCoords.emplace_back(0.0, 0.0);
+	mesh->vTexCoords.emplace_back(1.0, 0.0);
+	mesh->vTexCoords.emplace_back(0.0 , 0.33);
+	mesh->vTexCoords.emplace_back(1.0, 0.33);
+	mesh->vTexCoords.emplace_back(0.0, 0.66);
+	mesh->vTexCoords.emplace_back(1.0, 0.66);
+	mesh->vTexCoords.emplace_back(0.0, 1.0);
+	mesh->vTexCoords.emplace_back(1.0, 1.0);
+	return mesh;
+}

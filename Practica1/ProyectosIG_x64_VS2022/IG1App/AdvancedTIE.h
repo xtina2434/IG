@@ -4,5 +4,6 @@
 class AdvancedTIE : public CompoundEntity {
 public:
 	AdvancedTIE();
+	virtual ~AdvancedTIE();
 protected:
 };
