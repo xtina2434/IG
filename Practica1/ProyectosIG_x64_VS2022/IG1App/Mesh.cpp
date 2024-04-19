@@ -20,7 +20,10 @@ Mesh::render() const
 {
 	if (vVertices.size() > 0) { // transfer data
 		// transfer the coordinates of the vertices
-		
+		if (vNormals.size() > 0) {
+			glEnableClientState(GL_NORMAL_ARRAY);
+			glNormalPointer(GL_DOUBLE, 0, vNormals.data());
+		}
 		
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glEnableClientState(GL_COLOR_ARRAY);
@@ -39,6 +42,9 @@ Mesh::render() const
 		glTexCoordPointer(2, GL_DOUBLE, 0, vTexCoords.data());
 		draw();
 
+		if (vNormals.size() > 0) {
+			glDisableClientState(GL_NORMAL_ARRAY);
+		}
 		glDisableClientState(GL_VERTEX_ARRAY);
 		glDisableClientState(GL_COLOR_ARRAY);
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);

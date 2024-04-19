@@ -24,6 +24,8 @@
 #include "PartialDisk.h"
 #include "AdvancedTIE.h"
 #include "WingAdvancedTIE.h"
+#include "Cubo.h"
+
 class Scene
 {
 public:

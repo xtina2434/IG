@@ -22,3 +22,10 @@ void CompoundEntity::render(glm::dmat4 const& modelViewMat) const
 	}
 }
 
+void CompoundEntity::setColor(glm::dvec4 const& col)
+{
+	for (Abs_Entity* e : gObjects) {
+		e->setColor(col);
+	}
+}
+

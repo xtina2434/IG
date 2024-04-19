@@ -4,7 +4,8 @@
 #include <GL/freeglut.h>
 #include <glm/glm.hpp>
 #include "Texture.h"
-#include "Mesh.h"
+//#include "Mesh.h"
+#include "IndexMesh.h"
 
 class Abs_Entity // abstract class
 {
@@ -23,7 +24,7 @@ public:
 	glm::dmat4 const& modelMat() const { return mModelMat; };
 	void setModelMat(glm::dmat4 const& aMat) { mModelMat = aMat; };
 	glm::dvec4 const& getColor() const { return mColor; };
-	void setColor(glm::dvec4 const& col) { mColor = col; };
+	virtual void setColor(glm::dvec4 const& col) { mColor = col; };
 	void setTexture(Texture* tex) { mTexture = tex; };
 	void setBackTexture(Texture* tex) { backTexture = tex; };
 protected:
