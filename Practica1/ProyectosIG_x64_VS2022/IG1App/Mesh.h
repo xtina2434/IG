@@ -40,11 +40,11 @@ public:
 protected:
 	GLuint mPrimitive =
 	  GL_TRIANGLES;          // graphic primitive: GL_POINTS, GL_LINES, GL_TRIANGLES, ...
-	static GLuint mNumVertices = 0; // number of elements ( = vVertices.size())
-	static std::vector<glm::dvec3> vVertices; // vertex array
+	GLuint mNumVertices = 0; // number of elements ( = vVertices.size())
+	std::vector<glm::dvec3> vVertices; // vertex array
 	std::vector<glm::dvec4> vColors;   // color array
 	std::vector<glm::dvec2> vTexCoords; //textures array
-	static std::vector<glm::dvec3> vNormals; //normal array
+	std::vector<glm::dvec3> vNormals; //normal array
 	virtual void draw() const;
 };
 
