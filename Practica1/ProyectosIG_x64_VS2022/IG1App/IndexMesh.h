@@ -12,5 +12,5 @@ public:
 	virtual void draw() const;
 
 	static IndexMesh* generateIndexedBox(GLdouble l);
-	static glm::dvec3 calculoVectorNormalPorNewell(glm::dvec3 a, glm::dvec3 b, glm::dvec3 c);
+	void buildNormalVectors();
 };

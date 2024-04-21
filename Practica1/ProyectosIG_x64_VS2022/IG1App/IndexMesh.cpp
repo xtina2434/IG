@@ -70,30 +70,12 @@ IndexMesh* IndexMesh::generateIndexedBox(GLdouble l)
 	mesh->vVertices.emplace_back(m, -m, -m);
 	mesh->vVertices.emplace_back(-m, m, -m);
 	mesh->vVertices.emplace_back(-m, -m, -m);
-	/*mesh->vVertices.emplace_back(-m, -m, -m);
-	mesh->vVertices.emplace_back(m, -m, -m);
-	mesh->vVertices.emplace_back(m, m, -m);
-	mesh->vVertices.emplace_back(-m, m, -m);
-	mesh->vVertices.emplace_back(-m, -m, m);
-	mesh->vVertices.emplace_back(m, -m, m);
-	mesh->vVertices.emplace_back(m, m, m);
-	mesh->vVertices.emplace_back(-m, m, m);*/
 	
-	mesh->vNormals.reserve(mesh->mNumVertices);
-	mesh->vNormals.emplace_back(glm::normalize(glm::dvec3(1, 1, 1)));
-	mesh->vNormals.emplace_back(glm::normalize(glm::dvec3(1, 1, -1)));
-	mesh->vNormals.emplace_back(glm::normalize(glm::dvec3(1, -1, 1)));
-	mesh->vNormals.emplace_back(glm::normalize(glm::dvec3(1, -1, -1)));
-	mesh->vNormals.emplace_back(glm::normalize(glm::dvec3(-1, 1, 1)));
-	mesh->vNormals.emplace_back(glm::normalize(glm::dvec3(-1, 1, -1)));
-	mesh->vNormals.emplace_back(glm::normalize(glm::dvec3(-1, -1, 1)));
-	mesh->vNormals.emplace_back(glm::normalize(glm::dvec3(-1, -1, -1)));
-
 	mesh->nNumIndices = 36;
 	mesh->vIndices = new GLuint[mesh->nNumIndices];
-	GLuint arr[36] = { 
+	GLuint arr[36] = {
 		0, 1, 2, 1, 3, 2,
-		2, 3, 4, 3, 5, 4, 
+		2, 3, 4, 3, 5, 4,
 		4, 5, 6, 5, 7, 6,
 		0, 6, 1, 6, 7, 1,
 		0, 2, 4, 4, 6, 0,
@@ -102,35 +84,45 @@ IndexMesh* IndexMesh::generateIndexedBox(GLdouble l)
 	for (int i = 0; i < mesh->nNumIndices; i++) {
 		mesh->vIndices[i] = arr[i];
 	}
-
-
-	
-	//mesh->vNormals.reserve(mesh->mNumVertices);
-	//for (int i = 0; i < mesh->nNumIndices; i + 3) {
-	//	std::cout << "i: " << i << std::endl;
-	//	glm::dvec3 n(0, 0, 0);
-	//	//n = glm::normalize(glm::cross((mesh->vVertices[mesh->vIndices[i + 2]] - mesh->vVertices[mesh->vIndices[i + 1]]), (mesh->vVertices[mesh->vIndices[i]] - mesh->vVertices[mesh->vIndices[i + 1]])));
-	//	n = calculoVectorNormalPorNewell(mesh->vVertices[mesh->vIndices[i]], mesh->vVertices[mesh->vIndices[i + 1]], mesh->vVertices[mesh->vIndices[i + 2]]);
-	//	mesh->vNormals[mesh->vIndices[i]] += n;
-	//	mesh->vNormals[mesh->vIndices[i+1]] += n;
-	//	mesh->vNormals[mesh->vIndices[i+2]] += n;
-	//}
-	
+	//normales a mano
+	mesh->vNormals.reserve(mesh->mNumVertices);
+	/*mesh->vNormals.emplace_back(glm::normalize(glm::dvec3(-1, 2, 1)));
+	mesh->vNormals.emplace_back(glm::normalize(glm::dvec3(-1, -1, 1)));
+	mesh->vNormals.emplace_back(glm::normalize(glm::dvec3(1, 1, 2)));
+	mesh->vNormals.emplace_back(glm::normalize(glm::dvec3(2, -1, 1)));
+	mesh->vNormals.emplace_back(glm::normalize(glm::dvec3(7, 7, -3)));
+	mesh->vNormals.emplace_back(glm::normalize(glm::dvec3(3, -7, -7)));
+	mesh->vNormals.emplace_back(glm::normalize(glm::dvec3(-7, 3, -7)));
+	mesh->vNormals.emplace_back(glm::normalize(glm::dvec3(-1, -1, -1)));*/
+	mesh->buildNormalVectors();
 	return mesh;
 }
 
+void
+IndexMesh::buildNormalVectors() {
+	for (int i = 0; i < nNumIndices; i += 3) {
+		glm::dvec3 n(0.0, 0.0, 0.0); //vector normal donde nos dara el resultado de las operaciones entre los vertices
+		//obtener los 3 indices que corresponden al triangulo actual
+		GLuint ind_a = vIndices[i];
+		GLuint ind_b = vIndices[i + 1];
+		GLuint ind_c = vIndices[i + 2];
+		//vectores entre vertices
+		glm::dvec3 v1 = vVertices[ind_b] - vVertices[ind_a];
+		glm::dvec3 v2 = vVertices[ind_c] - vVertices[ind_b];
+		//producto cruz entre los vectores para asi obtener la normal
+		n.x += (v1.y - v2.y) * (v1.z + v2.z);
+		n.y += (v1.z - v2.z) * (v1.x + v2.x);
+		n.z += (v1.x - v2.x) * (v1.y + v2.y);
 
-//glm::dvec3 IndexMesh::calculoVectorNormalPorNewell(glm::dvec3 a, glm::dvec3 b, glm::dvec3 c) {
-//	//glm::dvec3 n(0, 0, 0);
-//
-//	//std::vector< glm::dvec3> cara = { a, b, c };
-//	//
-//	//for (int i = 0; i < 3; ++i) {
-//	//	glm::dvec3 vertActual = cara[i];
-//	//	glm::dvec3 vertSiguiente = cara[(i + 1) % 3];
-//	//	n.x += (vertActual.y - vertSiguiente.y) * (vertActual.z + vertSiguiente.z);
-//	//	n.y += (vertActual.z - vertSiguiente.z) * (vertActual.x + vertSiguiente.x);
-//	//	n.z += (vertActual.x - vertSiguiente.x) * (vertActual.y + vertSiguiente.y);
-//	//}
-//	//return glm::normalize(n);
-//}
+		////normalizar el vector normal
+		//n = glm::normalize(n);
+		//asignar la normal obtenida a los vertices de la cara actual
+		vNormals[ind_a] += n;
+		vNormals[ind_b] += n;
+		vNormals[ind_c] += n;
+	}
+	//normalizar todas las normales resultantes
+	for (auto& normal : vNormals) {
+		normal = glm::normalize(normal);
+	}
+}
