@@ -78,29 +78,31 @@ IndexMesh* IndexMesh::generateIndexedBox(GLdouble l)
 	mesh->vVertices.emplace_back(m, -m, m);
 	mesh->vVertices.emplace_back(m, m, m);
 	mesh->vVertices.emplace_back(-m, m, m);*/
-		
+	
+	mesh->vNormals.reserve(mesh->mNumVertices);
+	mesh->vNormals.emplace_back(glm::normalize(glm::dvec3(1, 1, 1)));
+	mesh->vNormals.emplace_back(glm::normalize(glm::dvec3(1, 1, -1)));
+	mesh->vNormals.emplace_back(glm::normalize(glm::dvec3(1, -1, 1)));
+	mesh->vNormals.emplace_back(glm::normalize(glm::dvec3(1, -1, -1)));
+	mesh->vNormals.emplace_back(glm::normalize(glm::dvec3(-1, 1, 1)));
+	mesh->vNormals.emplace_back(glm::normalize(glm::dvec3(-1, 1, -1)));
+	mesh->vNormals.emplace_back(glm::normalize(glm::dvec3(-1, -1, 1)));
+	mesh->vNormals.emplace_back(glm::normalize(glm::dvec3(-1, -1, -1)));
+
 	mesh->nNumIndices = 36;
 	mesh->vIndices = new GLuint[mesh->nNumIndices];
-
 	GLuint arr[36] = { 
-	  0, 1, 2, 2, 1, 3,
-	  2, 3, 4, 4, 3, 5,
-	  4, 5, 6, 6, 5, 7,
-	  6, 7, 0, 0, 7, 1,
-	  4, 6, 2, 2, 6, 0,
-	  1, 7, 3, 3, 7, 5 };
+		0, 1, 2, 1, 3, 2,
+		2, 3, 4, 3, 5, 4, 
+		4, 5, 6, 5, 7, 6,
+		0, 6, 1, 6, 7, 1,
+		0, 2, 4, 4, 6, 0,
+		1, 5, 3, 1, 7, 5 };
 
 	for (int i = 0; i < mesh->nNumIndices; i++) {
 		mesh->vIndices[i] = arr[i];
 	}
-	//GLuint vIndices[] = {
-	//  0, 1, 2, 2, 1, 3,
-	//  2, 3, 4, 4, 3, 5,
-	//  4, 5, 6, 6, 5, 7,
-	//  6, 7, 0, 0, 7, 1,
-	//  4, 6, 2, 2, 6, 0,
-	//  1, 7, 3, 3, 7, 5
-	//};
+
 
 	
 	//mesh->vNormals.reserve(mesh->mNumVertices);

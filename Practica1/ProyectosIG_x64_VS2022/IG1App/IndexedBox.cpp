@@ -1,13 +1,15 @@
-#include "Cubo.h"
+#include "IndexedBox.h"
 
-Cubo::~Cubo() {
+IndexedBox::~IndexedBox() {
 	delete mMesh;
 	mMesh = nullptr;
 }
-void Cubo::render(glm::dmat4 const& modelViewMat) const {
+void IndexedBox::render(glm::dmat4 const& modelViewMat) const {
 	if (mMesh != nullptr) {
 		glm::dmat4 aMat = modelViewMat * mModelMat;
 		upload(aMat);
+		mMesh->setColor(std::vector<glm::dvec4>(mMesh->size(), mColor));
+		//glColor3f(mColor.r, mColor.g, mColor.b);
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		mMesh->render();
 

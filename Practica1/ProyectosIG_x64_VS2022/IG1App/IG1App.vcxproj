@@ -77,7 +77,7 @@
     <ClInclude Include="CheckML.h" />
     <ClInclude Include="CompoundEntity.h" />
     <ClInclude Include="Cube.h" />
-    <ClInclude Include="Cubo.h" />
+    <ClInclude Include="IndexedBox.h" />
     <ClInclude Include="Cylinder.h" />
     <ClInclude Include="Disk.h" />
     <ClInclude Include="Entity.h" />
@@ -107,7 +107,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CompoundEntity.cpp" />
     <ClCompile Include="Cube.cpp" />
-    <ClCompile Include="Cubo.cpp" />
+    <ClCompile Include="IndexedBox.cpp" />
     <ClCompile Include="Cylinder.cpp" />
     <ClCompile Include="Disk.cpp" />
     <ClCompile Include="Entity.cpp" />

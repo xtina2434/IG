@@ -211,9 +211,9 @@ Scene::init()
 	}
 		break;
 	case 63: {
-		Cubo* myCubo = new Cubo(200);
-		myCubo->setColor(glm::dvec4(0.0, 1.0, 0.0, 1.0));
-		gObjects.push_back(myCubo);
+		IndexedBox* myIndexedBox = new IndexedBox(200);
+		myIndexedBox->setColor(glm::dvec4(0.0, 1.0, 0.0, 1.0));
+		gObjects.push_back(myIndexedBox);
 	}
 		   break;
 	

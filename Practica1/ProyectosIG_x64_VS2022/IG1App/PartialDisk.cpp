@@ -15,4 +15,5 @@ void PartialDisk::render(glm::dmat4 const& modelViewMat) const {
 	gluPartialDisk(q, innerRadius, outerRadius, 50, 50, startAngle, sweepAngle);
 	// Aquí se debe recuperar el color :
 	glColor3f (1.0 , 1.0 , 1.0);
+	glDisable(GL_COLOR_MATERIAL);
 }

@@ -99,7 +99,7 @@
     <ClInclude Include="IndexMesh.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Cubo.h">
+    <ClInclude Include="IndexedBox.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
@@ -188,7 +188,7 @@
     <ClCompile Include="IndexMesh.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="Cubo.cpp">
+    <ClCompile Include="IndexedBox.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
   </ItemGroup>
