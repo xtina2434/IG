@@ -100,6 +100,10 @@ IndexMesh* IndexMesh::generateIndexedBox(GLdouble l)
 
 void
 IndexMesh::buildNormalVectors() {
+	
+	for (int i = 0; i < mNumVertices; i++) {
+		vNormals.emplace_back(0,0,0);
+	}
 	for (int i = 0; i < nNumIndices; i += 3) {
 		glm::dvec3 n(0.0, 0.0, 0.0); //vector normal donde nos dara el resultado de las operaciones entre los vertices
 		//obtener los 3 indices que corresponden al triangulo actual
@@ -109,14 +113,11 @@ IndexMesh::buildNormalVectors() {
 		//vectores entre vertices
 		glm::dvec3 v1 = vVertices[ind_b] - vVertices[ind_a];
 		glm::dvec3 v2 = vVertices[ind_c] - vVertices[ind_b];
-		//producto cruz entre los vectores para asi obtener la normal
+		////producto cruz entre los vectores para asi obtener la normal
 		n.x += (v1.y - v2.y) * (v1.z + v2.z);
 		n.y += (v1.z - v2.z) * (v1.x + v2.x);
 		n.z += (v1.x - v2.x) * (v1.y + v2.y);
-
-		////normalizar el vector normal
-		//n = glm::normalize(n);
-		//asignar la normal obtenida a los vertices de la cara actual
+		//sumar la normal obtenida a los vertices de la cara actual
 		vNormals[ind_a] += n;
 		vNormals[ind_b] += n;
 		vNormals[ind_c] += n;
