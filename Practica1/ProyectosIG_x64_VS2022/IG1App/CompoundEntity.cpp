@@ -28,4 +28,9 @@ void CompoundEntity::setColor(glm::dvec4 const& col)
 		e->setColor(col);
 	}
 }
-
+void CompoundEntity::update() {
+	//lo comento pq ni idea si es asi
+	/*for (Abs_Entity* e : gObjects) {
+		e->update();
+	}*/
+}

@@ -18,7 +18,7 @@ Scene::init()
 	gObjects.push_back(new EjesRGB(400.0));
 	load();
 	//debe ir en setscene
-	int APARTADO = 63;
+	int APARTADO = 66;
 	switch (APARTADO)
 	{
 	case 3: {  //APARTADO 3
@@ -216,7 +216,23 @@ Scene::init()
 		gObjects.push_back(myIndexedBox);
 	}
 		   break;
-	
+	case 66: {
+		GLuint numSides = 128;
+		int r = 300;
+		RegularPolygon* myCircle = new RegularPolygon(numSides, r);
+		gObjects.push_back(myCircle);
+
+		CompoundEntity* nodoFicticio = new CompoundEntity();
+
+		RGBTriangle* myRGBTriangle = new RGBTriangle(3, 50);
+		nodoFicticio->addEntity(myRGBTriangle);
+		
+		myRGBTriangle->setModelMat(translate(nodoFicticio->modelMat(), dvec3(r, 0, 0)));
+		//esto se tendria que llamar constantemente en el update entiendo yo no se
+		//nodoFicticio->setModelMat(rotate(nodoFicticio->modelMat(), radians(180.0), dvec3(0, 0, 1)));
+		gObjects.push_back(nodoFicticio);
+	}
+		   break;
 	default:
 		break;
 	}
@@ -300,7 +316,6 @@ Scene::update() {
 		entity->update();
 	}
 }
-
 void 
 Scene::sceneDirLight(Camera const& cam) const {
 	glEnable(GL_LIGHTING);
