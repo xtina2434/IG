@@ -254,6 +254,12 @@ IG1App::key(unsigned char key, int x, int y)
 		case 'p':
 			mCamera->changePrj();
 			break;
+		case 'f': //TIE ROTATE
+			mScenes[sceneId]->cazaRotate();
+			break;
+		case 'g': //TIE ORBIT
+			mScenes[sceneId]->cazaOrbit();
+			break;
 		default:
 			need_redisplay = false;
 			break;

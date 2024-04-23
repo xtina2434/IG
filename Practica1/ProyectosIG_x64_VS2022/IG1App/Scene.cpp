@@ -18,7 +18,7 @@ Scene::init()
 	gObjects.push_back(new EjesRGB(400.0));
 	load();
 	//debe ir en setscene
-	int APARTADO = 66;
+	int APARTADO = 67;
 	switch (APARTADO)
 	{
 	case 3: {  //APARTADO 3
@@ -228,8 +228,62 @@ Scene::init()
 		nodoFicticio->addEntity(myRGBTriangle);
 		
 		myRGBTriangle->setModelMat(translate(nodoFicticio->modelMat(), dvec3(r, 0, 0)));
-		//esto se tendria que llamar constantemente en el update entiendo yo no se
-		//nodoFicticio->setModelMat(rotate(nodoFicticio->modelMat(), radians(180.0), dvec3(0, 0, 1)));
+		gObjects.push_back(nodoFicticio);
+	}
+		   break;
+	case 67: {
+
+		glClearColor(0.0, 0.0, 0.0, 1.0);
+
+		Sphere* myPlanet = new Sphere(1000);
+		glm::dmat4 mT4 = glm::translate(glm::dmat4(1.0f), glm::dvec3(0, -1111, 0));
+		myPlanet->setModelMat(mT4);
+		myPlanet->setColor(glm::dvec4(1.0, 0.8, 0.0, 1.0));
+		gObjects.push_back(myPlanet);
+
+		CompoundEntity* nodoFicticio = new CompoundEntity();
+
+		AdvancedTIE* myTIE = new AdvancedTIE();
+
+		Cylinder* myCylinder = new Cylinder(30, 30, 400);
+		glm::dmat4 mT1 = glm::translate(glm::dmat4(1.0f), glm::dvec3(0, 0, -200));
+		myCylinder->setModelMat(mT1);
+		myTIE->addEntity(myCylinder);
+
+		Sphere* mySphere = new Sphere(100);
+		myTIE->addEntity(mySphere);
+
+		WingAdvancedTIE* myWing1 = new WingAdvancedTIE(200, 100, 200, gTextures[5]);
+		myTIE->addEntity(myWing1);
+
+		WingAdvancedTIE* myWing2 = new WingAdvancedTIE(200, 100, 200, gTextures[5]);
+		glm::dmat4 mR1 = glm::rotate(glm::dmat4(1.0), 3.1416, glm::dvec3(0.0, 1.0, 0.0));
+		myWing2->setModelMat(mR1);
+		myTIE->addEntity(myWing2);
+
+		CompoundEntity* myMorro = new CompoundEntity();
+
+		Cylinder* myMorroCylinder = new Cylinder(70, 70, 20);
+		glm::dmat4 mR2 = glm::rotate(glm::dmat4(1.0), 3.1416 / 2, glm::dvec3(0.0, 1.0, 0.0));
+		glm::dmat4 mT2 = glm::translate(glm::dmat4(1.0f), glm::dvec3(80, 0, 0));
+		myMorroCylinder->setModelMat(mT2* mR2);
+		myMorro->addEntity(myMorroCylinder);
+
+		Disk* myMorroDisk = new Disk(0, 70);
+		glm::dmat4 mT3 = glm::translate(glm::dmat4(1.0f), glm::dvec3(100, 0, 0));
+		myMorroDisk->setModelMat(mT3* mR2);
+		myMorro->addEntity(myMorroDisk);
+
+		myTIE->addEntity(myMorro);
+
+		myTIE->setColor(glm::dvec4(0.0, 0.25, 0.6, 1.0));
+		//gObjects.push_back(myTIE);
+
+		nodoFicticio->addEntity(myTIE);
+		glm::dmat4 mT5 = glm::translate(nodoFicticio->modelMat(), glm::dvec3(-100, 0, 200));
+		glm::dmat4 mR5 = glm::rotate(glm::dmat4(1.0), 0.6, glm::dvec3(0.0, 1.0, 0.0));
+		nodoFicticio->setModelMat(mT5 * mR5);
+
 		gObjects.push_back(nodoFicticio);
 	}
 		   break;
@@ -330,5 +384,17 @@ Scene::sceneDirLight(Camera const& cam) const {
 	glLightfv(GL_LIGHT0, GL_AMBIENT, value_ptr(ambient));
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, value_ptr(diffuse));
 	glLightfv(GL_LIGHT0, GL_SPECULAR, value_ptr(specular));
+}
+
+void Scene::cazaRotate()
+{
+	glm::dmat4 mR = glm::rotate(gObjects[2]->modelMat(), 0.1, glm::dvec3(0.0, 1.0, 0.0));
+	gObjects[2]->setModelMat(mR);	
+}
+
+void Scene::cazaOrbit()
+{
+	glm::dmat4 mR = glm::rotate(glm::dmat4(1.0), 0.1, glm::dvec3(0.0, 1.0, 0.0));
+	gObjects[2]->setModelMat(gObjects[2]->modelMat() * mR);
 }
 

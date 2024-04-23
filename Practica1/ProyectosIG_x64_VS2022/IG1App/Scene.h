@@ -47,6 +47,9 @@ public:
 	void setScene(int id);
 	void sceneDirLight(Camera const& cam) const;
 
+	void cazaRotate();
+	void cazaOrbit();
+
 protected:
 	void free();
 	void setGL();

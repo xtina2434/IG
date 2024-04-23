@@ -18,7 +18,7 @@ void CompoundEntity::addEntity(Abs_Entity* ae)
 void CompoundEntity::render(glm::dmat4 const& modelViewMat) const
 {
 	for (Abs_Entity* e : gObjects) {
-		e->render(modelViewMat);
+		e->render(modelViewMat * mModelMat);
 	}
 }
 
@@ -30,7 +30,8 @@ void CompoundEntity::setColor(glm::dvec4 const& col)
 }
 void CompoundEntity::update() {
 	//lo comento pq ni idea si es asi
-	/*for (Abs_Entity* e : gObjects) {
+	for (Abs_Entity* e : gObjects) {
 		e->update();
-	}*/
+	}
+	setModelMat(glm::rotate(modelMat(), glm::radians(180.0), glm::dvec3(0, 0, 1)));
 }
