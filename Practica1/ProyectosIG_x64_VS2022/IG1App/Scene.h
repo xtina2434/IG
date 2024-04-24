@@ -59,6 +59,9 @@ protected:
 
 	std::vector<Abs_Entity*> gObjects; // Entities (graphic objects) of the scene
 	std::vector<Texture*> gTextures; //texturas
+
+	AdvancedTIE* myAdvancedTie68;
+	CompoundEntity* nodo68;
 };
 
 #endif //_H_Scene_H_

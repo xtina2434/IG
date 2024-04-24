@@ -149,35 +149,33 @@ Scene::init()
 
 		Disk* myDisk = new Disk(100, 200);
 		myDisk->setColor(glm::dvec4(1.0, 0.0, 0.0, 1.0));
-		glm::dmat4 rotateDisk = glm::rotate(glm::dmat4(1.0), 3.14 / 2, glm::dvec3(1.0, 0.0, 0.0));
-		glm::dmat4 translDisk = glm::translate(glm::dmat4(1.0f), glm::dvec3(0, 0, -150));
+		glm::dmat4 rotateDisk = glm::rotate(myDisk->modelMat(), 3.14 / 2, glm::dvec3(1.0, 0.0, 0.0));
+		glm::dmat4 translDisk = glm::translate(myDisk->modelMat(), glm::dvec3(0, 0, -150));
 		myDisk->setModelMat(rotateDisk * translDisk);
 		gObjects.push_back(myDisk);
 
 		PartialDisk* myPartialDisk = new PartialDisk(100, 150, 90, 180);
 		myPartialDisk->setColor(glm::dvec4(0.0, 1.0, 0.0, 1.0));
-		glm::dmat4 translPartialDisk = glm::translate(glm::dmat4(1.0f), glm::dvec3(0, 0, 150));
-		myPartialDisk->setModelMat(translPartialDisk);
+		myPartialDisk->setModelMat(glm::translate(myPartialDisk->modelMat(), glm::dvec3(0, 0, 150)));
 		gObjects.push_back(myPartialDisk);
 
 		Cylinder* myCylinderA = new Cylinder(20, 0, 20);
 		myCylinderA->setColor(glm::dvec4(0.0, 0.0, 1.0, 1.0));
-		glm::dmat4 translCylinderA = glm::translate(glm::dmat4(1.0f), glm::dvec3(50, 80, 200));
-		myCylinderA->setModelMat(translCylinderA);
+		myCylinderA->setModelMat(glm::translate(myCylinderA->modelMat(), glm::dvec3(50, 80, 180)));
 		gObjects.push_back(myCylinderA);
 		Cylinder* myCylinderB = new Cylinder(20, 0, 20);
 		myCylinderB->setColor(glm::dvec4(0.1, 0.3, 0.5, 1.0));
-		glm::dmat4 translCylinderB = glm::translate(glm::dmat4(1.0f), glm::dvec3(-50, 80, 200));
-		myCylinderB->setModelMat(translCylinderB);
+		myCylinderB->setModelMat(glm::translate(myCylinderB->modelMat(), glm::dvec3(-50, 80, 180)));
 		gObjects.push_back(myCylinderB);
 	}
 		   break;
 	case 60: {
+		glClearColor(0.0, 0.0, 0.0, 1.0);
+
 		AdvancedTIE * myTIE = new AdvancedTIE();
 		
 		Cylinder* myCylinder = new Cylinder(30, 30, 400);
-		glm::dmat4 mT1 = glm::translate(glm::dmat4(1.0f), glm::dvec3(0, 0, -200));
-		myCylinder->setModelMat(mT1);
+		myCylinder->setModelMat(glm::translate(myCylinder->modelMat(), glm::dvec3(0, 0, -200)));
 		myTIE->addEntity(myCylinder);
 
 		Sphere* mySphere = new Sphere(100);
@@ -187,26 +185,25 @@ Scene::init()
 		myTIE->addEntity(myWing1);
 
 		WingAdvancedTIE* myWing2 = new WingAdvancedTIE(200, 100, 200, gTextures[5]);
-		glm::dmat4 mR1 = glm::rotate(glm::dmat4(1.0), 3.1416, glm::dvec3(0.0, 1.0, 0.0));
-		myWing2->setModelMat(mR1);
+		myWing2->setModelMat(glm::rotate(myWing1->modelMat(), 3.1416, glm::dvec3(0.0, 1.0, 0.0)));
 		myTIE->addEntity(myWing2);
 
 		CompoundEntity* myMorro = new CompoundEntity();
 
 		Cylinder* myMorroCylinder = new Cylinder(70, 70, 20);
-		glm::dmat4 mR2 = glm::rotate(glm::dmat4(1.0), 3.1416/2, glm::dvec3(0.0, 1.0, 0.0));
-		glm::dmat4 mT2 = glm::translate(glm::dmat4(1.0f), glm::dvec3(80, 0, 0));
-		myMorroCylinder->setModelMat(mT2 * mR2);
+		glm::dmat4 mRot = glm::rotate(myMorro->modelMat(), 3.1416 / 2, glm::dvec3(0.0, 1.0, 0.0));
+		glm::dmat4 mTrans1 = glm::translate(myMorro->modelMat(), glm::dvec3(80, 0, 0));
+		myMorroCylinder->setModelMat(mTrans1* mRot);
 		myMorro->addEntity(myMorroCylinder);
 
 		Disk* myMorroDisk = new Disk(0,70);
-		glm::dmat4 mT3 = glm::translate(glm::dmat4(1.0f), glm::dvec3(100, 0, 0));
-		myMorroDisk->setModelMat(mT3* mR2);
+		glm::dmat4 mTrans2 = glm::translate(myMorro->modelMat(), glm::dvec3(100, 0, 0));
+		myMorroDisk->setModelMat(mTrans2* mRot);
 		myMorro->addEntity(myMorroDisk);
 
 		myTIE->addEntity(myMorro);
 
-		myTIE->setColor(glm::dvec4(0.0, 0.25, 0.6, 1.0));
+		myTIE->setColor(glm::dvec4(0.0, 0.25, 0.42, 1.0));
 		gObjects.push_back(myTIE);
 	}
 		break;
@@ -227,6 +224,7 @@ Scene::init()
 		RGBTriangle* myRGBTriangle = new RGBTriangle(3, 50);
 		nodoFicticio->addEntity(myRGBTriangle);
 		
+		//trasladar el triangulo a traves del nodo ficticio a la circunferencia
 		myRGBTriangle->setModelMat(translate(nodoFicticio->modelMat(), dvec3(r, 0, 0)));
 		gObjects.push_back(nodoFicticio);
 	}
@@ -235,56 +233,49 @@ Scene::init()
 
 		glClearColor(0.0, 0.0, 0.0, 1.0);
 
-		Sphere* myPlanet = new Sphere(1000);
-		glm::dmat4 mT4 = glm::translate(glm::dmat4(1.0f), glm::dvec3(0, -1111, 0));
-		myPlanet->setModelMat(mT4);
+		Sphere* myPlanet = new Sphere(800);
 		myPlanet->setColor(glm::dvec4(1.0, 0.8, 0.0, 1.0));
 		gObjects.push_back(myPlanet);
 
-		CompoundEntity* nodoFicticio = new CompoundEntity();
+		nodo68 = new CompoundEntity();
 
-		AdvancedTIE* myTIE = new AdvancedTIE();
+		myAdvancedTie68 = new AdvancedTIE();
 
 		Cylinder* myCylinder = new Cylinder(30, 30, 400);
-		glm::dmat4 mT1 = glm::translate(glm::dmat4(1.0f), glm::dvec3(0, 0, -200));
-		myCylinder->setModelMat(mT1);
-		myTIE->addEntity(myCylinder);
+		myCylinder->setModelMat(glm::translate(myCylinder->modelMat(), glm::dvec3(0, 0, -200)));
+		myAdvancedTie68->addEntity(myCylinder);
 
 		Sphere* mySphere = new Sphere(100);
-		myTIE->addEntity(mySphere);
+		myAdvancedTie68->addEntity(mySphere);
 
 		WingAdvancedTIE* myWing1 = new WingAdvancedTIE(200, 100, 200, gTextures[5]);
-		myTIE->addEntity(myWing1);
+		myAdvancedTie68->addEntity(myWing1);
 
 		WingAdvancedTIE* myWing2 = new WingAdvancedTIE(200, 100, 200, gTextures[5]);
-		glm::dmat4 mR1 = glm::rotate(glm::dmat4(1.0), 3.1416, glm::dvec3(0.0, 1.0, 0.0));
-		myWing2->setModelMat(mR1);
-		myTIE->addEntity(myWing2);
+		myWing2->setModelMat(glm::rotate(myWing2->modelMat(), 3.1416, glm::dvec3(0.0, 1.0, 0.0)));
+		myAdvancedTie68->addEntity(myWing2);
 
 		CompoundEntity* myMorro = new CompoundEntity();
 
 		Cylinder* myMorroCylinder = new Cylinder(70, 70, 20);
-		glm::dmat4 mR2 = glm::rotate(glm::dmat4(1.0), 3.1416 / 2, glm::dvec3(0.0, 1.0, 0.0));
-		glm::dmat4 mT2 = glm::translate(glm::dmat4(1.0f), glm::dvec3(80, 0, 0));
-		myMorroCylinder->setModelMat(mT2* mR2);
+		glm::dmat4 mRot1 = glm::rotate(myMorroCylinder->modelMat(), 3.1416 / 2, glm::dvec3(0.0, 1.0, 0.0));
+		glm::dmat4 mTrans1 = glm::translate(myMorroCylinder->modelMat(), glm::dvec3(80, 0, 0));
+		myMorroCylinder->setModelMat(mTrans1* mRot1);
 		myMorro->addEntity(myMorroCylinder);
 
 		Disk* myMorroDisk = new Disk(0, 70);
-		glm::dmat4 mT3 = glm::translate(glm::dmat4(1.0f), glm::dvec3(100, 0, 0));
-		myMorroDisk->setModelMat(mT3* mR2);
+		glm::dmat4 mTrans2 = glm::translate(myMorroDisk->modelMat(), glm::dvec3(100, 0, 0));
+		myMorroDisk->setModelMat(mTrans2* mRot1);
 		myMorro->addEntity(myMorroDisk);
 
-		myTIE->addEntity(myMorro);
+		myAdvancedTie68->addEntity(myMorro);
 
-		myTIE->setColor(glm::dvec4(0.0, 0.25, 0.6, 1.0));
-		//gObjects.push_back(myTIE);
+		myAdvancedTie68->setColor(glm::dvec4(0.0, 0.25, 0.42, 1.0));
 
-		nodoFicticio->addEntity(myTIE);
-		glm::dmat4 mT5 = glm::translate(nodoFicticio->modelMat(), glm::dvec3(-100, 0, 200));
-		glm::dmat4 mR5 = glm::rotate(glm::dmat4(1.0), 0.6, glm::dvec3(0.0, 1.0, 0.0));
-		nodoFicticio->setModelMat(mT5 * mR5);
-
-		gObjects.push_back(nodoFicticio);
+		nodo68->addEntity(myAdvancedTie68);
+		//trasladar el caza a una distancia del radio y un poco mas del centro de la esfera
+		myAdvancedTie68->setModelMat(translate(nodo68->modelMat(), dvec3(0, 950, 0)));
+		gObjects.push_back(nodo68);
 	}
 		   break;
 	default:
@@ -388,13 +379,15 @@ Scene::sceneDirLight(Camera const& cam) const {
 
 void Scene::cazaRotate()
 {
-	glm::dmat4 mR = glm::rotate(gObjects[2]->modelMat(), 0.1, glm::dvec3(0.0, 1.0, 0.0));
-	gObjects[2]->setModelMat(mR);	
+	//rotar el caza para que varie la direccion a la que apunta el morro
+	myAdvancedTie68->setModelMat(glm::rotate(myAdvancedTie68->modelMat(), radians(3.0), glm::dvec3(0.0, 1.0,0.0)));
 }
 
 void Scene::cazaOrbit()
 {
-	glm::dmat4 mR = glm::rotate(glm::dmat4(1.0), 0.1, glm::dvec3(0.0, 1.0, 0.0));
-	gObjects[2]->setModelMat(gObjects[2]->modelMat() * mR);
+	//obtener y normalizar la direccion a la que apunta el morro
+	glm::dvec3 direction = glm::normalize(glm::dvec3(myAdvancedTie68->modelMat() * glm::dvec4(0.0, 0.0, 1.0, 0.0)));
+	//orbita alrededor de la esfera en la direccion del morro
+	nodo68->setModelMat(glm::rotate(nodo68->modelMat(), glm::radians(-3.0), direction) );
 }
 

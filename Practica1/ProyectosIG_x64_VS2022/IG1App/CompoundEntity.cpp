@@ -7,6 +7,7 @@ CompoundEntity::~CompoundEntity()
 {
 	for (Abs_Entity* e : gObjects) {
 		delete(e);
+		e = nullptr;
 	}
 }
 

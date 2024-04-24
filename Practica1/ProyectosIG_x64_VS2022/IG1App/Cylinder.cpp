@@ -14,5 +14,5 @@ void Cylinder::render(glm::dmat4 const& modelViewMat) const {
 	gluCylinder(q, baseRadius, topRadius, height, 50, 50);
 	// Aquí se debe recuperar el color :
 	glColor3f (1.0 , 1.0 , 1.0);
-	glDisable(GL_COLOR_MATERIAL);
+	//glDisable(GL_COLOR_MATERIAL);
 }
