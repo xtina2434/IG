@@ -29,9 +29,9 @@ void CompoundEntity::setColor(glm::dvec4 const& col)
 	}
 }
 void CompoundEntity::update() {
-	//lo comento pq ni idea si es asi
 	for (Abs_Entity* e : gObjects) {
 		e->update();
 	}
-	setModelMat(glm::rotate(modelMat(), glm::radians(180.0), glm::dvec3(0, 0, 1)));
+	//rotacion sentido antihorario
+	setModelMat(glm::rotate(modelMat(), glm::radians(3.0), glm::dvec3(0, 0, 1)));
 }
