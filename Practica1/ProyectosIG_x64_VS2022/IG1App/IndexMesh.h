@@ -13,4 +13,4 @@ public:
 
 	static IndexMesh* generateIndexedBox(GLdouble l);
 	void buildNormalVectors();
-};
+};

@@ -85,6 +85,7 @@
     <ClInclude Include="Ground.h" />
     <ClInclude Include="IG1App.h" />
     <ClInclude Include="IndexMesh.h" />
+    <ClInclude Include="MbR.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="PartialDisk.h" />
     <ClInclude Include="Photo.h" />
@@ -96,6 +97,7 @@
     <ClInclude Include="RGBTriangle.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Sphere.h" />
+    <ClInclude Include="SphereR.h" />
     <ClInclude Include="Star3D.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Viewport.h" />
@@ -116,6 +118,7 @@
     <ClCompile Include="IG1App.cpp" />
     <ClCompile Include="IndexMesh.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MbR.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="PartialDisk.cpp" />
     <ClCompile Include="Photo.cpp" />
@@ -127,6 +130,7 @@
     <ClCompile Include="RGBTriangle.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Sphere.cpp" />
+    <ClCompile Include="SphereR.cpp" />
     <ClCompile Include="Star3D.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Viewport.cpp" />

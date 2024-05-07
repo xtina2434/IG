@@ -25,6 +25,7 @@
 #include "AdvancedTIE.h"
 #include "WingAdvancedTIE.h"
 #include "IndexedBox.h"
+#include "SphereR.h"
 
 class Scene
 {

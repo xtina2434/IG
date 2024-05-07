@@ -18,7 +18,7 @@ Scene::init()
 	gObjects.push_back(new EjesRGB(400.0));
 	load();
 	//debe ir en setscene
-	int APARTADO = 67;
+	int APARTADO = 71;
 	switch (APARTADO)
 	{
 	case 3: {  //APARTADO 3
@@ -27,13 +27,11 @@ Scene::init()
 		myPolygon->setColor(glm::dvec4(0.0, 0.0, 0.0, 1.0));
 		gObjects.push_back(myPolygon); }
 		  break;
-
 	case 4: {  //APARTADO 4
 		GLuint numSides = 7;
 		RegularPolygon* myPolygon = new RegularPolygon(numSides, 100.0);
 		gObjects.push_back(myPolygon); }
 		  break;
-
 	case 5: { //APARTADO 5
 		GLuint numSidesT = 3;
 		RegularPolygon* myTriangle = new RegularPolygon(numSidesT, 100.0);
@@ -44,30 +42,25 @@ Scene::init()
 		myCircle->setColor(glm::dvec4(1.0, 0.0, 1.0, 1.0));
 		gObjects.push_back(myCircle); }
 		  break;
-
 	case 6: {  //APARTADO 6 y 7
 		RGBTriangle* myRGBTriangle = new RGBTriangle(3, 100);
 		gObjects.push_back(myRGBTriangle); }
 		  break;
-
 	case 8: {  //APARTADO 8
 		RegularPolygon* myRectangle = new RegularPolygon(100.0, 70.0);
 		gObjects.push_back(myRectangle);
 		RGBRectangle* myRGBRectangle = new RGBRectangle(100.0, 80.0);
 		gObjects.push_back(myRGBRectangle); }
 		  break;
-
 	case 9: {  //APARTADO 9
 		Cube* myCube = new Cube(300);
 		myCube->setColor(glm::dvec4(0.0, 0.0, 0.0, 1.0));
 		gObjects.push_back(myCube); }
 		  break;
-
 	case 10: {  //APARTADO 10
 		RGBCube* myCube = new RGBCube(200);
 		gObjects.push_back(myCube); }
 		   break;
-
 	case 17: {  //APARTADOS DEL 11 EN ADELANTE
 		if (mId == 0) {
 
@@ -149,8 +142,8 @@ Scene::init()
 
 		Disk* myDisk = new Disk(100, 200);
 		myDisk->setColor(glm::dvec4(1.0, 0.0, 0.0, 1.0));
-		glm::dmat4 rotateDisk = glm::rotate(myDisk->modelMat(), 3.14 / 2, glm::dvec3(1.0, 0.0, 0.0));
-		glm::dmat4 translDisk = glm::translate(myDisk->modelMat(), glm::dvec3(0, 0, -150));
+		glm::dmat4 rotateDisk = glm::rotate(myDisk->modelMat(), 3.14 * 1.5, glm::dvec3(1.0, 0.0, 0.0));
+		glm::dmat4 translDisk = glm::translate(myDisk->modelMat(), glm::dvec3(0, 0, 150));
 		myDisk->setModelMat(rotateDisk * translDisk);
 		gObjects.push_back(myDisk);
 
@@ -278,6 +271,11 @@ Scene::init()
 		gObjects.push_back(nodo68);
 	}
 		   break;
+	case 71: {
+		SphereR* mySphere = new SphereR(100, 10, 16);
+		gObjects.push_back(mySphere);
+	}
+		   break;
 	default:
 		break;
 	}
@@ -369,7 +367,7 @@ Scene::sceneDirLight(Camera const& cam) const {
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixd(value_ptr(cam.viewMat()));
 	glLightfv(GL_LIGHT0, GL_POSITION, value_ptr(posDir));
-	glm::fvec4 ambient = { 0, 0, 0, 1 };
+	glm::fvec4 ambient = { 0.0, 0.0, 0.0, 1 };
 	glm::fvec4 diffuse = { 1, 1, 1, 1 };
 	glm::fvec4 specular = { 0.5, 0.5, 0.5, 1 };
 	glLightfv(GL_LIGHT0, GL_AMBIENT, value_ptr(ambient));
