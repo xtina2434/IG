@@ -8,6 +8,7 @@ MbR* MbR::generaIndexMbR(int mm, int nn, glm::dvec3* perfil)
 	// Usar un vector auxiliar de vértices
 	mesh->vVertices.reserve(mesh->mNumVertices);
 	glm::dvec3* vs = new glm::dvec3[mesh->mNumVertices];
+	mesh->nNumIndices = nn * mm * 6;
 	mesh->vIndices = new GLuint[nn * mm * 6];
 	//int indice = 0; //indice para rastrear la posicion en vs
 	for (int i = 0; i < nn; i++) {
