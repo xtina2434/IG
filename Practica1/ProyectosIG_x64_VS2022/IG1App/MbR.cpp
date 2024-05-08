@@ -8,8 +8,10 @@ MbR* MbR::generaIndexMbR(int mm, int nn, glm::dvec3* perfil)
 	// Usar un vector auxiliar de vértices
 	mesh->vVertices.reserve(mesh->mNumVertices);
 	glm::dvec3* vs = new glm::dvec3[mesh->mNumVertices];
-	mesh->nNumIndices = nn * mm * 6;
-	mesh->vIndices = new GLuint[nn * mm * 6];
+	//CREO QUE FALLA EL NUMERO DE INDICES A RESERVAR
+	mesh->nNumIndices = 6/* nn * mm * 6*/;
+	mesh->vIndices = new GLuint[mesh->nNumIndices];
+	mesh->vNormals.reserve(mesh->mNumVertices);
 	//int indice = 0; //indice para rastrear la posicion en vs
 	for (int i = 0; i < nn; i++) {
 		// Generar la muestra i- ésima de vértices
@@ -18,7 +20,7 @@ MbR* MbR::generaIndexMbR(int mm, int nn, glm::dvec3* perfil)
 		GLdouble s = sin(glm::radians(theta));
 		for (int j = 0; j < mm; j++) {
 			GLdouble z = -s * perfil[j].x + c * perfil[j].z;
-			GLdouble x = c * perfil[j].x + -s * perfil[j].z;
+			GLdouble x = c * perfil[j].x + s * perfil[j].z;
 			//GLdouble x = c * perfil[j].x + s * perfil[j].z;
 			vs[(i * mm) + j] = glm::dvec3(x, perfil[j].y, z);
 			//indice++;
@@ -29,9 +31,10 @@ MbR* MbR::generaIndexMbR(int mm, int nn, glm::dvec3* perfil)
 		mesh->vVertices.emplace_back(vs[i]);
 	}
 
-	int indiceMayor = 0;
+	
 	// El contador i recorre las muestras alrededor del eje Y
 	for (int i = 0; i < nn; i++) {
+		
 		// El contador j recorre los vértices del perfil ,
 		// de abajo arriba . Las caras cuadrangulares resultan
 		// al unir la muestra i- ésima con la (i +1)% nn - ésima
@@ -42,12 +45,18 @@ MbR* MbR::generaIndexMbR(int mm, int nn, glm::dvec3* perfil)
 			int indice = i * mm + j;
 		// Los cuatro índices son entonces :
 		//indice, (indice + mm) % (nn * mm), (indice + mm + 1) % (nn * mm), indice + 1
-
+		int indiceMayor = 0;
 		mesh->vIndices[indiceMayor] = indice;
 		indiceMayor++;
 		mesh->vIndices[indiceMayor] = (indice + mm) % (nn * mm);
 		indiceMayor++;
 		mesh->vIndices[indiceMayor] = (indice + mm + 1) % (nn * mm);
+		indiceMayor++;
+		mesh->vIndices[indiceMayor] = (indice  + 1) % (nn * mm);
+		indiceMayor++;
+		mesh->vIndices[indiceMayor] = (indice + 1);
+		indiceMayor++;
+		mesh->vIndices[indiceMayor] = indice;
 		indiceMayor++;
 		// Y análogamente se añaden los otros tres índices
 	/*	mesh->vIndices[indiceMayor] = (indice + 1) % (nn * mm);
@@ -56,7 +65,7 @@ MbR* MbR::generaIndexMbR(int mm, int nn, glm::dvec3* perfil)
 		indiceMayor++;
 		mesh->vIndices[indiceMayor] = (indice + mm + 1) % (nn * mm);
 		indiceMayor++;*/
-		/*mesh->vIndices[indiceMayor] = (indice + mm + 1) % (nn * mm);
+	/*	mesh->vIndices[indiceMayor] = (indice + mm + 1) % (nn * mm);
 		indiceMayor++;
 		mesh->vIndices[indiceMayor] = indice + 1;
 		indiceMayor++;

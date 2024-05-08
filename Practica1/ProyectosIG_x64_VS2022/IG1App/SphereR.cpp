@@ -10,7 +10,7 @@ void SphereR::render(glm::dmat4 const& modelViewMat) const {
 		upload(aMat);
 
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		glLineWidth(100);
+		//glLineWidth(100);
 		mMesh->setColor(std::vector<glm::dvec4>(mMesh->size(), mColor));
 		mMesh->render();
 
