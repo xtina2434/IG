@@ -7,9 +7,9 @@ MbR* MbR::generaIndexMbR(int mm, int nn, glm::dvec3* perfil)
 	mesh->mNumVertices = nn * mm;
 	// Usar un vector auxiliar de vértices
 	mesh->vVertices.reserve(mesh->mNumVertices);
-
 	glm::dvec3* vs = new glm::dvec3[mesh->mNumVertices];
-
+	mesh->vIndices = new GLuint[nn * mm * 6];
+	//int indice = 0; //indice para rastrear la posicion en vs
 	for (int i = 0; i < nn; i++) {
 		// Generar la muestra i- ésima de vértices
 		GLdouble theta = i * 360 / nn;
@@ -18,9 +18,11 @@ MbR* MbR::generaIndexMbR(int mm, int nn, glm::dvec3* perfil)
 		for (int j = 0; j < mm; j++) {
 			GLdouble z = -s * perfil[j].x + c * perfil[j].z;
 			GLdouble x = c * perfil[j].x + -s * perfil[j].z;
+			//GLdouble x = c * perfil[j].x + s * perfil[j].z;
 			vs[(i * mm) + j] = glm::dvec3(x, perfil[j].y, z);
+			//indice++;
 		}
-	} // ... ( continúa )
+	}
 
 	for (int i = 0; i < mesh->mNumVertices; i++) {
 		mesh->vVertices.emplace_back(vs[i]);
@@ -47,12 +49,18 @@ MbR* MbR::generaIndexMbR(int mm, int nn, glm::dvec3* perfil)
 		mesh->vIndices[indiceMayor] = (indice + mm + 1) % (nn * mm);
 		indiceMayor++;
 		// Y análogamente se añaden los otros tres índices
+	/*	mesh->vIndices[indiceMayor] = (indice + 1) % (nn * mm);
+		indiceMayor++;
+		mesh->vIndices[indiceMayor] = indice;
+		indiceMayor++;
 		mesh->vIndices[indiceMayor] = (indice + mm + 1) % (nn * mm);
+		indiceMayor++;*/
+		/*mesh->vIndices[indiceMayor] = (indice + mm + 1) % (nn * mm);
 		indiceMayor++;
 		mesh->vIndices[indiceMayor] = indice + 1;
 		indiceMayor++;
 		mesh->vIndices[indiceMayor] = indice;
-		indiceMayor++;
+		indiceMayor++;*/
 		/*
 		índice0 , índice1 , índice2 ,
 		índice2 , índice3 , índice0
@@ -61,9 +69,12 @@ MbR* MbR::generaIndexMbR(int mm, int nn, glm::dvec3* perfil)
 	}
 
 	mesh->buildNormalVectors();
+	delete[] vs;
 	return mesh;
+
+	
 }
 
 MbR::~MbR() {
-
+	delete[] perfil;
 }

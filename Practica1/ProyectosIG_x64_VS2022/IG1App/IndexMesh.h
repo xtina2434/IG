@@ -1,10 +1,11 @@
+#pragma once
 #include "Mesh.h"
 
 class IndexMesh : public Mesh {
 protected:
 	GLuint* vIndices = nullptr; // tabla de índices
 	GLuint nNumIndices = 0;
-	
+
 public:
 	IndexMesh() { mPrimitive = GL_TRIANGLES; }
 	~IndexMesh() { delete[] vIndices; }

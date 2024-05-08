@@ -273,6 +273,7 @@ Scene::init()
 		   break;
 	case 71: {
 		SphereR* mySphere = new SphereR(100, 10, 16);
+		mySphere->setColor(glm::dvec4(0.0, 0.0, 0.0, 1.0));
 		gObjects.push_back(mySphere);
 	}
 		   break;
