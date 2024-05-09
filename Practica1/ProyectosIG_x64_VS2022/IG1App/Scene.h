@@ -28,6 +28,9 @@
 #include "SphereR.h"
 #include "Toroid.h"
 #include "Material.h"
+#include "DirLight.h"
+#include "Light.h"
+#include "PosLight.h"
 
 class Scene
 {
@@ -48,10 +51,16 @@ public:
 	void update();
 
 	void setScene(int id);
-	void sceneDirLight(Camera const& cam) const;
+	//void sceneDirLight(Camera const& cam) const;
 	void setLights(); //crear y especificar caracteristicas de la luces de la escena
 	void cazaRotate();
 	void cazaOrbit();
+	
+	void enableDirLight() { dirLight->enable(); }
+	void disableDirLight() { dirLight->disable(); }
+
+	void enablePosLight() { posLight->enable(); }
+	void disablePosLight() { posLight->disable(); }
 
 protected:
 	void free();
@@ -67,6 +76,9 @@ protected:
 	CompoundEntity* nodo68;
 
 	Material* goldMaterial;
+	DirLight* dirLight;
+	PosLight* posLight;
+	
 };
 
 #endif //_H_Scene_H_

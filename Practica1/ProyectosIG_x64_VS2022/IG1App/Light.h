@@ -14,17 +14,19 @@ protected:
 	glm::fvec4 specular = { 0.5 , 0.5 , 0.5 , 1 };
 	glm::fvec4 posDir = { 0 , 0 , 1 , 0 };
 	// Añade setters para cambiar el valor de los atributos lumínicos
-	void disable();
-	void enable();
-	void setAmb(glm::fvec4 amb) { ambient = amb; uploadL(); }
-	void setDiff(glm::fvec4 diff) { diffuse = diff; uploadL(); }
-	void setSpec(glm::fvec4 spec) { specular = spec; uploadL(); }
+	
+	
 public:
 	Light();
 	virtual ~Light() { disable(); } 
 	void uploadL() const; //??
 	// Método abstracto
 	virtual void upload(glm::dmat4 const& modelViewMat) const = 0;
+	void setAmb(glm::fvec4 amb) { ambient = amb; uploadL(); }
+	void setDiff(glm::fvec4 diff) { diffuse = diff; uploadL(); }
+	void setSpec(glm::fvec4 spec) { specular = spec; uploadL(); }
+	void disable();
+	void enable();
 };
 
 #endif

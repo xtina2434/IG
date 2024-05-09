@@ -72,7 +72,7 @@ protected:
 	int mWinH = 600;    // window's height
 	int sceneId = 0;
 	bool mUpdateFlag = false; //bandera que indica cuando llamar al update
-	static const int numScenes = 2;
+	static const int numScenes = 1;
 	// Graphics objects of the scene
 	Scene* mScenes[numScenes];
 

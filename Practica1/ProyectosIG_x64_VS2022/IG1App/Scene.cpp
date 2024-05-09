@@ -9,7 +9,7 @@ void
 Scene::init()
 {
 	setGL(); // OpenGL settings
-
+	setLights();
 	// allocate memory and load resources
 	// Lights
 	// Textures
@@ -325,6 +325,12 @@ Scene::free()
 	}
 	delete goldMaterial;
 	goldMaterial = nullptr;
+
+	delete dirLight;
+	dirLight = nullptr;
+
+	delete posLight;
+	posLight = nullptr;
 }
 void
 Scene::setGL()
@@ -378,9 +384,13 @@ void Scene::load()
 void
 Scene::render(Camera const& cam) const
 {
-	//upload luces de la escena
-	sceneDirLight(cam);
 	cam.upload();
+	//upload luces de la escena
+	dirLight->upload(cam.viewMat());
+	posLight->upload(cam.viewMat());
+	//sceneDirLight(cam);
+
+	
 	for (Abs_Entity* el : gObjects) {
 		el->render(cam.viewMat());
 	}
@@ -391,21 +401,21 @@ Scene::update() {
 		entity->update();
 	}
 }
-void 
-Scene::sceneDirLight(Camera const& cam) const {
-	glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
-	glm::fvec4 posDir = { 1, 1, 1, 0 };
-	glMatrixMode(GL_MODELVIEW);
-	glLoadMatrixd(value_ptr(cam.viewMat()));
-	glLightfv(GL_LIGHT0, GL_POSITION, value_ptr(posDir));
-	glm::fvec4 ambient = { 0.0, 0.0, 0.0, 1 };
-	glm::fvec4 diffuse = { 1, 1, 1, 1 };
-	glm::fvec4 specular = { 0.5, 0.5, 0.5, 1 };
-	glLightfv(GL_LIGHT0, GL_AMBIENT, value_ptr(ambient));
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, value_ptr(diffuse));
-	glLightfv(GL_LIGHT0, GL_SPECULAR, value_ptr(specular));
-}
+//void 
+//Scene::sceneDirLight(Camera const& cam) const {
+//	glEnable(GL_LIGHTING);
+//	glEnable(GL_LIGHT0);
+//	glm::fvec4 posDir = { 1, 1, 1, 0 };
+//	glMatrixMode(GL_MODELVIEW);
+//	glLoadMatrixd(value_ptr(cam.viewMat()));
+//	glLightfv(GL_LIGHT0, GL_POSITION, value_ptr(posDir));
+//	glm::fvec4 ambient = { 0.0, 0.0, 0.0, 1 };
+//	glm::fvec4 diffuse = { 1, 1, 1, 1 };
+//	glm::fvec4 specular = { 0.5, 0.5, 0.5, 1 };
+//	glLightfv(GL_LIGHT0, GL_AMBIENT, value_ptr(ambient));
+//	glLightfv(GL_LIGHT0, GL_DIFFUSE, value_ptr(diffuse));
+//	glLightfv(GL_LIGHT0, GL_SPECULAR, value_ptr(specular));
+//}
 
 void Scene::cazaRotate()
 {
@@ -420,4 +430,16 @@ void Scene::cazaOrbit()
 	//orbita alrededor de la esfera en la direccion del morro
 	nodo68->setModelMat(glm::rotate(nodo68->modelMat(), glm::radians(-3.0), direction) );
 }
+void Scene::setLights() {
+	dirLight = new DirLight();
+	dirLight->setAmb(glm::fvec4(0.0, 0.0, 0.0, 1.0));
+	dirLight->setDiff(glm::fvec4(1.0, 1.0, 1.0, 1.0));
+	dirLight->setSpec(glm::fvec4(0.5, 0.5, 0.5, 1.0));
+	dirLight->setPosDir(glm::fvec3(1.0,1.0,1.0));
 
+	posLight = new PosLight();
+	posLight->setAmb(glm::fvec4(0.0, 0.0, 0.0, 1.0));
+	posLight->setDiff(glm::fvec4(1.0, 1.0, 0.0, 1.0));
+	posLight->setSpec(glm::fvec4(0.5, 0.5, 0.5, 1.0));
+	posLight->setPosDir(glm::fvec3(100.0,1500.0, 0.0));
+}
