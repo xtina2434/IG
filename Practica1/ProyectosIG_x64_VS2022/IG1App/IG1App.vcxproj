@@ -77,6 +77,8 @@
     <ClInclude Include="CheckML.h" />
     <ClInclude Include="CompoundEntity.h" />
     <ClInclude Include="Cube.h" />
+    <ClInclude Include="DirLight.h" />
+    <ClInclude Include="EntityWithMaterial.h" />
     <ClInclude Include="IndexedBox.h" />
     <ClInclude Include="Cylinder.h" />
     <ClInclude Include="Disk.h" />
@@ -85,11 +87,14 @@
     <ClInclude Include="Ground.h" />
     <ClInclude Include="IG1App.h" />
     <ClInclude Include="IndexMesh.h" />
+    <ClInclude Include="Light.h" />
+    <ClInclude Include="Material.h" />
     <ClInclude Include="MbR.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="PartialDisk.h" />
     <ClInclude Include="Photo.h" />
     <ClInclude Include="Pixmap32RGBA.h" />
+    <ClInclude Include="PosLight.h" />
     <ClInclude Include="QuadricEntity.h" />
     <ClInclude Include="RegularPolygon.h" />
     <ClInclude Include="RGBCube.h" />
@@ -98,6 +103,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="SphereR.h" />
+    <ClInclude Include="SpotLight.h" />
     <ClInclude Include="Star3D.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Viewport.h" />
@@ -109,6 +115,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CompoundEntity.cpp" />
     <ClCompile Include="Cube.cpp" />
+    <ClCompile Include="DirLight.cpp" />
     <ClCompile Include="IndexedBox.cpp" />
     <ClCompile Include="Cylinder.cpp" />
     <ClCompile Include="Disk.cpp" />
@@ -117,12 +124,15 @@
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="IG1App.cpp" />
     <ClCompile Include="IndexMesh.cpp" />
+    <ClCompile Include="Light.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Material.cpp" />
     <ClCompile Include="MbR.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="PartialDisk.cpp" />
     <ClCompile Include="Photo.cpp" />
     <ClCompile Include="Pixmap32RGBA.cpp" />
+    <ClCompile Include="PosLight.cpp" />
     <ClCompile Include="QuadricEntity.cpp" />
     <ClCompile Include="RegularPolygon.cpp" />
     <ClCompile Include="RGBCube.cpp" />
@@ -131,6 +141,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="SphereR.cpp" />
+    <ClCompile Include="SpotLight.cpp" />
     <ClCompile Include="Star3D.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Viewport.cpp" />

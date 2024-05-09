@@ -18,7 +18,7 @@ Scene::init()
 	gObjects.push_back(new EjesRGB(400.0));
 	load();
 	//debe ir en setscene
-	int APARTADO = 71;
+	int APARTADO = 74;
 	switch (APARTADO)
 	{
 	case 3: {  //APARTADO 3
@@ -277,6 +277,23 @@ Scene::init()
 		gObjects.push_back(mySphere);
 	}
 		   break;
+	case 74: {
+		
+		Sphere* yellowSphere = new Sphere(100);
+		yellowSphere->setColor(glm::dvec4(1.0, 1.0, 0.0, 1.0));
+		yellowSphere->setModelMat(glm::translate(yellowSphere->modelMat(), glm::dvec3(300, 0, 0)));
+		gObjects.push_back(yellowSphere);
+
+		
+		Sphere* goldSphere = new Sphere(100);
+		goldMaterial = new Material();
+
+		goldMaterial->setGold();
+		goldSphere->setMaterial(goldMaterial);
+		goldSphere->setModelMat(glm::translate(goldSphere->modelMat(), glm::dvec3(-200, 0, 0)));
+		gObjects.push_back(goldSphere);
+	}
+		   break;
 	default:
 		break;
 	}
@@ -299,6 +316,8 @@ Scene::free()
 		delete tex;
 		tex = nullptr;
 	}
+	delete goldMaterial;
+	goldMaterial = nullptr;
 }
 void
 Scene::setGL()
@@ -306,8 +325,10 @@ Scene::setGL()
 	// OpenGL basic setting
 	glClearColor(0.6, 0.7, 0.8, 1.0); // background color (alpha=1 -> opaque)  //APARTADO 1
 	glEnable(GL_DEPTH_TEST);          // enable Depth test
-	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_TEXTURE_2D);		  // activar texturas
+	glEnable(GL_LIGHTING);			  // activar la iluminacion
 	glEnable(GL_COLOR_MATERIAL);
+	glEnable(GL_NORMALIZE);			  // activar normalizacion de los vectores normales
 }
 void
 Scene::resetGL()
@@ -315,7 +336,9 @@ Scene::resetGL()
 	glClearColor(.0, .0, .0, .0); // background color (alpha=1 -> opaque)
 	glDisable(GL_DEPTH_TEST);     // disable Depth test
 	glDisable(GL_TEXTURE_2D);
+	glDisable(GL_LIGHTING);
 	glDisable(GL_COLOR_MATERIAL);
+	glDisable(GL_NORMALIZE);
 }
 
 void Scene::load()
@@ -348,6 +371,7 @@ void Scene::load()
 void
 Scene::render(Camera const& cam) const
 {
+	//upload luces de la escena
 	sceneDirLight(cam);
 	cam.upload();
 	for (Abs_Entity* el : gObjects) {

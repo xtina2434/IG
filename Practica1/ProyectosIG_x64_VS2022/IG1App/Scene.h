@@ -26,6 +26,7 @@
 #include "WingAdvancedTIE.h"
 #include "IndexedBox.h"
 #include "SphereR.h"
+#include "Material.h"
 
 class Scene
 {
@@ -47,7 +48,7 @@ public:
 
 	void setScene(int id);
 	void sceneDirLight(Camera const& cam) const;
-
+	void setLights(); //crear y especificar caracteristicas de la luces de la escena
 	void cazaRotate();
 	void cazaOrbit();
 
@@ -63,6 +64,8 @@ protected:
 
 	AdvancedTIE* myAdvancedTie68;
 	CompoundEntity* nodo68;
+
+	Material* goldMaterial;
 };
 
 #endif //_H_Scene_H_
