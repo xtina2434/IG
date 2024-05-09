@@ -65,6 +65,9 @@ public:
 	void enableSpotLight() { spotLight->enable(); }
 	void disableSpotLight() { spotLight->disable(); }
 
+	void enableTieSpotLight() { tieSpotLight->enable(); }
+	void disableTieSpotLight() { tieSpotLight->disable(); }
+
 protected:
 	void free();
 	void setGL();
@@ -82,6 +85,7 @@ protected:
 	DirLight* dirLight;
 	PosLight* posLight;
 	SpotLight* spotLight;
+	SpotLight* tieSpotLight;
 	
 };
 

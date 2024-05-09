@@ -278,6 +278,12 @@ IG1App::key(unsigned char key, int x, int y)
 		case 'x': //disable spotLight
 			mScenes[sceneId]->disableSpotLight();
 			break;
+		case 'v': //enable tieSpotLight
+			mScenes[sceneId]->enableTieSpotLight();
+			break;
+		case 'b': //disable tieSpotLight
+			mScenes[sceneId]->disableTieSpotLight();
+			break;
 		default:
 			need_redisplay = false;
 			break;

@@ -327,6 +327,9 @@ Scene::free()
 
 	delete spotLight;
 	spotLight = nullptr;
+
+	delete tieSpotLight;
+	tieSpotLight = nullptr;
 }
 void
 Scene::setGL()
@@ -385,6 +388,7 @@ Scene::render(Camera const& cam) const
 	dirLight->upload(cam.viewMat());
 	posLight->upload(cam.viewMat());
 	spotLight->upload(cam.viewMat());
+	tieSpotLight->upload(cam.viewMat());
 	
 	//sceneDirLight(cam);
 	for (Abs_Entity* el : gObjects) {
@@ -417,6 +421,11 @@ void Scene::cazaRotate()
 {
 	//rotar el caza para que varie la direccion a la que apunta el morro
 	myAdvancedTie68->setModelMat(glm::rotate(myAdvancedTie68->modelMat(), radians(3.0), glm::dvec3(0.0, 1.0,0.0)));
+	//actualizar foco
+	glm::dvec3 tiePos = glm::dvec3(glm::dvec3(myAdvancedTie68->modelMat() * glm::dvec4(0.0, 0.0, 0.0, 1.0)));
+	tieSpotLight->setPosDir(glm::fvec3(tiePos));
+
+	//tieSpotLight->setSpot(glm::fvec3(0.0, -1.0, 0.0), 45.0, 0.0);
 }
 
 void Scene::cazaOrbit()
@@ -425,6 +434,11 @@ void Scene::cazaOrbit()
 	glm::dvec3 direction = glm::normalize(glm::dvec3(myAdvancedTie68->modelMat() * glm::dvec4(0.0, 0.0, 1.0, 0.0)));
 	//orbita alrededor de la esfera en la direccion del morro
 	nodo68->setModelMat(glm::rotate(nodo68->modelMat(), glm::radians(-3.0), direction) );
+	//actualizar foco
+	glm::dvec3 tiePos = glm::dvec3(myAdvancedTie68->modelMat() * glm::dvec4(0.0, 0.0, 0.0, 1.0));
+	tieSpotLight->setPosDir(glm::fvec3(tiePos));
+
+	//tieSpotLight->setSpot(glm::fvec3(0.0, -1.0, 0.0), 45.0, 0.0);
 }
 void Scene::setLights() {
 	dirLight = new DirLight();
@@ -444,4 +458,10 @@ void Scene::setLights() {
 	spotLight->setDiff(glm::fvec4(1.0, 1.0, 1.0, 1.0));
 	spotLight->setSpec(glm::fvec4(0.5, 0.5, 0.5, 1.0));
 	spotLight->setPosDir(glm::fvec3(100.0, 300.0, 3000.0));
+
+	tieSpotLight = new SpotLight();
+	tieSpotLight->setAmb(glm::fvec4(0.0, 0.0, 0.0, 1.0));
+	tieSpotLight->setDiff(glm::fvec4(1.0, 1.0, 1.0, 1.0));
+	tieSpotLight->setSpec(glm::fvec4(0.5, 0.5, 0.5, 1.0));
+	tieSpotLight->setPosDir(glm::fvec3(0.0, 900.0, 0.0)); //posicion inicial foco
 }
