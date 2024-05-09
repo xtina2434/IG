@@ -237,11 +237,11 @@ IG1App::key(unsigned char key, int x, int y)
 			display();
 			break;
 		case '0':
-			sceneId = 0;
+			//sceneId = 0;
 			mCamera->set2D();
 			break;
 		case '1':
-			sceneId = 1;
+			//sceneId = 1;
 			mCamera->set3D();
 			break;
 		case 'u':
@@ -271,6 +271,12 @@ IG1App::key(unsigned char key, int x, int y)
 			break;
 		case 's': //disable posLight
 			mScenes[sceneId]->disablePosLight();
+			break;
+		case 'z': //enable spotLight
+			mScenes[sceneId]->enableSpotLight();
+			break;
+		case 'x': //disable spotLight
+			mScenes[sceneId]->disableSpotLight();
 			break;
 		default:
 			need_redisplay = false;

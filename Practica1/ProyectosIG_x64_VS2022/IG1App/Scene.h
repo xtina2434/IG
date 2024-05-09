@@ -30,6 +30,7 @@
 #include "DirLight.h"
 #include "Light.h"
 #include "PosLight.h"
+#include "SpotLight.h"
 
 class Scene
 {
@@ -61,6 +62,9 @@ public:
 	void enablePosLight() { posLight->enable(); }
 	void disablePosLight() { posLight->disable(); }
 
+	void enableSpotLight() { spotLight->enable(); }
+	void disableSpotLight() { spotLight->disable(); }
+
 protected:
 	void free();
 	void setGL();
@@ -77,6 +81,7 @@ protected:
 	Material* goldMaterial;
 	DirLight* dirLight;
 	PosLight* posLight;
+	SpotLight* spotLight;
 	
 };
 

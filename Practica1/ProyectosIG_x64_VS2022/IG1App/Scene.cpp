@@ -324,6 +324,9 @@ Scene::free()
 
 	delete posLight;
 	posLight = nullptr;
+
+	delete spotLight;
+	spotLight = nullptr;
 }
 void
 Scene::setGL()
@@ -381,9 +384,9 @@ Scene::render(Camera const& cam) const
 	//upload luces de la escena
 	dirLight->upload(cam.viewMat());
 	posLight->upload(cam.viewMat());
-	//sceneDirLight(cam);
-
+	spotLight->upload(cam.viewMat());
 	
+	//sceneDirLight(cam);
 	for (Abs_Entity* el : gObjects) {
 		el->render(cam.viewMat());
 	}
@@ -435,4 +438,10 @@ void Scene::setLights() {
 	posLight->setDiff(glm::fvec4(1.0, 1.0, 0.0, 1.0));
 	posLight->setSpec(glm::fvec4(0.5, 0.5, 0.5, 1.0));
 	posLight->setPosDir(glm::fvec3(100.0,1500.0, 0.0));
+
+	spotLight = new SpotLight();
+	spotLight->setAmb(glm::fvec4(0.0, 0.0, 0.0, 1.0));
+	spotLight->setDiff(glm::fvec4(1.0, 1.0, 1.0, 1.0));
+	spotLight->setSpec(glm::fvec4(0.5, 0.5, 0.5, 1.0));
+	spotLight->setPosDir(glm::fvec3(100.0, 300.0, 3000.0));
 }
