@@ -371,11 +371,12 @@ void Scene::load()
 void
 Scene::render(Camera const& cam) const
 {
+	cam.upload();
 	//upload luces de la escena
-	//dirLight->upload();
+	dirLight->upload(cam.viewMat());
 	//sceneDirLight(cam);
 
-	cam.upload();
+	
 	for (Abs_Entity* el : gObjects) {
 		el->render(cam.viewMat());
 	}
