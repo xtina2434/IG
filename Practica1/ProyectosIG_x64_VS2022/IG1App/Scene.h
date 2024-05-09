@@ -26,6 +26,7 @@
 #include "WingAdvancedTIE.h"
 #include "IndexedBox.h"
 #include "SphereR.h"
+#include "Toroid.h"
 #include "Material.h"
 
 class Scene

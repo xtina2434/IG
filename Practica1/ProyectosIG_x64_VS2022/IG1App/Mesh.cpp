@@ -88,8 +88,45 @@ Mesh*
 Mesh::generateRegularPolygon(GLuint num, GLdouble r) {
 
 	Mesh* mesh = new Mesh();
+	/* //PRUEBAS PARA EL APARTADO 71 ........IGNORAR
+	GLuint p = 10; 
+	GLuint m = 10;
+	glm::dvec3* perfil = new glm::dvec3[p];
 
-	
+	mesh->mPrimitive = /*GL_TRIANGLES*//*GL_LINES;
+	mesh->mNumVertices = p/* * m*//*;
+	mesh->vVertices.reserve(mesh->mNumVertices);
+	glm::dvec3* vs = new glm::dvec3[mesh->mNumVertices];
+	for (int i = 0; i < p; i++) {
+		//GLdouble theta = i * 180 / p;
+		GLdouble theta = (3.14 / (p - 1)) * i;
+		perfil[i] = { r * sin(theta), r * cos(theta), 0 };
+		cout << "x: " << perfil[i].x << " y: " << perfil[i].y << endl;
+		mesh->vVertices.emplace_back(perfil[i].x, perfil[i].y, 0.0);
+	}
+	*/
+
+	/*
+	for (int i = 0; i < p; i++) {
+		// Generar la muestra i- ésima de vértices
+		GLdouble theta = i * 360 / p;
+		GLdouble c = cos(glm::radians(theta));
+		GLdouble s = sin(glm::radians(theta));
+		for (int j = 0; j < m; j++) {
+			GLdouble z = -s * perfil[j].x + c * perfil[j].z;
+			GLdouble x = c * perfil[j].x + s * perfil[j].z;
+			//GLdouble x = c * perfil[j].x + s * perfil[j].z;
+			vs[(i * m) + j] = glm::dvec3(x, perfil[j].y, z);
+			//indice++;
+		}
+	}
+	*/
+
+	//for (int i = 0; i < perfil->length(); i++) {
+	//	mesh->vVertices.emplace_back(perfil[i]);
+	//}
+
+	/*
 	if (num == 3) {
 		mesh->mPrimitive = GL_TRIANGLES;
 	}
@@ -109,6 +146,9 @@ Mesh::generateRegularPolygon(GLuint num, GLdouble r) {
 		//plano Z = 0
 		mesh->vVertices.emplace_back(x, y, 0.0 ); //agregar las coordenadas	al vector de vertices
 	}
+	*/
+
+
 	return mesh;	
 }
 Mesh*

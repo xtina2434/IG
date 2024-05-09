@@ -100,7 +100,8 @@ IndexMesh* IndexMesh::generateIndexedBox(GLdouble l)
 
 void
 IndexMesh::buildNormalVectors() {
-	
+	std::cout << std::endl;
+
 	for (int i = 0; i < mNumVertices; i++) {
 		vNormals.emplace_back(0,0,0);
 	}
