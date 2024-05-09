@@ -27,5 +27,9 @@ void Sphere::render(glm::dmat4 const& modelViewMat) const {
 		glColor3f(1.0, 1.0, 1.0);
 
 	}
+	//restablecer
+	else {
+		glColorMaterial(GL_FRONT_AND_BACK, GL_DIFFUSE);
+	}
 	glDisable(GL_COLOR_MATERIAL);
 }
