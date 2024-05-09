@@ -106,6 +106,7 @@
     <ClInclude Include="SpotLight.h" />
     <ClInclude Include="Star3D.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="Toroid.h" />
     <ClInclude Include="Viewport.h" />
     <ClInclude Include="WingAdvancedTIE.h" />
   </ItemGroup>
@@ -144,6 +145,7 @@
     <ClCompile Include="SpotLight.cpp" />
     <ClCompile Include="Star3D.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Toroid.cpp" />
     <ClCompile Include="Viewport.cpp" />
     <ClCompile Include="WingAdvancedTIE.cpp" />
   </ItemGroup>

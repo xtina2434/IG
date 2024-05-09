@@ -18,10 +18,11 @@ Scene::init()
 	gObjects.push_back(new EjesRGB(400.0));
 	load();
 	//debe ir en setscene
-	int APARTADO = 67;
+	int APARTADO = 72;
 	switch (APARTADO)
 	{
 	case 3: {  //APARTADO 3
+		std::cout << "APARTADO 3" << std::endl;
 		GLuint numSides = 7;
 		RegularPolygon* myPolygon = new RegularPolygon(numSides, 100.0);
 		myPolygon->setColor(glm::dvec4(0.0, 0.0, 0.0, 1.0));
@@ -272,9 +273,15 @@ Scene::init()
 	}
 		   break;
 	case 71: {
-		SphereR* mySphere = new SphereR(50, 10, 20);
+		SphereR* mySphere = new SphereR(100, 20, 20);
 		mySphere->setColor(glm::dvec4(0.0, 0.0, 0.0, 1.0));
 		gObjects.push_back(mySphere);
+	}
+		   break;
+	case 72: {
+		Toroid* myToroid = new Toroid(100, 300, 20, 20);
+		myToroid->setColor(glm::dvec4(0.0, 0.0, 0.0, 1.0));
+		gObjects.push_back(myToroid);
 	}
 		   break;
 	case 74: {
