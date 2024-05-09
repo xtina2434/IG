@@ -11,6 +11,10 @@ public:
 	using Light::uploadL;
 	virtual void upload(glm::dmat4 const& modelViewMat) const;
 	void setPosDir(glm::fvec3 dir);
-	void setAtte(GLfloat kc, GLfloat kl, GLfloat kq);
+	void setAtte(GLfloat _kc, GLfloat _kl, GLfloat _kq) {
+		kc = _kc;
+		kl = _kl;
+		kq = _kq;
+	};
 };
 #endif

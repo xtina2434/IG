@@ -18,7 +18,7 @@ Scene::init()
 	gObjects.push_back(new EjesRGB(400.0));
 	load();
 	//debe ir en setscene
-	int APARTADO = 74;
+	int APARTADO = 67;
 	switch (APARTADO)
 	{
 	case 3: {  //APARTADO 3
@@ -318,6 +318,12 @@ Scene::free()
 	}
 	delete goldMaterial;
 	goldMaterial = nullptr;
+
+	delete dirLight;
+	dirLight = nullptr;
+
+	delete posLight;
+	posLight = nullptr;
 }
 void
 Scene::setGL()
@@ -374,6 +380,7 @@ Scene::render(Camera const& cam) const
 	cam.upload();
 	//upload luces de la escena
 	dirLight->upload(cam.viewMat());
+	posLight->upload(cam.viewMat());
 	//sceneDirLight(cam);
 
 	
@@ -422,4 +429,10 @@ void Scene::setLights() {
 	dirLight->setDiff(glm::fvec4(1.0, 1.0, 1.0, 1.0));
 	dirLight->setSpec(glm::fvec4(0.5, 0.5, 0.5, 1.0));
 	dirLight->setPosDir(glm::fvec3(1.0,1.0,1.0));
+
+	posLight = new PosLight();
+	posLight->setAmb(glm::fvec4(0.0, 0.0, 0.0, 1.0));
+	posLight->setDiff(glm::fvec4(1.0, 1.0, 0.0, 1.0));
+	posLight->setSpec(glm::fvec4(0.5, 0.5, 0.5, 1.0));
+	posLight->setPosDir(glm::fvec3(100.0,1500.0, 0.0));
 }

@@ -266,6 +266,12 @@ IG1App::key(unsigned char key, int x, int y)
 		case 'w': //disable dirLight
 			mScenes[sceneId]->disableDirLight();
 			break;
+		case 'a': //enable posLight
+			mScenes[sceneId]->enablePosLight();
+			break;
+		case 's': //disable posLight
+			mScenes[sceneId]->disablePosLight();
+			break;
 		default:
 			need_redisplay = false;
 			break;

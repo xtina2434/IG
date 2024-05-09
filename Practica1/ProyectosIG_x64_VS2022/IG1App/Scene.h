@@ -29,6 +29,7 @@
 #include "Material.h"
 #include "DirLight.h"
 #include "Light.h"
+#include "PosLight.h"
 
 class Scene
 {
@@ -57,6 +58,9 @@ public:
 	void enableDirLight() { dirLight->enable(); }
 	void disableDirLight() { dirLight->disable(); }
 
+	void enablePosLight() { posLight->enable(); }
+	void disablePosLight() { posLight->disable(); }
+
 protected:
 	void free();
 	void setGL();
@@ -72,6 +76,8 @@ protected:
 
 	Material* goldMaterial;
 	DirLight* dirLight;
+	PosLight* posLight;
+	
 };
 
 #endif //_H_Scene_H_
