@@ -260,6 +260,12 @@ IG1App::key(unsigned char key, int x, int y)
 		case 'g': //TIE ORBIT
 			mScenes[sceneId]->cazaOrbit();
 			break;
+		case 'q': //enable dirLight
+			mScenes[sceneId]->enableDirLight();
+			break;
+		case 'w': //disable dirLight
+			mScenes[sceneId]->disableDirLight();
+			break;
 		default:
 			need_redisplay = false;
 			break;
