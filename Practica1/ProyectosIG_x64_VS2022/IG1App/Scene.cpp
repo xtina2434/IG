@@ -18,7 +18,7 @@ Scene::init()
 	gObjects.push_back(new EjesRGB(400.0));
 	load();
 	//debe ir en setscene
-	int APARTADO = 72;
+	int APARTADO = 67;
 	switch (APARTADO)
 	{
 	case 3: {  //APARTADO 3
@@ -274,13 +274,13 @@ Scene::init()
 		   break;
 	case 71: {
 		SphereR* mySphere = new SphereR(100, 20, 20);
-		mySphere->setColor(glm::dvec4(0.0, 0.0, 0.0, 1.0));
+		mySphere->setColor(glm::dvec4(0.0, 0.0, 1.0, 1.0));
 		gObjects.push_back(mySphere);
 	}
 		   break;
 	case 72: {
 		Toroid* myToroid = new Toroid(100, 300, 20, 20);
-		myToroid->setColor(glm::dvec4(0.0, 0.0, 0.0, 1.0));
+		myToroid->setColor(glm::dvec4(0.0, 1.0, 0.0, 1.0));
 		gObjects.push_back(myToroid);
 	}
 		   break;
@@ -334,9 +334,6 @@ Scene::free()
 
 	delete spotLight;
 	spotLight = nullptr;
-
-	delete tieSpotLight;
-	tieSpotLight = nullptr;
 }
 void
 Scene::setGL()
@@ -395,7 +392,6 @@ Scene::render(Camera const& cam) const
 	dirLight->upload(cam.viewMat());
 	posLight->upload(cam.viewMat());
 	spotLight->upload(cam.viewMat());
-	tieSpotLight->upload(cam.viewMat());
 	
 	//sceneDirLight(cam);
 	for (Abs_Entity* el : gObjects) {
@@ -408,31 +404,26 @@ Scene::update() {
 		entity->update();
 	}
 }
-//void 
-//Scene::sceneDirLight(Camera const& cam) const {
-//	glEnable(GL_LIGHTING);
-//	glEnable(GL_LIGHT0);
-//	glm::fvec4 posDir = { 1, 1, 1, 0 };
-//	glMatrixMode(GL_MODELVIEW);
-//	glLoadMatrixd(value_ptr(cam.viewMat()));
-//	glLightfv(GL_LIGHT0, GL_POSITION, value_ptr(posDir));
-//	glm::fvec4 ambient = { 0.0, 0.0, 0.0, 1 };
-//	glm::fvec4 diffuse = { 1, 1, 1, 1 };
-//	glm::fvec4 specular = { 0.5, 0.5, 0.5, 1 };
-//	glLightfv(GL_LIGHT0, GL_AMBIENT, value_ptr(ambient));
-//	glLightfv(GL_LIGHT0, GL_DIFFUSE, value_ptr(diffuse));
-//	glLightfv(GL_LIGHT0, GL_SPECULAR, value_ptr(specular));
-//}
+void 
+Scene::sceneDirLight(Camera const& cam) const {
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	glm::fvec4 posDir = { 1, 1, 1, 0 };
+	glMatrixMode(GL_MODELVIEW);
+	glLoadMatrixd(value_ptr(cam.viewMat()));
+	glLightfv(GL_LIGHT0, GL_POSITION, value_ptr(posDir));
+	glm::fvec4 ambient = { 0.0, 0.0, 0.0, 1 };
+	glm::fvec4 diffuse = { 1, 1, 1, 1 };
+	glm::fvec4 specular = { 0.5, 0.5, 0.5, 1 };
+	glLightfv(GL_LIGHT0, GL_AMBIENT, value_ptr(ambient));
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, value_ptr(diffuse));
+	glLightfv(GL_LIGHT0, GL_SPECULAR, value_ptr(specular));
+}
 
 void Scene::cazaRotate()
 {
 	//rotar el caza para que varie la direccion a la que apunta el morro
 	myAdvancedTie68->setModelMat(glm::rotate(myAdvancedTie68->modelMat(), radians(3.0), glm::dvec3(0.0, 1.0,0.0)));
-	//actualizar foco
-	glm::dvec3 tiePos = glm::dvec3(glm::dvec3(myAdvancedTie68->modelMat() * glm::dvec4(0.0, 0.0, 0.0, 1.0)));
-	tieSpotLight->setPosDir(glm::fvec3(tiePos));
-
-	//tieSpotLight->setSpot(glm::fvec3(0.0, -1.0, 0.0), 45.0, 0.0);
 }
 
 void Scene::cazaOrbit()
@@ -441,12 +432,8 @@ void Scene::cazaOrbit()
 	glm::dvec3 direction = glm::normalize(glm::dvec3(myAdvancedTie68->modelMat() * glm::dvec4(0.0, 0.0, 1.0, 0.0)));
 	//orbita alrededor de la esfera en la direccion del morro
 	nodo68->setModelMat(glm::rotate(nodo68->modelMat(), glm::radians(-3.0), direction) );
-	//actualizar foco
-	glm::dvec3 tiePos = glm::dvec3(myAdvancedTie68->modelMat() * glm::dvec4(0.0, 0.0, 0.0, 1.0));
-	tieSpotLight->setPosDir(glm::fvec3(tiePos));
-
-	//tieSpotLight->setSpot(glm::fvec3(0.0, -1.0, 0.0), 45.0, 0.0);
 }
+
 void Scene::setLights() {
 	dirLight = new DirLight();
 	dirLight->setAmb(glm::fvec4(0.0, 0.0, 0.0, 1.0));
@@ -466,9 +453,9 @@ void Scene::setLights() {
 	spotLight->setSpec(glm::fvec4(0.5, 0.5, 0.5, 1.0));
 	spotLight->setPosDir(glm::fvec3(100.0, 300.0, 3000.0));
 
-	tieSpotLight = new SpotLight();
-	tieSpotLight->setAmb(glm::fvec4(0.0, 0.0, 0.0, 1.0));
-	tieSpotLight->setDiff(glm::fvec4(1.0, 1.0, 1.0, 1.0));
-	tieSpotLight->setSpec(glm::fvec4(0.5, 0.5, 0.5, 1.0));
-	tieSpotLight->setPosDir(glm::fvec3(0.0, 900.0, 0.0)); //posicion inicial foco
+	//tieSpotLight = new SpotLight();
+	//tieSpotLight->setAmb(glm::fvec4(0.0, 0.0, 0.0, 1.0));
+	//tieSpotLight->setDiff(glm::fvec4(1.0, 1.0, 1.0, 1.0));
+	//tieSpotLight->setSpec(glm::fvec4(0.5, 0.5, 0.5, 1.0));
+	//tieSpotLight->setPosDir(glm::fvec3(0.0, 900.0, 0.0)); //posicion inicial foco
 }

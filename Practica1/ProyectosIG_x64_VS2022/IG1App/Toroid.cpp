@@ -9,7 +9,7 @@ void Toroid::render(glm::dmat4 const& modelViewMat) const {
 		glm::dmat4 aMat = modelViewMat * mModelMat;
 		upload(aMat);
 
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		//glLineWidth(100);
 		mMesh->setColor(std::vector<glm::dvec4>(mMesh->size(), mColor));
 		mMesh->render();

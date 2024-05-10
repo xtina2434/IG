@@ -9,11 +9,9 @@ MbR* MbR::generaIndexMbR(int mm, int nn, glm::dvec3* perfil)
 	mesh->vVertices.reserve(mesh->mNumVertices);
 	// Usar un vector auxiliar de vértices
 	glm::dvec3* vs = new glm::dvec3[mesh->mNumVertices];
-	//CREO QUE FALLA EL NUMERO DE INDICES A RESERVAR
 	mesh->nNumIndices = 6 * nn * mm;
 	mesh->vIndices = new GLuint[mesh->nNumIndices];
 	mesh->vNormals.reserve(mesh->mNumVertices);
-	//int indice = 0; //indice para rastrear la posicion en vs
 	for (int i = 0; i < nn; i++) {
 		// Generar la muestra i- ésima de vértices
 		GLdouble theta = i * 360 / nn;
@@ -22,7 +20,6 @@ MbR* MbR::generaIndexMbR(int mm, int nn, glm::dvec3* perfil)
 		for (int j = 0; j < mm; j++) {
 			GLdouble z = -s * perfil[j].x + c * perfil[j].z;
 			GLdouble x = c * perfil[j].x + s * perfil[j].z;
-			//GLdouble x = c * perfil[j].x + s * perfil[j].z;
 			int ind = (i * mm) + j;
 			glm::dvec3 pos = glm::dvec3(x, perfil[j].y, z);
 			vs[ind] = pos;

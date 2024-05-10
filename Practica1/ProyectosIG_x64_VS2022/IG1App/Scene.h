@@ -52,7 +52,7 @@ public:
 	void update();
 
 	void setScene(int id);
-	//void sceneDirLight(Camera const& cam) const;
+	void sceneDirLight(Camera const& cam) const;
 	void setLights(); //crear y especificar caracteristicas de la luces de la escena
 	void cazaRotate();
 	void cazaOrbit();
@@ -66,8 +66,8 @@ public:
 	void enableSpotLight() { spotLight->enable(); }
 	void disableSpotLight() { spotLight->disable(); }
 
-	void enableTieSpotLight() { tieSpotLight->enable(); }
-	void disableTieSpotLight() { tieSpotLight->disable(); }
+	void enableTieSpotLight() { myAdvancedTie68->getTieSL()->enable(); }
+	void disableTieSpotLight() { myAdvancedTie68->getTieSL()->disable(); }
 
 protected:
 	void free();
@@ -85,9 +85,7 @@ protected:
 	Material* goldMaterial;
 	DirLight* dirLight;
 	PosLight* posLight;
-	SpotLight* spotLight;
-	SpotLight* tieSpotLight;
-	
+	SpotLight* spotLight;	
 };
 
 #endif //_H_Scene_H_

@@ -9,7 +9,7 @@ public:
 	virtual ~CompoundEntity();
 
 	void addEntity(Abs_Entity* ae);
-	void render(glm::dmat4 const& modelViewMat) const;
+	virtual void render(glm::dmat4 const& modelViewMat) const override;
 	virtual void update() override;
 	void setColor(glm::dvec4 const& col) override;
 

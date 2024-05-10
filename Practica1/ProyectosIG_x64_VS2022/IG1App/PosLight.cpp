@@ -1,4 +1,5 @@
 #include "PosLight.h"
+#include <iostream>
 
 void PosLight::upload(glm::dmat4 const& modelViewMat) const {
 	glMatrixMode(GL_MODELVIEW);
