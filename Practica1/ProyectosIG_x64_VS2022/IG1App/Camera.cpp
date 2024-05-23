@@ -72,13 +72,14 @@ Camera::setCenital()
 	mLook = dvec3(0, 0, 0);
 	mUp = dvec3(1, 0, 0);
 	setVM();
+	mAng = 0;
+	mUp = dvec3(0, 0, -1);
 }
 
 void
 Camera::pitch(GLdouble a)
 {
 	mViewMat = rotate(mViewMat, glm::radians(a), glm::dvec3(1.0, 0, 0));
-	// glm::rotate returns mViewMat * rotationMatrix
 	setAxes();
 }
 
@@ -86,7 +87,6 @@ void
 Camera::yaw(GLdouble a)
 {
 	mViewMat = rotate(mViewMat, glm::radians(a), glm::dvec3(0, 1.0, 0));
-	// glm::rotate returns mViewMat * rotationMatrix
 	setAxes();
 }
 
@@ -94,7 +94,6 @@ void
 Camera::roll(GLdouble a)
 {
 	mViewMat = rotate(mViewMat, glm::radians(a), glm::dvec3(0, 0, 1.0));
-	// glm::rotate returns mViewMat * rotationMatrix
 	setAxes();
 }
 
@@ -179,17 +178,23 @@ void Camera::orbit(GLdouble incAng, GLdouble incY)
 }
 
 void Camera::pitchReal(GLdouble cs) {
-	mLook[1] += cs;
-	setVM();
+	/*mLook[1] += cs;
+	setVM();*/
+
+	mViewMat = rotate(mViewMat, glm::radians(cs), glm::dvec3(1.0, 0, 0));
+	setAxes();
 }
 void Camera::yawReal(GLdouble cs) {
-	mLook[0] += cs;
+	/*mLook[0] += cs;
 	mLook[2] -= cs;
-	setVM();
+	setVM();*/
+
+	mViewMat = rotate(mViewMat, glm::radians(cs), glm::dvec3(0, 1.0, 0));
+	setAxes();
 }
 void Camera::rollReal(GLdouble cs) {
 	
-	glm::dvec3 v = mUp;
+	/*glm::dvec3 v = mUp;
 	double radianAngle = 0.1 * cs;
 	glm::dvec3 axis = normalize(mEye - mLook);
 
@@ -201,5 +206,8 @@ void Camera::rollReal(GLdouble cs) {
 	ret = ((dot(axis, v) * (1 - cosAngle)) * axis) + ret;
 
 	mUp = ret;
-	setVM();
+	setVM();*/
+
+	mViewMat = rotate(mViewMat, glm::radians(cs), glm::dvec3(0,0,1.0 ));
+	setAxes();
 }
