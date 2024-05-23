@@ -11,4 +11,4 @@ protected:
 	GLUquadricObj* q;
 };
 #endif //_H_QuadricEntity_H_
-#pragma once
+//gluQuadricTexture (q, GL_TRUE );
