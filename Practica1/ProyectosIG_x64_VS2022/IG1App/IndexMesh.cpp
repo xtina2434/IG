@@ -114,10 +114,12 @@ IndexMesh::buildNormalVectors() {
 		//vectores entre vertices
 		glm::dvec3 v1 = vVertices[ind_b] - vVertices[ind_a];
 		glm::dvec3 v2 = vVertices[ind_c] - vVertices[ind_b];
-		////producto cruz entre los vectores para asi obtener la normal
-		n.x += (v1.y - v2.y) * (v1.z + v2.z);
-		n.y += (v1.z - v2.z) * (v1.x + v2.x);
-		n.z += (v1.x - v2.x) * (v1.y + v2.y);
+		//producto cruz entre los vectores para obtener la norma
+		n = glm::cross(v1, v2);
+		//////producto cruz entre los vectores para asi obtener la normal
+		//n.x += (v1.y - v2.y) * (v1.z + v2.z);
+		//n.y += (v1.z - v2.z) * (v1.x + v2.x);
+		//n.z += (v1.x - v2.x) * (v1.y + v2.y);
 		//sumar la normal obtenida a los vertices de la cara actual
 		vNormals[ind_a] += n;
 		vNormals[ind_b] += n;
