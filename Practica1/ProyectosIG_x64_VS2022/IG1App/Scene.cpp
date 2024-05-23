@@ -128,8 +128,7 @@ Scene::init()
 		gObjects.push_back(myBox);
 		Star3D* myStar = new Star3D(30, 6, 30, gTextures[3]);
 		glm::dmat4 translStar = glm::translate(glm::dmat4(1.0f), glm::dvec3(112, 50, 112));
-		//myStar->setModelMat(translStar);
-		myStar->setInitalPos(translStar);
+		myStar->setModelMat(translStar);
 		gObjects.push_back(myStar);
 		Photo* myPhoto = new Photo(100, 100);
 		gObjects.push_back(myPhoto);
