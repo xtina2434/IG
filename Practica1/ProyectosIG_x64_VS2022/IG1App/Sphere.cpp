@@ -10,6 +10,7 @@ void Sphere::render(glm::dmat4 const& modelViewMat) const {
 	glm::dmat4 aMat = modelViewMat * mModelMat;
 	upload(aMat);
 	glEnable(GL_COLOR_MATERIAL);
+	glEnable(GL_LIGHTING);
 	if (material != nullptr) {
 		glColorMaterial(GL_FRONT_AND_BACK, GL_SPECULAR);
 		material->upload();
@@ -31,5 +32,6 @@ void Sphere::render(glm::dmat4 const& modelViewMat) const {
 	else {
 		glColorMaterial(GL_FRONT_AND_BACK, GL_DIFFUSE);
 	}
+	glDisable(GL_LIGHTING);
 	glDisable(GL_COLOR_MATERIAL);
 }
